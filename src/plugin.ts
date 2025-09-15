@@ -1,13 +1,14 @@
 /// <reference path="../lib/openrct2.d.ts" />
 
 import { startup } from "./startup";
+import { pluginVersion } from "./version";
 
 registerPlugin({
-	name: "Name of your plugin",
-	version: "1.0",
-	authors: [ "Your name" ],
-	type: "remote",
-	licence: "MIT",
+	name: "Measuring Tape",
+	version: pluginVersion,
+	authors: [ "Ríša Szlachta (tygrysek90)" ],
+	type: "local",
+	licence: "GPL-3.0-only",
 	/**
 	 * This field determines which OpenRCT2 API version to use. It's best to always use the
 	 * latest release version, unless you want to use specific versions from a newer develop

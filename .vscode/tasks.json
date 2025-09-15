@@ -1,0 +1,30 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        // CTRL+SHIT+B shortcut
+        {
+            "label": "npm run build:dev",
+            "type": "shell",
+            "command": "npm run build:dev",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Initial: Get TypeScript definitions for OpenRCT2",
+            "type": "shell",
+            "command": "wget https://raw.githubusercontent.com/OpenRCT2/OpenRCT2/fabd171ff5d558933b889daf7019171dffdd25c5/distribution/openrct2.d.ts -P lib",
+            "problemMatcher": []
+        },
+        {
+            "label": "Initial: $ npm install",
+            "type": "shell",
+            "command": "npm install",
+            "problemMatcher": []
+        }
+    ]
+}

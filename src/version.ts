@@ -1,0 +1,1 @@
+export const pluginVersion = "v0.1-dev"
