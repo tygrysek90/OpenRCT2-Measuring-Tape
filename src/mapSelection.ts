@@ -7,7 +7,7 @@
 
 import { error } from "./logger";
 
-
+const mapTileSize = 32
 
 /**
  * Class to specify an area on the map.
@@ -16,6 +16,44 @@ export interface MapSelection
 {
 	start: CoordsXY;
 	end?: CoordsXY;
+}
+
+/**
+ * Class to specify an area on the map,
+ * with both ends defined (contrary to MapSelection)
+ */
+export interface MapSelectionVerified
+{
+	start: CoordsXY;
+	end: CoordsXY;
+}
+
+/**
+ * Check if selection exist and is greater than one single tile
+ * @param mapSelection 
+ * @returns type with both ends of CoordsXY defined for sure
+  */
+export function mapSelectionToVerified(mapSelection: MapSelection): MapSelectionVerified | undefined {
+	if (mapSelection.end != undefined) {
+		if (Math.abs(mapSelection.start.x - mapSelection.end.x) >= mapTileSize || Math.abs(mapSelection.start.y - mapSelection.end.y) >= mapTileSize) {
+			return {
+				start: {
+					x: mapSelection.start.x,
+					y: mapSelection.start.y
+				},
+				end: {
+					x: mapSelection.end.x,
+					y: mapSelection.end.y
+				}
+			}
+		}
+		else {
+			return undefined
+		}
+	}
+	else {
+		return undefined
+	}
 }
 
 /**
@@ -40,3 +78,5 @@ export function toMapRange(selection: MapSelection): MapRange | null
 		}
 	};
 }
+
+

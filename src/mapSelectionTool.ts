@@ -8,7 +8,7 @@
 import { debug } from "./logger";
 import { MapSelection, toMapRange } from "./mapSelection";
 
-export type ToolMode = "off" | "add" | "remove";
+export type ToolMode = "tape" | "area" | "off"
 
 export const mapTileSize = 32
 
@@ -18,6 +18,12 @@ export const mapTileSize = 32
  */
 export class MapSelectionTool
 {
+
+	/**
+	 * Event that triggers when selection changes
+	 */
+	onMove?: (selection: MapSelection) => void;
+
 	/**
 	 * Event that triggers when an area is selected.
 	 */
@@ -202,8 +208,11 @@ function move(tool: MapSelectionTool, args: ToolEventArgs): void
 	{
 		ui.tileSelection.range = range;
 	}
-}
 
+	if (tool._selection && tool.onMove) {
+		tool.onMove(tool._selection)
+	}
+}
 
 
 // The flag for gridlines on the map.
