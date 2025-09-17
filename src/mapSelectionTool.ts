@@ -141,7 +141,7 @@ function down(tool: MapSelectionTool, args: ToolEventArgs): void
 
 	debug(`Tool: down at ${JSON.stringify(location)}.`);
 
-	if (true) {
+	if (tool) {
 		tool._isDragging = true;
 
 		tool._selection = { start: location };
