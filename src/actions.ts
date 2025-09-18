@@ -13,25 +13,30 @@ import { ElementVisibility } from "openrct2-flexui";
 export var tool = new MapSelectionTool("measuring-tape", "cross_hair")
 export var toolMode = <ToolMode>("off")
 
-/**
- * Stores ghost on given tile
- * TODO: na dlaždici může být jenom jeden prvek s příznakem duch, přepsat bez použití pole
- */
-interface ChosenTileElements {
-    tile: Tile,
-    elements: number[]
-}
 
+/**
+ * Self descriptory, isn't it?
+ */
+type GhostType = "wall" | "corner" | "square"
+
+/**
+ * Stores a ghost on given tile
+ */
+interface TileWithGhost {
+    tile: Tile,
+    elementIndex: number,
+    ghostType: GhostType
+    ghostDirection?: Direction
+}
 
 
 /**
  * Stores ghosts
  * TODO: tohle musí být pole polí
  */
-var cementery: Array<ChosenTileElements> = []
+var cementery: Array<TileWithGhost> = []
 
-
-
+var cementeryHistory: TileWithGhost[][] = []
 
 /**
  * Stores last selection in case of ghost manipulation
@@ -84,14 +89,53 @@ export function onClickShowGhCentreButton() {
 // END GROUPBOX "Show Ghosts"
 
 // GROUPBOX "Ghosts"
+function setDissmisButtonsDisability() {
+    if (model.ghostsButtonsPressed.keepOne.get() == false && model.ghostsButtonsPressed.keepAll.get() == false) {
+        model.ghostsButtonsDisabled.dissmissLast.set(true)
+        model.ghostsButtonsDisabled.dissmiisAll.set(true)
+    }
+    if (model.ghostsButtonsPressed.keepOne.get() == true || model.ghostsButtonsPressed.keepAll.get() == true) {
+        model.ghostsButtonsDisabled.dissmissLast.set(false)
+        model.ghostsButtonsDisabled.dissmiisAll.set(false)
+    }
+    if (cementery.length == 0 && cementeryHistory.length == 0) {
+        model.ghostsButtonsDisabled.dissmissLast.set(true)
+        model.ghostsButtonsDisabled.dissmiisAll.set(true)
+    }
+}
+
 export function onClickKeepOneButton() {
+    if (model.ghostsButtonsPressed.keepOne.get() == true) {
+        exorciseCementery()
+    }
     model.ghostsButtonsPressed.keepOne.set(!model.ghostsButtonsPressed.keepOne.get())
     model.ghostsButtonsPressed.keepAll.set(false)
+    setDissmisButtonsDisability()
 }
 
 export function onClickKeepAllButton() {
+    if (model.ghostsButtonsPressed.keepAll.get() == true) {
+        exorciseCementery()
+    }
     model.ghostsButtonsPressed.keepAll.set(!model.ghostsButtonsPressed.keepAll.get())
     model.ghostsButtonsPressed.keepOne.set(false)
+    setDissmisButtonsDisability()
+}
+
+export function onClickDisimissLast() {
+    cementeryHistory.pop()
+    exorciseCementery()
+    summonOldGhosts()
+    setDeafultMeasurementLabels()
+    setDissmisButtonsDisability()
+
+}
+
+export function onClickDissmissAll() {
+    cementeryHistory = []
+    exorciseCementery()
+    setDeafultMeasurementLabels()
+    setDissmisButtonsDisability()
 }
 // END GROUPBOX "Ghosts"
 
@@ -114,13 +158,23 @@ export function startTool()
     }
 }
 
+/**
+ * Generally canceling tool via ESC or when another tool (eg. place scenery or footpath) gets invoked
+ */
 function onToolCancel(): void {
+    if (!(model.ghostsButtonsPressed.keepOne.get() || model.ghostsButtonsPressed.keepAll.get())) {
     exorciseCementery()
-
+    }
+    setDeafultMeasurementLabels()
+    setDissmisButtonsDisability()
 
     toolMode = "off"
 }
 
+/**
+ * Bound to tool.onMove(...)
+ * @param selection 
+ */
 function updateMeasurementTape(selection: MapSelection): void {
     let lengthX = Math.abs(selection.start.x-(selection.end?.x??0))/mapTileSize
     let lengthY = Math.abs(selection.start.y-(selection.end?.y??0))/mapTileSize
@@ -139,6 +193,10 @@ function updateMeasurementTape(selection: MapSelection): void {
 }
 
 
+/**
+ * this should be for ALT+T keyboard shortcut
+ * start a tool instantly, no wait, no extra clicks, just go for it
+ */
 export function	shortcutCallback()
 {
     if (toolMode == "off") {
@@ -151,28 +209,44 @@ export function	shortcutCallback()
 
 /**
  * Remove ghosts out of internal store
+ * and load history of ghosts if desired
  */
 function exorciseCementery() {
-       cementery.forEach(tileElements => {
-        tileElements.elements.forEach(ghostIndex => {
-            tileElements.tile.removeElement(ghostIndex)
-        });
+    cementery.forEach(ghostStored => {
+            ghostStored.tile.removeElement(ghostStored.elementIndex)
     });  
-
     cementery = []
+    if (model.ghostsButtonsPressed.keepAll.get() == true) {
+        summonOldGhosts()
+    } 
 }
 
+/**
+ * Project cementeryHistory on the game map via setGhost
+ */
+function summonOldGhosts() {
+    cementeryHistory.forEach(historyRecord => {
+        historyRecord.forEach(ghost => {
+            cementery.push(ghost)
+            setGhost(ghost.ghostType, ghost.tile, ghost.ghostDirection)
+        })
+    });
+}
+
+
+/**
+ * This is generally on L Mouse Button release after dragging area
+ */
 function onToolUp() {
-    // check for ghosts keeping setting
-    if  (!model.ghostsButtonsPressed.keepOne.get() && !model.ghostsButtonsPressed.keepAll.get()) {
-        exorciseCementery()
+    if (model.ghostsButtonsPressed.keepOne.get() == false && model.ghostsButtonsPressed.keepAll.get() == false) {
+        exorciseCementery() 
     }
-     
-
-    
+    if (model.ghostsButtonsPressed.keepAll.get() ==  true) {
+        cementeryHistory.push(cementery.slice())
+    }
+    setDissmisButtonsDisability()
+   
 }
-
-
 
 
 /**
@@ -183,8 +257,6 @@ function moveGhosts() {
         if (tool._selection.end?.x != undefined && tool._selection.end.y != undefined) {
             // clean up working stack
             exorciseCementery()
-
-
 
             let verifiedSelection = mapSelectionToVerified(tool._selection)
             if (verifiedSelection != undefined) {
@@ -206,7 +278,6 @@ function moveGhosts() {
                     }
                 }
             }
-
             //remeber last selection in case of ghost manipulation
             lastVerifiedSelection = verifiedSelection
         }
@@ -236,88 +307,51 @@ function moveGhosts() {
     }
 }
 
-function pushGhostsByKeepStatus(ghosts: ChosenTileElements) {
-    cementery.push(ghosts)
-}
 
-
-function setGhost(tile: Tile, direction: Direction) {
+/**
+ * Place a ghost on the game map and write into cementery storage
+ * @param type 
+ * @param tile 
+ * @param direction 
+ */
+function setGhost(type: GhostType, tile: Tile, direction?: Direction) {
     if (noGhostsOnTile(tile)) {
-        let newE = tile.insertElement(tile.numElements) as WallElement
-        newE.type = "wall"
-        newE.baseHeight = tile.getElement(0).baseHeight
-        newE.direction = direction
-        newE.object = 84
-        newE.isGhost = true
+        if (type == "wall" && direction != undefined) {
+            let newE = tile.insertElement(tile.numElements) as WallElement
+            newE.type = "wall"
+            newE.baseHeight = tile.getElement(0).baseHeight
+            newE.direction = direction
+            newE.object = 84
+            newE.isGhost = true
+        }
+        if (type == "corner" && direction != undefined) {
+            let newE = tile.insertElement(tile.numElements) as SmallSceneryElement
+            newE.type = "small_scenery"
+            newE.baseHeight = tile.getElement(0).baseHeight
+            newE.object = 80
+            newE.direction = direction
+            newE.isGhost = true
+        }
+        if (type == "square") {
+            let newE = tile.insertElement(tile.numElements) as SmallSceneryElement
+            newE.type = "small_scenery"
+            newE.baseHeight = tile.getElement(0).baseHeight
+            newE.object = 14
+            newE.direction = <Direction>(0)
+            newE.isGhost = true
+        }
 
-        let ghosts: ChosenTileElements = {
+        let ghosts: TileWithGhost = {
             tile: tile,
-            elements: [tile.numElements-1]
+            elementIndex: tile.numElements-1,
+            ghostType: type,
+            ghostDirection: direction
         } 
 
-        pushGhostsByKeepStatus(ghosts)
+        cementery.push(ghosts)
     }
 }
 
- function setGhostScenery(tile: Tile, direction: Direction) {
-    if (noGhostsOnTile(tile)) {
-        let newE = tile.insertElement(tile.numElements) as SmallSceneryElement
-        newE.type = "small_scenery"
-        newE.baseHeight = tile.getElement(0).baseHeight
-        newE.object = 80
-        newE.direction = direction
-        newE.isGhost = true
-
-        let ghosts: ChosenTileElements = {
-            tile: tile,
-            elements: [tile.numElements-1]
-        } 
-
-        pushGhostsByKeepStatus(ghosts)
-    }
-} 
-
-
-function setGhostScenery3(tile: Tile) {
-    if (noGhostsOnTile(tile)) {
-        let newE = tile.insertElement(tile.numElements) as SmallSceneryElement
-        newE.type = "small_scenery"
-        newE.baseHeight = tile.getElement(0).baseHeight
-        newE.object = 14
-        newE.direction = <Direction>(0)
-        newE.isGhost = true
-
-        let ghosts: ChosenTileElements = {
-            tile: tile,
-            elements: [tile.numElements-1]
-        } 
-
-        pushGhostsByKeepStatus(ghosts)
-    }
-} 
-/* 
-function setGhostPath(tile: Tile) {
-    if (noGhostsOnTile(tile)) {
-
-        let newE = tile.insertElement(tile.numElements) as FootpathElement
-        newE.type = "footpath"
-        newE.edges = 0
-        newE.corners = 0
-        newE.isBlockedByVehicle = false
-        newE.isWide = false
-        newE.isQueue = false
-
-        newE.baseHeight = tile.getElement(0).baseHeight
-        newE.isGhost = true
-
-        let ghosts: ChosenTileElements = {
-            tile: tile,
-            elements: [tile.numElements-1]
-        } 
-
-        pushGhostsByKeepStatus(ghosts)
-    }
-} */
 
 /**
  * Place a ghost on end of selection (for 1 tile wide area)
@@ -325,7 +359,7 @@ function setGhostPath(tile: Tile) {
  */
 function findGhostEnd(verifiedSelection: MapSelectionVerified): void {
     let tile = map.getTile(verifiedSelection.end.x/mapTileSize, verifiedSelection.end.y/mapTileSize)
-    setGhost(tile, determineDirection(verifiedSelection))
+    setGhost("wall", tile, determineDirection(verifiedSelection))
 }
 
 
@@ -335,8 +369,9 @@ function findGhostEnd(verifiedSelection: MapSelectionVerified): void {
  */
 function findGhostStart(verifiedSelection: MapSelectionVerified): void {
     let tile = map.getTile(verifiedSelection.start.x/mapTileSize, verifiedSelection.start.y/mapTileSize)
-    setGhost(tile, opositeDirection(determineDirection(verifiedSelection)))
+    setGhost("wall", tile, opositeDirection(determineDirection(verifiedSelection)))
 }
+
 
 /**
  * Place ghost in corners of selection (for square area)
@@ -349,11 +384,12 @@ function findGhostCorners(verifiedSelection: MapSelectionVerified): void {
     let cornerMaxMax = map.getTile(Math.max(verifiedSelection.start.x/mapTileSize, verifiedSelection.end.x/mapTileSize), Math.max(verifiedSelection.start.y/mapTileSize, verifiedSelection.end.y/mapTileSize))
     let cornerMaxMin = map.getTile(Math.max(verifiedSelection.start.x/mapTileSize, verifiedSelection.end.x/mapTileSize), Math.min(verifiedSelection.start.y/mapTileSize, verifiedSelection.end.y/mapTileSize))
 
-    setGhostScenery(cornerMinMin, <Direction>(0))
-    setGhostScenery(cornerMinMax, <Direction>(1))
-    setGhostScenery(cornerMaxMax, <Direction>(2))
-    setGhostScenery(cornerMaxMin, <Direction>(3))
+    setGhost("corner", cornerMinMin, <Direction>(0))
+    setGhost("corner", cornerMinMax, <Direction>(1))
+    setGhost("corner", cornerMaxMax, <Direction>(2))
+    setGhost("corner", cornerMaxMin, <Direction>(3))
 }
+
 
 /**
  * Places ghost in centre of selection (for square areas)
@@ -364,14 +400,14 @@ function findGhostCentreOfArea(verifiedSelection: MapSelectionVerified) {
 
     // 1 st case: sides lenght are odd numbers
     if ((Math.abs(verifiedSelection.start.x-verifiedSelection.end.x)/mapTileSize)%2 == 0 && (Math.abs(verifiedSelection.start.y-verifiedSelection.end.y)/mapTileSize)%2 == 0) {
-        setGhostScenery3(map.getTile(midPoint.x/mapTileSize, midPoint.y/mapTileSize))
+        setGhost("square", map.getTile(midPoint.x/mapTileSize, midPoint.y/mapTileSize))
     }
     // 2nd case: sides leghts are even numbers
     if  ((Math.abs(verifiedSelection.start.x-verifiedSelection.end.x)/mapTileSize)%2 == 1 && (Math.abs(verifiedSelection.start.y-verifiedSelection.end.y)/mapTileSize)%2 == 1) {
         let orderedSelection = orderVerifiedSelection(verifiedSelection)
         let midPointOfOrdered = selectionMidPoint(orderedSelection)
-        setGhostScenery3(map.getTile(midPointOfOrdered.x/mapTileSize, midPointOfOrdered.y/mapTileSize))
-        setGhostScenery3(map.getTile( (midPointOfOrdered.x/mapTileSize)+1, (midPointOfOrdered.y/mapTileSize)+1 )    )
+        setGhost("square", map.getTile(midPointOfOrdered.x/mapTileSize, midPointOfOrdered.y/mapTileSize))
+        setGhost("square", map.getTile( (midPointOfOrdered.x/mapTileSize)+1, (midPointOfOrdered.y/mapTileSize)+1 )    )
     }
     // TODO: there is a third case
     // ale jako co tam dát?
@@ -396,10 +432,10 @@ function findGhostCentreLine(verifiedSelection: MapSelectionVerified): void {
             else {
                 direction = 1
             }
-            setGhost(tileMidpoint, direction)
+            setGhost("wall", tileMidpoint, direction)
         }
         else {
-            setGhostScenery3(tileMidpoint)
+            setGhost("square", tileMidpoint)
         }
     }
 }

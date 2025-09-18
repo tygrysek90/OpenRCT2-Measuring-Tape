@@ -1,6 +1,6 @@
 import { button, Colour, groupbox, horizontal, label, LayoutDirection, vertical, window } from "openrct2-flexui";
 import { model } from "./model";
-import { onClickAreaButton, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton } from "./actions";
+import { onClickAreaButton, onClickDisimissLast, onClickDissmissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton } from "./actions";
 
 
 const buttonHeight = 26
@@ -99,13 +99,15 @@ export const mainWindow = window({
                             height: buttonHeight,
                             width: "1w",
                             text: "Dismiss last",
-                            //onClick: () => ,
+                            disabled: model.ghostsButtonsDisabled.dissmissLast,
+                            onClick: () => onClickDisimissLast(),
                         }),
                         button({
                             height: buttonHeight,
                             width: "1w",
                             text: "Dismiss all",
-                            //onClick: () => ,
+                            disabled: model.ghostsButtonsDisabled.dissmiisAll,
+                            onClick: () => onClickDissmissAll(),
                         }),
                     ]
                 }),
