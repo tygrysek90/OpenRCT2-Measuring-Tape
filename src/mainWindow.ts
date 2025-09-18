@@ -1,6 +1,8 @@
 import { button, Colour, groupbox, horizontal, label, LayoutDirection, vertical, window } from "openrct2-flexui";
 import { model } from "./model";
 import { onClickAreaButton, onClickDisimissLast, onClickDissmissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton } from "./actions";
+import { openObjSelection } from "./objectSelection/objSelActions";
+import { SelectionType } from "./objectSelection/objSelModel";
 
 
 const buttonHeight = 26
@@ -123,15 +125,13 @@ export const mainWindow = window({
                             height: buttonHeight,
                             width: "1w",
                             text: "Tape ends…",
-                            //isPressed: ,
-                            //onClick: () => ,
+                            onClick: () => openObjSelection(SelectionType["tape-ends"]),
                         }),
                         button({
                             height: buttonHeight,
                             width: "1w",
                             text: "Tape centre…",
-                            //isPressed: ,
-                            //onClick: () => ,
+                            onClick: () => openObjSelection(SelectionType["tape-centre"]),
                         }),
                     ]
                 }),
@@ -141,15 +141,13 @@ export const mainWindow = window({
                             height: buttonHeight,
                             width: "1w",
                             text: "Area ends…",
-                            //isPressed: ,
-                            //onClick: () => ,
+                            onClick: () => openObjSelection(SelectionType["area-ends"]),
                         }),
                         button({
                             height: buttonHeight,
                             width: "1w",
                             text: "Area centre…",
-                            //isPressed: ,
-                            //onClick: () => ,
+                            onClick: () => openObjSelection(SelectionType["area-centre"]),
                         }),
                     ]
                 }),

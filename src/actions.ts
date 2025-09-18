@@ -90,6 +90,7 @@ export function onClickShowGhCentreButton() {
 
 // GROUPBOX "Ghosts"
 function setDissmisButtonsDisability() {
+    // tvl to je logika
     if (model.ghostsButtonsPressed.keepOne.get() == false && model.ghostsButtonsPressed.keepAll.get() == false) {
         model.ghostsButtonsDisabled.dissmissLast.set(true)
         model.ghostsButtonsDisabled.dissmiisAll.set(true)
@@ -100,6 +101,9 @@ function setDissmisButtonsDisability() {
     }
     if (cementery.length == 0 && cementeryHistory.length == 0) {
         model.ghostsButtonsDisabled.dissmissLast.set(true)
+        model.ghostsButtonsDisabled.dissmiisAll.set(true)
+    }
+    if (model.ghostsButtonsPressed.keepAll.get() == false) {
         model.ghostsButtonsDisabled.dissmiisAll.set(true)
     }
 }
