@@ -1,9 +1,10 @@
 import { button, Colour, groupbox, horizontal, label, LayoutDirection, vertical, window } from "openrct2-flexui";
 import { model } from "./model";
-import { onClickAreaButton, onClickTapeButton } from "./actions";
+import { onClickAreaButton, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton } from "./actions";
 
 
 const buttonHeight = 26
+const answerToLifeAndEverything = 42
 
 /**
  * Main window user interface
@@ -17,8 +18,7 @@ export const mainWindow = window({
         groupbox({
             //text: "Measurement",
             direction: LayoutDirection.Horizontal,
-            
-            height: 42,
+            height: answerToLifeAndEverything,
             content: [
                 label({
                     padding: {"left": "6px", "top":"1w", "bottom": "1w"},
@@ -26,7 +26,8 @@ export const mainWindow = window({
                 }),
                 label({
                     padding: {"left": "6px", "top":"1w", "bottom": "1w"},
-                    text: model.currentMeasurement2
+                    text: model.currentMeasurement2,
+                    visibility: model.currentMeasurement2Visibility
                 }),
 
             ]
@@ -38,13 +39,13 @@ export const mainWindow = window({
                 button({
                     height: buttonHeight,
                     text: "Tape",
-                    isPressed: model.toolButtonsPressed.tape,
+                    isPressed: model.modeButtonsPressed.tape,
                     onClick: () => onClickTapeButton(),
                 }),
                 button({
                     height: buttonHeight,
                     text: "Area",
-                    isPressed: model.toolButtonsPressed.area,
+                    isPressed: model.modeButtonsPressed.area,
                     onClick: () => onClickAreaButton(),
 
                 })
@@ -58,15 +59,15 @@ export const mainWindow = window({
                     height: buttonHeight,
                     width: "1w",
                     text: "Ends",
-                    //isPressed: ,
-                    //onClick: () => ,
+                    isPressed: model.showButtonsPressed.ends,
+                    onClick: () => onClickShowGhEndButton(),
                 }),
                 button({
                     height: buttonHeight,
                     width: "1w",
                     text: "Centre",
-                    //isPressed: ,
-                    //onClick: () => ,
+                    isPressed: model.showButtonsPressed.centre,
+                    onClick: () => onClickShowGhCentreButton(),
                 }),
            ]
         }),
@@ -80,15 +81,15 @@ export const mainWindow = window({
                             height: buttonHeight,
                             width: "1w",
                             text: "Keep 1 set",
-                            //isPressed: ,
-                            //onClick: () => ,
+                            isPressed: model.ghostsButtonsPressed.keepOne,
+                            onClick: () => onClickKeepOneButton(),
                         }),
                         button({
                             height: buttonHeight,
                             width: "1w",
                             text: "Keep all",
-                            //isPressed: ,
-                            //onClick: () => ,
+                            isPressed: model.ghostsButtonsPressed.keepAll,
+                            onClick: () => onClickKeepAllButton(),
                         }),
                     ]
                 }),
@@ -97,15 +98,13 @@ export const mainWindow = window({
                         button({
                             height: buttonHeight,
                             width: "1w",
-                            text: "Dismiss instantly",
-                            //isPressed: ,
+                            text: "Dismiss last",
                             //onClick: () => ,
                         }),
                         button({
                             height: buttonHeight,
                             width: "1w",
                             text: "Dismiss all",
-                            //isPressed: ,
                             //onClick: () => ,
                         }),
                     ]

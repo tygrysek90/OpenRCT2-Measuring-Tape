@@ -25,6 +25,11 @@ export class MapSelectionTool
 	onMove?: (selection: MapSelection) => void;
 
 	/**
+	 * Event that triggers when mouse up (selection done)
+	 */
+	onUp?: () => void;
+
+	/**
 	 * Event that triggers when an area is selected.
 	 */
 	onSelect?: (selection: MapSelection) => void;
@@ -172,6 +177,10 @@ function up(tool: MapSelectionTool, args: ToolEventArgs): void
 	}
 	tool._selection = null;
 	ui.tileSelection.range = null;
+
+	if (tool.onUp) {
+		tool.onUp()
+	}
 }
 
 
