@@ -53,9 +53,9 @@ export class DataLoader {
         })
         this._populateArrays()
         debug("dataLoader: Loaded "+objectType.valueOf())
-        for (let cunt = 0; cunt < this.ids.length; cunt++) {
+        /* for (let cunt = 0; cunt < this.ids.length; cunt++) {
             debug(`id ${this.ids[cunt].toString()} : image ${this.images[cunt].toString()} : ${this.names[cunt]}`)
-        }
+        } */
     }
 
     _populateArrays() {

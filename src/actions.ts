@@ -8,6 +8,7 @@ import { determineDirection } from "./fx/determineDirection";
 import { orderVerifiedSelection } from "./fx/orderVerifiedSelection";
 import { noGhostsOnTile } from "./fx/noGhostsOnTile";
 import { ElementVisibility } from "openrct2-flexui";
+import { ghostConfig, GhostConfigRow } from "./config/ghosts";
 
 
 export var tool = new MapSelectionTool("measuring-tape", "cross_hair")
@@ -17,7 +18,7 @@ export var toolMode = <ToolMode>("off")
 /**
  * Self descriptory, isn't it?
  */
-type GhostType = "wall" | "corner" | "square"
+//type GhostType = "wall" | "corner" | "square"
 
 /**
  * Stores a ghost on given tile
@@ -25,7 +26,7 @@ type GhostType = "wall" | "corner" | "square"
 interface TileWithGhost {
     tile: Tile,
     elementIndex: number,
-    ghostType: GhostType
+    ghostType: GhostConfigRow
     ghostDirection?: Direction
 }
 
@@ -317,9 +318,29 @@ function moveGhosts() {
  * @param tile 
  * @param direction 
  */
-function setGhost(type: GhostType, tile: Tile, direction?: Direction) {
+function setGhost(type: GhostConfigRow, tile: Tile, direction?: Direction) {
     if (noGhostsOnTile(tile)) {
-        if (type == "wall" && direction != undefined) {
+        // two cases: a wall or a small scenery
+        switch (ghostConfig[type].objectType) {
+            case "wall": 
+                if (direction != undefined) {
+                    let newE = tile.insertElement(tile.numElements) as WallElement
+                    newE.type = "wall"
+                    newE.baseHeight = tile.getElement(0).baseHeight
+                    newE.direction = direction
+                    newE.object = ghostConfig[type].objectId
+                    newE.isGhost = true
+                }
+                break
+            case "small_scenery":
+                let newE = tile.insertElement(tile.numElements) as SmallSceneryElement
+                newE.type = "small_scenery"
+                newE.baseHeight = tile.getElement(0).baseHeight
+                newE.object = ghostConfig[type].objectId
+                newE.direction = direction??<Direction>(0)
+                newE.isGhost = true
+        }
+/*         if (type == "wall" && direction != undefined) {
             let newE = tile.insertElement(tile.numElements) as WallElement
             newE.type = "wall"
             newE.baseHeight = tile.getElement(0).baseHeight
@@ -342,7 +363,7 @@ function setGhost(type: GhostType, tile: Tile, direction?: Direction) {
             newE.object = 14
             newE.direction = <Direction>(0)
             newE.isGhost = true
-        }
+        } */
 
         let ghosts: TileWithGhost = {
             tile: tile,
@@ -362,7 +383,7 @@ function setGhost(type: GhostType, tile: Tile, direction?: Direction) {
  */
 function findGhostEnd(verifiedSelection: MapSelectionVerified): void {
     let tile = map.getTile(verifiedSelection.end.x/mapTileSize, verifiedSelection.end.y/mapTileSize)
-    setGhost("wall", tile, determineDirection(verifiedSelection))
+    setGhost(GhostConfigRow.tape_end, tile, determineDirection(verifiedSelection))
 }
 
 
@@ -372,7 +393,7 @@ function findGhostEnd(verifiedSelection: MapSelectionVerified): void {
  */
 function findGhostStart(verifiedSelection: MapSelectionVerified): void {
     let tile = map.getTile(verifiedSelection.start.x/mapTileSize, verifiedSelection.start.y/mapTileSize)
-    setGhost("wall", tile, opositeDirection(determineDirection(verifiedSelection)))
+    setGhost(GhostConfigRow.tape_start, tile, opositeDirection(determineDirection(verifiedSelection)))
 }
 
 
@@ -387,10 +408,10 @@ function findGhostCorners(verifiedSelection: MapSelectionVerified): void {
     let cornerMaxMax = map.getTile(Math.max(verifiedSelection.start.x/mapTileSize, verifiedSelection.end.x/mapTileSize), Math.max(verifiedSelection.start.y/mapTileSize, verifiedSelection.end.y/mapTileSize))
     let cornerMaxMin = map.getTile(Math.max(verifiedSelection.start.x/mapTileSize, verifiedSelection.end.x/mapTileSize), Math.min(verifiedSelection.start.y/mapTileSize, verifiedSelection.end.y/mapTileSize))
 
-    setGhost("corner", cornerMinMin, <Direction>(0))
-    setGhost("corner", cornerMinMax, <Direction>(1))
-    setGhost("corner", cornerMaxMax, <Direction>(2))
-    setGhost("corner", cornerMaxMin, <Direction>(3))
+    setGhost(GhostConfigRow.area_corner, cornerMinMin, <Direction>(0))
+    setGhost(GhostConfigRow.area_corner, cornerMinMax, <Direction>(1))
+    setGhost(GhostConfigRow.area_corner, cornerMaxMax, <Direction>(2))
+    setGhost(GhostConfigRow.area_corner, cornerMaxMin, <Direction>(3))
 }
 
 
@@ -403,14 +424,14 @@ function findGhostCentreOfArea(verifiedSelection: MapSelectionVerified) {
 
     // 1 st case: sides lenght are odd numbers
     if ((Math.abs(verifiedSelection.start.x-verifiedSelection.end.x)/mapTileSize)%2 == 0 && (Math.abs(verifiedSelection.start.y-verifiedSelection.end.y)/mapTileSize)%2 == 0) {
-        setGhost("square", map.getTile(midPoint.x/mapTileSize, midPoint.y/mapTileSize))
+        setGhost(GhostConfigRow.area_centre, map.getTile(midPoint.x/mapTileSize, midPoint.y/mapTileSize))
     }
     // 2nd case: sides leghts are even numbers
     if  ((Math.abs(verifiedSelection.start.x-verifiedSelection.end.x)/mapTileSize)%2 == 1 && (Math.abs(verifiedSelection.start.y-verifiedSelection.end.y)/mapTileSize)%2 == 1) {
         let orderedSelection = orderVerifiedSelection(verifiedSelection)
         let midPointOfOrdered = selectionMidPoint(orderedSelection)
-        setGhost("square", map.getTile(midPointOfOrdered.x/mapTileSize, midPointOfOrdered.y/mapTileSize))
-        setGhost("square", map.getTile( (midPointOfOrdered.x/mapTileSize)+1, (midPointOfOrdered.y/mapTileSize)+1 )    )
+        setGhost(GhostConfigRow.area_centre, map.getTile(midPointOfOrdered.x/mapTileSize, midPointOfOrdered.y/mapTileSize))
+        setGhost(GhostConfigRow.area_centre, map.getTile( (midPointOfOrdered.x/mapTileSize)+1, (midPointOfOrdered.y/mapTileSize)+1 )    )
     }
     // TODO: there is a third case
     // ale jako co tam dát?
@@ -435,10 +456,10 @@ function findGhostCentreLine(verifiedSelection: MapSelectionVerified): void {
             else {
                 direction = 1
             }
-            setGhost("wall", tileMidpoint, direction)
+            setGhost(GhostConfigRow.tape_mid_edge, tileMidpoint, direction)
         }
         else {
-            setGhost("square", tileMidpoint)
+            setGhost(GhostConfigRow.tape_mid_tile, tileMidpoint)
         }
     }
 }

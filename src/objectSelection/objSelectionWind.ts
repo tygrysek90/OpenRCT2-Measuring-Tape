@@ -1,6 +1,6 @@
 import { window, Colour, groupbox, LayoutDirection, button, horizontal, vertical, label, textbox, listview, graphics, twoway } from "openrct2-flexui"
 import { objSelModel } from "./objSelModel"
-import { onClickClearSearch, onClickObjectList, onClickTypeList, onCurrentDraw, onHighlightObjectLust, onPreviewDraw, onSearchBoxChange } from "./objSelActions"
+import { onClickClearSearch, onClickDefault, onClickObjectList, onClickTypeList, onCurrentDraw, onHighlightObjectLust, onPreviewDraw, onSearchBoxChange } from "./objSelActions"
 
 //const answerToLifeAndEverything = 42
 
@@ -77,16 +77,9 @@ export const objectSelectionWindow = window({
                         button({
                             height: objBttonHeight,
                             width: "1w",
-                            text: "Set default",
+                            text: "Set all default",
                             //isPressed: ,
-                            //onClick: () => ,
-                        }),
-                        button({
-                            height: objBttonHeight,
-                            width: "1w",
-                            text: "Set ALL default",
-                            //isPressed: ,
-                            //onClick: () => ,
+                            onClick: () => onClickDefault(),
                         }),
                     ]
                 })

@@ -1,6 +1,6 @@
 import { objSelModel } from "./objSelModel"
 import { DataLoader } from "../fx/objDataLoader";
-import { ghostConfig, GhostConfigRow } from "../config/ghosts";
+import { ghostConfig, GhostConfigRow, objectConfigSetDefault } from "../config/ghosts";
 import { breakObjectName } from "../fx/breakObjectName";
 
 var loader: DataLoader
@@ -15,7 +15,7 @@ function updateObjGroup(ghostType: GhostConfigRow) {
 }
 
 export function onClickTypeList(item: number) {
-    // the "items" in type list are in order of GhostType enum
+    // the "items" in type list are in order of GhostConfigRow enum
     updateObjGroup(item) 
 }
 
@@ -44,6 +44,7 @@ export function onHighlightObjectLust(num: number) {
 export function onClickObjectList(item: number){
     ghostConfig[objSelModel.typeChosen.get().row].image = loader.images[item]
     ghostConfig[objSelModel.typeChosen.get().row].objectIdentifer = loader.identifiers[item]
+    ghostConfig[objSelModel.typeChosen.get().row].objectId = loader.ids[item]
     objSelModel.typeChosenObjLabel.set(loader._names[loader._identifiers.indexOf(ghostConfig[objSelModel.typeChosen.get().row].objectIdentifer)])
     objSelModel.typeChosenObjLabel2.set(breakObjectName(`{BABYBLUE}${ghostConfig[objSelModel.typeChosen.get().row].objectIdentifer}`))
 }
@@ -70,4 +71,11 @@ export function onSearchBoxChange(text: string) {
 export function onClickClearSearch() {
     objSelModel.objSearchFilter.set("")
     onSearchBoxChange("")
+}
+
+export function onClickDefault() {
+    let selectedRow = objSelModel.typeChosen.get().row
+    objectConfigSetDefault()
+    console.log("defaulting seletion: "+selectedRow.toString())
+    selectTop(selectedRow)
 }
