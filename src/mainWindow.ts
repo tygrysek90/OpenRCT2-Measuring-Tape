@@ -2,7 +2,6 @@ import { button, Colour, groupbox, horizontal, label, LayoutDirection, vertical,
 import { model } from "./model";
 import { onClickAreaButton, onClickDisimissLast, onClickDissmissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton } from "./actions";
 import { openObjSelection } from "./objectSelection/openObjSelection";
-import { GhostConfigRow } from "./config/ghosts";
 
 const buttonHeight = 26
 const answerToLifeAndEverything = 42
@@ -115,45 +114,6 @@ export const mainWindow = window({
             ]
         }),
         groupbox({
-            text: "Configure Ghosts",
-            direction: LayoutDirection.Horizontal,
-            content: [
-                vertical({
-                    content: [
-                        button({
-                            height: buttonHeight,
-                            width: "1w",
-                            text: "Tape ends…",
-                            onClick: () => openObjSelection(GhostConfigRow.tape_end),
-                        }),
-                        button({
-                            height: buttonHeight,
-                            width: "1w",
-                            text: "Tape centre…",
-                            onClick: () => openObjSelection(GhostConfigRow.area_centre),
-                        }),
-                    ]
-                }),
-                vertical({
-                    content: [
-                        button({
-                            height: buttonHeight,
-                            width: "1w",
-                            text: "Area ends…",
-                            onClick: () => openObjSelection(GhostConfigRow.area_corner),
-                        }),
-                        button({
-                            height: buttonHeight,
-                            width: "1w",
-                            text: "Area centre…",
-                            onClick: () => openObjSelection(GhostConfigRow.area_centre),
-                        }),
-                    ]
-                }),
-
-            ]
-        }),
-        groupbox({
             text: "Extras",
             direction: LayoutDirection.Horizontal,
             content: [
@@ -162,9 +122,9 @@ export const mainWindow = window({
                         button({
                             height: buttonHeight,
                             width: "1w",
-                            text: "Configure more…",
+                            text: "Configure…",
                             //isPressed: ,
-                            //onClick: () => ,
+                            onClick: () => openObjSelection(0), // the parameter is unused
                         }),
                         button({
                             height: buttonHeight,

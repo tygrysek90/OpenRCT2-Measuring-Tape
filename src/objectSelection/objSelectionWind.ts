@@ -1,45 +1,48 @@
 import { window, Colour, groupbox, LayoutDirection, button, horizontal, vertical, label, textbox, listview, graphics, twoway } from "openrct2-flexui"
 import { objSelModel } from "./objSelModel"
-import { onClickObjectList, onClickTypeList, onCurrentDraw, onHighlightObjectLust, onPreviewDraw } from "./objSelActions"
+import { onClickClearSearch, onClickObjectList, onClickTypeList, onCurrentDraw, onHighlightObjectLust, onPreviewDraw, onSearchBoxChange } from "./objSelActions"
 
 //const answerToLifeAndEverything = 42
 
-
+const objBttonHeight = 16
 /**
  * Main window user interface
  */
 export const objectSelectionWindow = window({
-    title: "Measuring Tape - Ghost object selection",
+    title: "Measuring Tape - Options",
     width: {
-        value: 450,
-        min: 450, 
+        value: 550,
+        min: 550, 
         max: 1000
     },
     height: {
-        value: 400, 
-        min: 400, 
+        value: 450, 
+        min: 450, 
         max: 1000
     },
     position: "center",
     colours: [Colour["LightBlue"], Colour["LightBlue"]],
     content: [
-        // Type list selector
+        // Type list selector, preview for type and buttons
         groupbox({
             direction: LayoutDirection.Horizontal,
-            height: 150,
+            height: 200,
             width: "1w",
-            text: "Select a type of tape to configure…", 
+            text: "Configure", 
             content: [
+                
                 listview({
                     width: 200,
-                    height: 80,
-                    //isStriped: true,
+                    height: "1w",
                     canSelect: true,
                     selectedCell: twoway(objSelModel.typeChosen),
                     items: objSelModel.typeList,
                     onClick: (item) => onClickTypeList(item)
                 }),
-                vertical({
+        
+                groupbox({
+                    padding: {left: "1w"},
+                    width: 160,
                     content: [
                         label({
                             alignment: "centred",
@@ -52,15 +55,39 @@ export const objectSelectionWindow = window({
                             onDraw: (g) => onCurrentDraw(g)
                         }),
                         label({
-                            visibility: "hidden",
                             padding: {bottom: "-6px"},
                             alignment: "centred",
                             text: objSelModel.typeChosenObjLabel
                         }),
                         label({
                             alignment: "centred",
+                            height: 16,
+                            padding: {top: 8},
                             text: objSelModel.typeChosenObjLabel2
                         })
+                    ]
+                }),
+
+                groupbox({
+                    padding: {left: "1w"},
+                    width: 160,
+                    height: "1w",
+                    content: [
+
+                        button({
+                            height: objBttonHeight,
+                            width: "1w",
+                            text: "Set default",
+                            //isPressed: ,
+                            //onClick: () => ,
+                        }),
+                        button({
+                            height: objBttonHeight,
+                            width: "1w",
+                            text: "Set ALL default",
+                            //isPressed: ,
+                            //onClick: () => ,
+                        }),
                     ]
                 })
                  
@@ -71,6 +98,7 @@ export const objectSelectionWindow = window({
         groupbox({
             text: objSelModel.objGroupLabel,
             direction: LayoutDirection.Horizontal,
+            height: "1w",
             content: [
                 // LEFT vertical - list and search
                 vertical({
@@ -78,35 +106,21 @@ export const objectSelectionWindow = window({
                         horizontal({
                             content:[
                                 textbox({
-                                /*  text?: TwoWayBindable<string> | undefined;
-                                    maxLength?: Bindable<number>;
-                                    onChange?: (text: string) => void;
-                                    tooltip?: Bindable<string>;
-                                    disabled?: Bindable<boolean>;
-                                    visibility?: Bindable<ElementVisibility>;    */ 
-                                text: "input"
+                                    text: twoway(objSelModel.objSearchFilter),
+                                    maxLength: 40,
+                                    tooltip: "Enter text to search object list",
+                                    onChange: (text: string) => onSearchBoxChange(text)
                                 }),
                                 button({
                                     width: 65,
                                     height: 14,
-                                    text: "Clear"
+                                    text: "Clear",
+                                    onClick: () => onClickClearSearch()
                                 })
                                 
                             ]
                         }),
                         listview({
-                        /**
-                        columns?: Partial<ListViewColumn>[] | ListViewColumnParams[] | string[] | undefined;
-                        items: Bindable<ListViewItem[] | string[]>;
-                        scrollbars?: ScrollbarType;
-                        canSelect?: boolean;
-                        selectedCell?: TwoWayBindable<RowColumn | null>;
-                        isStriped?: boolean;
-                        onHighlight?: (item: number, column: number) => void;
-                        onClick?: (item: number, column: number) => void;
-                        tooltip?: Bindable<string>;
-                        disabled?: Bindable<boolean>;
-                        visibility?: Bindable<ElementVisibility>; */   
                         scrollbars: "vertical",
                         canSelect: true,
                         items: objSelModel.objList,
@@ -115,23 +129,12 @@ export const objectSelectionWindow = window({
                         })
                     ]
                 }),
-                // RIGHT vertical - preview and drop-tool
-                vertical({
+                // RIGHT vertical - preview (and future: drop-tool
+                groupbox({
                     width: 160,
                     content: [
-
-                        button({
-                            padding: {left: "1w"},
-                            height: 22,
-                            width: 22,
-                            //width: "1w",
-                            text: "[D]",
-                            //isPressed: ,
-                            //onClick: () => ,
-                        }),
-
                         vertical({
-                            padding: {top: "40%", bottom:"60%"},
+                            padding: {top: "50%", bottom:"50%"},
                             content: [
                                 graphics({
                                     width: 114,

@@ -1,14 +1,15 @@
 import { objSelModel } from "./objSelModel"
-import { DataLoader } from "./objDataLoader";
+import { DataLoader } from "../fx/objDataLoader";
 import { ghostConfig, GhostConfigRow } from "../config/ghosts";
+import { breakObjectName } from "../fx/breakObjectName";
 
 var loader: DataLoader
 
-
 function updateObjGroup(ghostType: GhostConfigRow) {
     loader = new DataLoader(ghostConfig[ghostType].objectType)
-    objSelModel.typeChosenLabel.set(ghostConfig[ghostType].humanReadable)
-    objSelModel.typeChosenObjLabel2.set(ghostConfig[ghostType].objectIdentifer)
+    objSelModel.typeChosenLabel.set(`${ghostConfig[ghostType].humanReadable}`)
+    objSelModel.typeChosenObjLabel.set(loader._names[loader._identifiers.indexOf(ghostConfig[ghostType].objectIdentifer)])
+    objSelModel.typeChosenObjLabel2.set(breakObjectName(`{BABYBLUE}${ghostConfig[ghostType].objectIdentifer}`))
     objSelModel.objList.set(loader.namesWithIdentifiers)
     objSelModel.objGroupLabel.set(`Select an new object for ghost of ${ghostConfig[ghostType].humanReadable}`)
 }
@@ -42,6 +43,9 @@ export function onHighlightObjectLust(num: number) {
 
 export function onClickObjectList(item: number){
     ghostConfig[objSelModel.typeChosen.get().row].image = loader.images[item]
+    ghostConfig[objSelModel.typeChosen.get().row].objectIdentifer = loader.identifiers[item]
+    objSelModel.typeChosenObjLabel.set(loader._names[loader._identifiers.indexOf(ghostConfig[objSelModel.typeChosen.get().row].objectIdentifer)])
+    objSelModel.typeChosenObjLabel2.set(breakObjectName(`{BABYBLUE}${ghostConfig[objSelModel.typeChosen.get().row].objectIdentifer}`))
 }
 
 export function getShonObectImafe(): number {
@@ -57,3 +61,13 @@ export function onCurrentDraw(g: GraphicsContext) {
   
 }
 
+export function onSearchBoxChange(text: string) {
+    loader.filter(text)
+    console.log(text, loader.namesWithIdentifiers)
+    objSelModel.objList.set(loader.namesWithIdentifiers)
+}
+
+export function onClickClearSearch() {
+    objSelModel.objSearchFilter.set("")
+    onSearchBoxChange("")
+}

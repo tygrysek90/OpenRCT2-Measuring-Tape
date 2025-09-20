@@ -32,7 +32,6 @@ interface TileWithGhost {
 
 /**
  * Stores ghosts
- * TODO: tohle musí být pole polí
  */
 var cementery: Array<TileWithGhost> = []
 

@@ -13,6 +13,8 @@ export const objSelModel = {
 
 
     objGroupLabel: store<string>("Error: not initialized"),
+    /** Input field for searching */
+    objSearchFilter: store<string>(""),
     objList: store<string[]>( ["error:", "no", "items", "loaded", ":("]),
     objSelectedName: store<string>("")
 

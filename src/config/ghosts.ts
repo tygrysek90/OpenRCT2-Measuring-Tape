@@ -1,4 +1,4 @@
-import { DataLoader } from "../objectSelection/objDataLoader"
+import { DataLoader } from "../fx/objDataLoader"
 
 export enum GhostConfigRow  { "tape_start" , "tape_mid_edge" , "tape_mid_tile" , "tape_end" , "area_corner" , "area_centre" }
 
@@ -12,8 +12,6 @@ interface GhostConfig {
 
 /**
  * Stores configuration of ghosts, position in array is determined by GhostType enum
- * Default are:
- * rct2.scenery_small.brbase.json rct2.scenery_wall.wallcb32
  */
 export var ghostConfig: Array<GhostConfig> = [
     {humanReadable: "Tape start", image: 0,  objectIdentifer: "rct2.scenery_wall.wallcb32", objectType:"wall", shown: true},
@@ -27,10 +25,10 @@ export var ghostConfig: Array<GhostConfig> = [
 
 function populateGhostConfig() {
     ghostConfig.forEach(config => {
-        let loaeder = new DataLoader(config.objectType)
-        for (let i=0; i<loaeder.identifiers.length; i++) {
-            if (config.objectIdentifer == loaeder.identifiers[i]) {
-                config.image = loaeder.images[i]
+        let loader = new DataLoader(config.objectType)
+        for (let i=0; i<loader.identifiers.length; i++) {
+            if (config.objectIdentifer == loader.identifiers[i]) {
+                config.image = loader.images[i]
             }
         }
     }) 
