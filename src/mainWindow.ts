@@ -1,9 +1,8 @@
 import { button, Colour, groupbox, horizontal, label, LayoutDirection, vertical, window } from "openrct2-flexui";
 import { model } from "./model";
 import { onClickAreaButton, onClickDisimissLast, onClickDissmissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton } from "./actions";
-import { openObjSelection } from "./objectSelection/objSelActions";
-import { SelectionType } from "./objectSelection/objSelModel";
-
+import { openObjSelection } from "./objectSelection/openObjSelection";
+import { GhostConfigRow } from "./config/ghosts";
 
 const buttonHeight = 26
 const answerToLifeAndEverything = 42
@@ -125,13 +124,13 @@ export const mainWindow = window({
                             height: buttonHeight,
                             width: "1w",
                             text: "Tape ends…",
-                            onClick: () => openObjSelection(SelectionType["tape-ends"]),
+                            onClick: () => openObjSelection(GhostConfigRow.tape_end),
                         }),
                         button({
                             height: buttonHeight,
                             width: "1w",
                             text: "Tape centre…",
-                            onClick: () => openObjSelection(SelectionType["tape-centre"]),
+                            onClick: () => openObjSelection(GhostConfigRow.area_centre),
                         }),
                     ]
                 }),
@@ -141,13 +140,13 @@ export const mainWindow = window({
                             height: buttonHeight,
                             width: "1w",
                             text: "Area ends…",
-                            onClick: () => openObjSelection(SelectionType["area-ends"]),
+                            onClick: () => openObjSelection(GhostConfigRow.area_corner),
                         }),
                         button({
                             height: buttonHeight,
                             width: "1w",
                             text: "Area centre…",
-                            onClick: () => openObjSelection(SelectionType["area-centre"]),
+                            onClick: () => openObjSelection(GhostConfigRow.area_centre),
                         }),
                     ]
                 }),

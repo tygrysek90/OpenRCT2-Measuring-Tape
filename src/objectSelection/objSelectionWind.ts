@@ -1,12 +1,9 @@
-import { window, Colour, groupbox, LayoutDirection, button, horizontal, vertical, label, textbox, listview, graphics, Padding } from "openrct2-flexui"
-import { objSelModel, SelectionType } from "./objSelModel"
-import { selectTop } from "./objSelActions"
+import { window, Colour, groupbox, LayoutDirection, button, horizontal, vertical, label, textbox, listview, graphics, twoway } from "openrct2-flexui"
+import { objSelModel } from "./objSelModel"
+import { onClickObjectList, onClickTypeList, onCurrentDraw, onHighlightObjectLust, onPreviewDraw } from "./objSelActions"
 
-const buttonHeight = 26
 //const answerToLifeAndEverything = 42
 
-const topButtonWidht = 100
-const topButtonPadding: Padding = {right:-5, bottom: -6}
 
 /**
  * Main window user interface
@@ -19,54 +16,60 @@ export const objectSelectionWindow = window({
         max: 1000
     },
     height: {
-        value: 300, 
-        min: 300, 
+        value: 400, 
+        min: 400, 
         max: 1000
     },
     position: "center",
     colours: [Colour["LightBlue"], Colour["LightBlue"]],
     content: [
-        // Type (tab-alike) buttons
-        horizontal({
+        // Type list selector
+        groupbox({
+            direction: LayoutDirection.Horizontal,
+            height: 150,
+            width: "1w",
+            text: "Select a type of tape to configure…", 
             content: [
-                button({
-                    height: buttonHeight,
-                    width: topButtonWidht,
-                    padding: topButtonPadding,
-                    text: "Tape ends",
-                    isPressed: objSelModel.topPressed[SelectionType["tape-ends"]],
-                    onClick: () => selectTop(SelectionType["tape-ends"]),
+                listview({
+                    width: 200,
+                    height: 80,
+                    //isStriped: true,
+                    canSelect: true,
+                    selectedCell: twoway(objSelModel.typeChosen),
+                    items: objSelModel.typeList,
+                    onClick: (item) => onClickTypeList(item)
                 }),
-                button({
-                    height: buttonHeight,
-                    width: topButtonWidht,
-                    padding: topButtonPadding,
-                    text: "Tape centre",
-                    isPressed: objSelModel.topPressed[SelectionType["tape-centre"]],
-                    onClick: () => selectTop(SelectionType["tape-centre"]),
-                }),
-                button({
-                    height: buttonHeight,
-                    width: topButtonWidht,
-                    padding: topButtonPadding,
-                    text: "Area ends",
-                    isPressed: objSelModel.topPressed[SelectionType["area-ends"]],
-                    onClick: () => selectTop(SelectionType["area-ends"]),
-                }),
-                button({
-                    height: buttonHeight,
-                    width: topButtonWidht,
-                    padding: topButtonPadding,
-                    text: "Area centre",
-                    isPressed: objSelModel.topPressed[SelectionType["area-centre"]],
-                    onClick: () => selectTop(SelectionType["area-centre"]),
-                }),
+                vertical({
+                    content: [
+                        label({
+                            alignment: "centred",
+                            text: objSelModel.typeChosenLabel
+                        }),
+                        graphics({
+                            width: 114,
+                            height: 114,
+                            padding: {left: "1w", right: "1w", top: "1w"},
+                            onDraw: (g) => onCurrentDraw(g)
+                        }),
+                        label({
+                            visibility: "hidden",
+                            padding: {bottom: "-6px"},
+                            alignment: "centred",
+                            text: objSelModel.typeChosenObjLabel
+                        }),
+                        label({
+                            alignment: "centred",
+                            text: objSelModel.typeChosenObjLabel2
+                        })
+                    ]
+                })
+                 
             ]
         }),
-        // EVERYTHING BELOW type buttons
+        // EVERYTHING BELOW type selector
         // two verticals
         groupbox({
-            //text: "Object selection",
+            text: objSelModel.objGroupLabel,
             direction: LayoutDirection.Horizontal,
             content: [
                 // LEFT vertical - list and search
@@ -104,7 +107,11 @@ export const objectSelectionWindow = window({
                         tooltip?: Bindable<string>;
                         disabled?: Bindable<boolean>;
                         visibility?: Bindable<ElementVisibility>; */   
-                        items: ["item", "item2", "item3"] 
+                        scrollbars: "vertical",
+                        canSelect: true,
+                        items: objSelModel.objList,
+                        onHighlight: (item) => onHighlightObjectLust(item),
+                        onClick: (item) => onClickObjectList(item)
                         })
                     ]
                 }),
@@ -130,17 +137,12 @@ export const objectSelectionWindow = window({
                                     width: 114,
                                     height: 114,
                                     padding: {left: "1w", right: "1w", top: "1w"},
-                                    onDraw(g) {
-                                        g.colour = 14
-                                        g.stroke = 63
-                                        g.box(0,0,113,113)
-                                        g.line(0,0,114,114)
-                                    },
+                                    onDraw: (g) => onPreviewDraw(g)
                                 }),
                                 label({
                                     padding: {bottom: "1w"},
                                     alignment: "centred",
-                                    text: "object readable name"
+                                    text: objSelModel.objSelectedName
                                 }),
                             ]
                         }),
