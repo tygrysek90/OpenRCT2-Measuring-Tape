@@ -2,9 +2,22 @@ import { button, Colour, groupbox, horizontal, label, LayoutDirection, vertical,
 import { model } from "./model";
 import { onClickAreaButton, onClickDisimissLast, onClickDissmissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton } from "./actions";
 import { openObjSelection } from "./objectSelection/openObjSelection";
+import { createImageFromBase64 } from "./fx/createImageFromBase64";
+import { SpriteIds } from "./spriteIds";
+import { tape_png } from "./imgs/tape";
+import { ends_png } from "./imgs/ends";
+import { centre_png } from "./imgs/centre";
 
 const buttonHeight = 26
+const imgbutton = {
+    widht: 45,
+    heigh: 34 
+}
 const answerToLifeAndEverything = 42
+
+const tapeImage = createImageFromBase64(tape_png)
+const endsImage = createImageFromBase64(ends_png)
+const centreImage = createImageFromBase64(centre_png)
 
 /**
  * Main window user interface
@@ -37,14 +50,19 @@ export const mainWindow = window({
             direction: LayoutDirection.Horizontal,
             content: [
                 button({
-                    height: buttonHeight,
-                    text: "Tape",
+                    height: imgbutton.heigh,
+                    width: imgbutton.widht,
+                    image: tapeImage.image,
+                    border: false,
+                    tooltip: "Measuring tape",
                     isPressed: model.modeButtonsPressed.tape,
                     onClick: () => onClickTapeButton(),
                 }),
                 button({
-                    height: buttonHeight,
-                    text: "Area",
+                    height: imgbutton.heigh,
+                    width: imgbutton.widht,
+                    image: SpriteIds.SPR_G2_MOUNTAIN_TOOL_EVEN,
+                    tooltip: "Area",
                     isPressed: model.modeButtonsPressed.area,
                     onClick: () => onClickAreaButton(),
 
@@ -52,20 +70,22 @@ export const mainWindow = window({
             ]
         }),
         groupbox({
-            text: "Show Ghosts",
+            text: "Show",
             direction: LayoutDirection.Horizontal,
             content: [
                 button({
-                    height: buttonHeight,
-                    width: "1w",
-                    text: "Ends",
+                    height: imgbutton.heigh,
+                    width: imgbutton.widht,
+                    image: endsImage.image,
+                    tooltip: "Ends",
                     isPressed: model.showButtonsPressed.ends,
                     onClick: () => onClickShowGhEndButton(),
                 }),
                 button({
-                    height: buttonHeight,
-                    width: "1w",
-                    text: "Centre",
+                    height: imgbutton.heigh,
+                    width: imgbutton.widht,
+                    image: centreImage.image,
+                    tooltip: "Centre",
                     isPressed: model.showButtonsPressed.centre,
                     onClick: () => onClickShowGhCentreButton(),
                 }),

@@ -1,6 +1,9 @@
 # OpenRCT2 TypeScript API declaration file
 lib/openrct2.d.ts
 
+# Plugin images converted to base64 data - as, no, run rebuildPngToBase64.js for yourself :)
+src/imgs/*
+
 # Logs
 logs
 *.log
