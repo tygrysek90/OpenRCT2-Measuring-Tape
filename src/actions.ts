@@ -185,13 +185,13 @@ function updateMeasurementTape(selection: MapSelection): void {
 
 
     if (toolMode == "tape") {
-        model.currentMeasurement.set(`Length: {BLACK}${Math.max(lengthX,lengthY)+1} blocks`)
+        model.currentMeasurement.set(`Length: {WHITE}${Math.max(lengthX,lengthY)+1}`)
         model.currentMeasurement2Visibility.set(<ElementVisibility>("none"))
     }
     if (toolMode == "area") {
-        model.currentMeasurement.set(`Size: {BLACK}${lengthX+1} x ${lengthY+1} blocks`)
+        model.currentMeasurement.set(`Size: {WHITE}${lengthX+1} x ${lengthY+1}`)
         model.currentMeasurement2Visibility.set(<ElementVisibility>("visible"))
-        model.currentMeasurement2.set(`Area: {GREY}${(lengthX+1)*(lengthY+1)} blocks`)
+        model.currentMeasurement2.set(`Area: {GREY}${(lengthX+1)*(lengthY+1)}`)
     }
     moveGhosts()
 }

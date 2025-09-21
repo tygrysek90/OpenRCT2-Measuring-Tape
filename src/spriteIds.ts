@@ -4,6 +4,7 @@
  *  https://github.com/OpenRCT2/OpenRCT2/blob/develop/src/openrct2/SpriteIds.h
  */
 export enum SpriteIds {
+
     SPR_MIRROR_ARROW = 5170,
 
     SPR_CONSTRUCTION_FOOTPATH_LAND =  5639,
@@ -12,6 +13,9 @@ export enum SpriteIds {
     SPR_RIDE_CONSTRUCTION_SLOPE_DOWN = 5145,
     SPR_RIDE_CONSTRUCTION_SLOPE_LEVEL = 5146,
     SPR_RIDE_CONSTRUCTION_SLOPE_UP = 5147,
+
+    SPR_TAB_WRENCH_0 = 5205,
+
 
     SPR_TAB_KIOSKS_AND_FACILITIES_0 = 5367,
 

@@ -1,44 +1,53 @@
-import { button, Colour, groupbox, horizontal, label, LayoutDirection, vertical, window } from "openrct2-flexui";
+import { button, Colour, groupbox, horizontal, label, LayoutDirection, window } from "openrct2-flexui";
 import { model } from "./model";
 import { onClickAreaButton, onClickDisimissLast, onClickDissmissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton } from "./actions";
 import { openObjSelection } from "./objectSelection/openObjSelection";
-import { createImageFromBase64 } from "./fx/createImageFromBase64";
 import { SpriteIds } from "./spriteIds";
-import { tape_png } from "./imgs/tape";
-import { ends_png } from "./imgs/ends";
-import { centre_png } from "./imgs/centre";
+import { tapePng } from "./imgs/tape";
+import { endsPng } from "./imgs/ends";
+import { centrePng } from "./imgs/centre";
+import { lockOnePng } from "./imgs/lockOne";
+import { lockAllPng } from "./imgs/lockAll";
+import { removeOnePng } from "./imgs/removeOne";
+import { removeAllPng } from "./imgs/removeAll";
+import { helpAboutPng } from "./imgs/helpAbout";
+import { extraPng } from "./imgs/extra";
+import { vrenchPng } from "./imgs/vrench";
+import { pluginVersion } from "./version";
 
-const buttonHeight = 26
+
 const imgbutton = {
     widht: 45,
     heigh: 34 
 }
+
+const imgbuttonSmall = {
+    widht: 28,
+    heigh: 25 
+}
 const answerToLifeAndEverything = 42
 
-const tapeImage = createImageFromBase64(tape_png)
-const endsImage = createImageFromBase64(ends_png)
-const centreImage = createImageFromBase64(centre_png)
 
 /**
  * Main window user interface
  */
 export const mainWindow = window({
     title: "Measuring Tape",
-    width: 300,
+    width: 116,
     height: "auto",
     colours: [Colour["DarkBrown"], Colour["DarkBrown"]],
     content: [
         groupbox({
             //text: "Measurement",
-            direction: LayoutDirection.Horizontal,
+            direction: LayoutDirection.Vertical,
             height: answerToLifeAndEverything,
             content: [
                 label({
-                    padding: {"left": "6px", "top":"1w", "bottom": "1w"},
+                    //padding: {"left": "6px", "top":"1w", "bottom": "1w"},
                     text: model.currentMeasurement
                 }),
                 label({
-                    padding: {"left": "6px", "top":"1w", "bottom": "1w"},
+                    //padding: {"left": "6px", "top":"1w", "bottom": "1w"},
                     text: model.currentMeasurement2,
                     visibility: model.currentMeasurement2Visibility
                 }),
@@ -52,7 +61,7 @@ export const mainWindow = window({
                 button({
                     height: imgbutton.heigh,
                     width: imgbutton.widht,
-                    image: tapeImage.image,
+                    image: tapePng.image,
                     border: false,
                     tooltip: "Measuring tape",
                     isPressed: model.modeButtonsPressed.tape,
@@ -76,7 +85,7 @@ export const mainWindow = window({
                 button({
                     height: imgbutton.heigh,
                     width: imgbutton.widht,
-                    image: endsImage.image,
+                    image: endsPng.image,
                     tooltip: "Ends",
                     isPressed: model.showButtonsPressed.ends,
                     onClick: () => onClickShowGhEndButton(),
@@ -84,7 +93,7 @@ export const mainWindow = window({
                 button({
                     height: imgbutton.heigh,
                     width: imgbutton.widht,
-                    image: centreImage.image,
+                    image: centrePng.image,
                     tooltip: "Centre",
                     isPressed: model.showButtonsPressed.centre,
                     onClick: () => onClickShowGhCentreButton(),
@@ -98,16 +107,18 @@ export const mainWindow = window({
                 horizontal({
                     content: [
                         button({
-                            height: buttonHeight,
-                            width: "1w",
-                            text: "Keep 1 set",
+                            height: imgbutton.heigh,
+                            width: imgbutton.widht,
+                            image: lockOnePng.image,
+                            tooltip: "Keep 1 set",
                             isPressed: model.ghostsButtonsPressed.keepOne,
                             onClick: () => onClickKeepOneButton(),
                         }),
                         button({
-                            height: buttonHeight,
-                            width: "1w",
-                            text: "Keep all",
+                            height: imgbutton.heigh,
+                            width: imgbutton.widht,
+                            image: lockAllPng.image,
+                            tooltip: "Keep all",
                             isPressed: model.ghostsButtonsPressed.keepAll,
                             onClick: () => onClickKeepAllButton(),
                         }),
@@ -116,16 +127,18 @@ export const mainWindow = window({
                 horizontal({
                     content: [
                         button({
-                            height: buttonHeight,
-                            width: "1w",
-                            text: "Dismiss last",
+                           height: imgbutton.heigh,
+                            width: imgbutton.widht,
+                            image: removeOnePng.image,
+                            tooltip: "Dismiss last",
                             disabled: model.ghostsButtonsDisabled.dissmissLast,
                             onClick: () => onClickDisimissLast(),
                         }),
                         button({
-                            height: buttonHeight,
-                            width: "1w",
-                            text: "Dismiss all",
+                            height: imgbutton.heigh,
+                            width: imgbutton.widht,
+                            image: removeAllPng.image,
+                            tooltip: "Dismiss all",
                             disabled: model.ghostsButtonsDisabled.dissmiisAll,
                             onClick: () => onClickDissmissAll(),
                         }),
@@ -137,46 +150,41 @@ export const mainWindow = window({
             text: "Extras",
             direction: LayoutDirection.Horizontal,
             content: [
-                vertical({
-                    content: [
-                        button({
-                            height: buttonHeight,
-                            width: "1w",
-                            text: "Configure…",
-                            //isPressed: ,
-                            onClick: () => openObjSelection(0), // the parameter is unused
-                        }),
-                        button({
-                            height: buttonHeight,
-                            width: "1w",
-                            text: "Extra tools…",
-                            //isPressed: ,
-                            //onClick: () => ,
-                        }),
-                    ]
+                button({
+                    height: imgbuttonSmall.heigh,
+                    width: imgbuttonSmall.widht,
+                    image: vrenchPng.image,
+                    tooltip: "Configure",
+                    onClick: () => openObjSelection(0), // the parameter is unused
                 }),
-                vertical({
-                    content: [
-                        button({
-                            height: buttonHeight,
-                            width: "1w",
-                            text: "Help…",
-                            //isPressed: ,
-                            //onClick: () => ,
-                        }),
-                        button({
-                            height: buttonHeight,
-                            width: "1w",
-                            text: "About…",
-                            //isPressed: ,
-                            //onClick: () => ,
-                        }),
-                    ]
+                button({
+                    height: imgbuttonSmall.heigh,
+                    width: imgbuttonSmall.widht,
+                    image:  helpAboutPng.image,
+                    tooltip: "About & Help"
+                    //onClick: () => ,
+                }),
+                button({
+                    padding: {left: "1px", right: "1px"},
+                    height: imgbuttonSmall.heigh,
+                    width: imgbuttonSmall.widht,
+                    image: extraPng.image,
+                    tooltip: "Extra tools",
+                    //onClick: () => ,
                 }),
 
             ]
         }),
-
+        groupbox({
+            content: [
+                label({
+                    height: 22,
+                    padding: {top: 6},
+                    disabled: true,
+                    alignment: "centred",
+                    text: `${pluginVersion}{NEWLINE}no updates{NEWLINE}avalible`
+                })
+            ]
+        })
     ]
-
 })

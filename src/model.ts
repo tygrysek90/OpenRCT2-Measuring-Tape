@@ -1,9 +1,9 @@
 import { ElementVisibility, store } from "openrct2-flexui";
 
 export const defaults = {
-currentMeasurement: "Click and drag mouse over map to measure",
+currentMeasurement: "Click and drag",
 currentMeasurement2: "hidden",
-currentMeasurement2Visibility: <ElementVisibility>"none"
+currentMeasurement2Visibility: <ElementVisibility>"hidden"
 }
 
 export const model = {
