@@ -16,6 +16,7 @@ import { vrenchPng } from "./imgs/vrench";
 import { pluginVersion } from "./version";
 import { extraWindow } from "./extraTools/extraWindow";
 import { answerToLifeAndEverything, imgbutton, imgbuttonSmall } from "./commonUiConsts";
+import { aboutHelpWindow } from "./aboutHelp/aboutHelpWin";
 
 
 /**
@@ -151,8 +152,8 @@ export const mainWindow = window({
                     height: imgbuttonSmall.heigh,
                     width: imgbuttonSmall.widht,
                     image:  helpAboutPng.image,
-                    tooltip: "About & Help"
-                    //onClick: () => ,
+                    tooltip: "About & Help",
+                    onClick: () => aboutHelpWindow.open(),
                 }),
                 button({
                     padding: {left: "1px", right: "1px"},
