@@ -14,18 +14,8 @@ import { helpAboutPng } from "./imgs/helpAbout";
 import { extraPng } from "./imgs/extra";
 import { vrenchPng } from "./imgs/vrench";
 import { pluginVersion } from "./version";
-
-
-const imgbutton = {
-    widht: 45,
-    heigh: 34 
-}
-
-const imgbuttonSmall = {
-    widht: 28,
-    heigh: 25 
-}
-const answerToLifeAndEverything = 42
+import { extraWindow } from "./extraTools/extraWindow";
+import { answerToLifeAndEverything, imgbutton, imgbuttonSmall } from "./commonUiConsts";
 
 
 /**
@@ -170,7 +160,7 @@ export const mainWindow = window({
                     width: imgbuttonSmall.widht,
                     image: extraPng.image,
                     tooltip: "Extra tools",
-                    //onClick: () => ,
+                    onClick: () => extraWindow.open(),
                 }),
 
             ]
@@ -178,11 +168,11 @@ export const mainWindow = window({
         groupbox({
             content: [
                 label({
-                    height: 22,
-                    padding: {top: 6},
+                    //height: 18,
+                    //padding: {top: 2},
                     disabled: true,
                     alignment: "centred",
-                    text: `${pluginVersion}{NEWLINE}no updates{NEWLINE}avalible`
+                    text: `${pluginVersion}`
                 })
             ]
         })

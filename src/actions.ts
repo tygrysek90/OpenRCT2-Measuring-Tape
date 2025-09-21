@@ -193,6 +193,7 @@ function updateMeasurementTape(selection: MapSelection): void {
         model.currentMeasurement2Visibility.set(<ElementVisibility>("visible"))
         model.currentMeasurement2.set(`Area: {GREY}${(lengthX+1)*(lengthY+1)}`)
     }
+    //console.log(JSON.stringify(tool._selection))
     moveGhosts()
 }
 
@@ -464,3 +465,33 @@ function findGhostCentreLine(verifiedSelection: MapSelectionVerified): void {
     }
 }
 
+
+function mapSizeToCoordsXYAsSelection(): CoordsXY {
+    let mapsize = map.size // this is in tiles!  
+
+    return {
+        x: (mapsize.x-2)*mapTileSize,
+        y: (mapsize.y-2)*mapTileSize
+    }
+}
+
+
+export function findMapEdgesCentres() {
+    let mapsize = map.size // this is in tiles!  
+    mapsize.x = (mapsize.x-2)*mapTileSize
+    mapsize.y = (mapsize.y-2)*mapTileSize
+
+    //console.log(JSON.stringify(mapsize))
+
+    findGhostCentreLine({start:{x:32, y:32},end:{x: mapsize.x, y: 32}})
+    findGhostCentreLine({start:{x: mapsize.x, y:32},end:{x: mapsize.x, y: mapsize.y}})
+    findGhostCentreLine({start:{x: mapsize.x, y: mapsize.y},end:{x: 32, y: mapsize.y}})
+    findGhostCentreLine({start:{x:32, y:mapsize.y},end:{x: 32, y: 32}})
+
+    onToolUp()
+}
+
+export function findMapCentre() {
+    findGhostCentreOfArea({start: {x:mapTileSize,y:mapTileSize}, end:mapSizeToCoordsXYAsSelection()})
+    onToolUp()
+}
