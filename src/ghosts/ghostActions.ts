@@ -167,30 +167,6 @@ function setGhost(type: GhostConfigRow, tile: Tile, direction?: Direction) {
                 newE.direction = direction??<Direction>(0)
                 newE.isGhost = true
         }
-/*         if (type == "wall" && direction != undefined) {
-            let newE = tile.insertElement(tile.numElements) as WallElement
-            newE.type = "wall"
-            newE.baseHeight = tile.getElement(0).baseHeight
-            newE.direction = direction
-            newE.object = 84
-            newE.isGhost = true
-        }
-        if (type == "corner" && direction != undefined) {
-            let newE = tile.insertElement(tile.numElements) as SmallSceneryElement
-            newE.type = "small_scenery"
-            newE.baseHeight = tile.getElement(0).baseHeight
-            newE.object = 80
-            newE.direction = direction
-            newE.isGhost = true
-        }
-        if (type == "square") {
-            let newE = tile.insertElement(tile.numElements) as SmallSceneryElement
-            newE.type = "small_scenery"
-            newE.baseHeight = tile.getElement(0).baseHeight
-            newE.object = 14
-            newE.direction = <Direction>(0)
-            newE.isGhost = true
-        } */
 
         let ghosts: TileWithGhost = {
             tile: tile,
@@ -306,8 +282,6 @@ export function findMapEdgesCentres() {
     let mapsize = map.size // this is in tiles!  
     mapsize.x = (mapsize.x-2)*mapTileSize
     mapsize.y = (mapsize.y-2)*mapTileSize
-
-    //console.log(JSON.stringify(mapsize))
 
     findGhostCentreLine({start:{x:32, y:32},end:{x: mapsize.x, y: 32}})
     findGhostCentreLine({start:{x: mapsize.x, y:32},end:{x: mapsize.x, y: mapsize.y}})

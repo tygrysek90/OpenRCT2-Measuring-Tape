@@ -29,16 +29,13 @@ export const mainWindow = window({
     colours: [Colour["DarkBrown"], Colour["DarkBrown"]],
     content: [
         groupbox({
-            //text: "Measurement",
             direction: LayoutDirection.Vertical,
             height: answerToLifeAndEverything,
             content: [
                 label({
-                    //padding: {"left": "6px", "top":"1w", "bottom": "1w"},
                     text: model.currentMeasurement
                 }),
                 label({
-                    //padding: {"left": "6px", "top":"1w", "bottom": "1w"},
                     text: model.currentMeasurement2,
                     visibility: model.currentMeasurement2Visibility
                 }),
@@ -146,7 +143,7 @@ export const mainWindow = window({
                     width: imgbuttonSmall.widht,
                     image: vrenchPng.image,
                     tooltip: "Configure",
-                    onClick: () => openObjSelection(0), // the parameter is unused
+                    onClick: () => openObjSelection(), // the parameter is unused
                 }),
                 button({
                     height: imgbuttonSmall.heigh,
@@ -169,8 +166,6 @@ export const mainWindow = window({
         groupbox({
             content: [
                 label({
-                    //height: 18,
-                    //padding: {top: 2},
                     disabled: true,
                     alignment: "centred",
                     text: `${pluginVersion}`

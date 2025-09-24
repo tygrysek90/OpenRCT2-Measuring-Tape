@@ -2,9 +2,8 @@ import { window, Colour, groupbox, LayoutDirection, button, horizontal, vertical
 import { objSelModel } from "./objSelModel"
 import { onClickClearSearch, onClickDefault, onClickObjectList, onClickTypeList, onCurrentDraw, onHighlightObjectLust, onPreviewDraw, onSearchBoxChange } from "./objSelActions"
 
-//const answerToLifeAndEverything = 42
 
-const objBttonHeight = 16
+const objButtonHeight = 16
 /**
  * Main window user interface
  */
@@ -75,7 +74,7 @@ export const objectSelectionWindow = window({
                     content: [
 
                         button({
-                            height: objBttonHeight,
+                            height: objButtonHeight,
                             width: "1w",
                             text: "Set all default",
                             //isPressed: ,
@@ -122,7 +121,7 @@ export const objectSelectionWindow = window({
                         })
                     ]
                 }),
-                // RIGHT vertical - preview (and future: drop-tool
+                // RIGHT vertical - preview (and future: drop-tool)
                 groupbox({
                     width: 160,
                     content: [

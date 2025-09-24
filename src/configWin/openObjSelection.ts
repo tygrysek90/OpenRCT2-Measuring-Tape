@@ -3,8 +3,8 @@ import { selectTop } from "./objSelActions";
 import { objectSelectionWindow } from "./objSelectionWind";
 
 
-export function openObjSelection(objSelection: GhostConfigRow) {
+export function openObjSelection() {
     objectSelectionWindow.open();
     objectSelectionWindow.focus();
-    selectTop(objSelection);
+    selectTop(GhostConfigRow.tape_start);
 }

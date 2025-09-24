@@ -49,7 +49,7 @@ export function onClickObjectList(item: number){
     objSelModel.typeChosenObjLabel2.set(breakObjectName(`{BABYBLUE}${ghostConfig[objSelModel.typeChosen.get().row].objectIdentifer}`))
 }
 
-export function getShonObectImafe(): number {
+export function getShownObjectImage(): number {
     return previewObjectimage
 }
 
