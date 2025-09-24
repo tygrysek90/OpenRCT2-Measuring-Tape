@@ -1,4 +1,4 @@
-import { MapSelectionVerified } from "../mapSelection";
+import { MapSelectionVerified } from "../tool/mapSelection";
 
 /**
  * Order a map selection to a way that start being always numericaly lower than end

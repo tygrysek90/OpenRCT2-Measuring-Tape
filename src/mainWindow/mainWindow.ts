@@ -1,8 +1,8 @@
 import { button, Colour, groupbox, horizontal, label, LayoutDirection, window } from "openrct2-flexui";
 import { model } from "./mainModel";
-import { onClickAreaButton, onClickDisimissLast, onClickDissmissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton } from "../actions";
+import { onClickAreaButton, onClickDisimissLast, onClickDissmissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton } from "./actions";
 import { openObjSelection } from "../objectSelection/openObjSelection";
-import { SpriteIds } from "../spriteIds";
+import { SpriteIds } from "../common/spriteIds";
 import { tapePng } from "../imgs/tape";
 import { endsPng } from "../imgs/ends";
 import { centrePng } from "../imgs/centre";

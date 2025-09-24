@@ -1,4 +1,4 @@
-import {  shortcutCallback } from "./actions";
+import {  shortcutCallback } from "./mainWindow/actions";
 import { initConfig as initPluginConfig } from "./config/ghosts";
 import { mainWindow } from "./mainWindow/mainWindow";
 

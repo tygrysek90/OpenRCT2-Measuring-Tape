@@ -1,4 +1,4 @@
-import { MapSelectionVerified } from "../mapSelection";
+import { MapSelectionVerified } from "../tool/mapSelection";
 
 /**
  * Find a direction of wall that can be placed on the end on selected area

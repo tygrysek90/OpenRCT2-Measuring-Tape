@@ -1,14 +1,14 @@
-import { MapSelection, mapSelectionToVerified, MapSelectionVerified } from "./mapSelection";
-import { MapSelectionTool, mapTileSize, ToolMode } from "./mapSelectionTool";
-import { defaults, model } from "./mainWindow/mainModel";
-import { opositeDirection } from "./fx/opositeDirection";
-import { computeDistanceInTiles } from "./fx/computeDistanceInTiles";
-import { selectionMidPoint } from "./fx/selectionMidPoint";
-import { determineDirection } from "./fx/determineDirection";
-import { orderVerifiedSelection } from "./fx/orderVerifiedSelection";
-import { noGhostsOnTile } from "./fx/noGhostsOnTile";
+import { MapSelection, mapSelectionToVerified, MapSelectionVerified } from "../tool/mapSelection";
+import { MapSelectionTool, mapTileSize, ToolMode } from "../tool/mapSelectionTool";
+import { defaults, model } from "./mainModel";
+import { opositeDirection } from "../fx/opositeDirection";
+import { computeDistanceInTiles } from "../fx/computeDistanceInTiles";
+import { selectionMidPoint } from "../fx/selectionMidPoint";
+import { determineDirection } from "../fx/determineDirection";
+import { orderVerifiedSelection } from "../fx/orderVerifiedSelection";
+import { noGhostsOnTile } from "../fx/noGhostsOnTile";
 import { ElementVisibility } from "openrct2-flexui";
-import { ghostConfig, GhostConfigRow } from "./config/ghosts";
+import { ghostConfig, GhostConfigRow } from "../config/ghosts";
 
 
 export var tool = new MapSelectionTool("measuring-tape", "cross_hair")

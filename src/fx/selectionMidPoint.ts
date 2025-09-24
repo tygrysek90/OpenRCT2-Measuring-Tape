@@ -1,4 +1,4 @@
-import { MapSelectionVerified } from "../mapSelection";
+import { MapSelectionVerified } from "../tool/mapSelection";
 
 /**
  * Returns midpoint (centre) of selection

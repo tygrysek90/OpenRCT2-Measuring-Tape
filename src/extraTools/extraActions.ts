@@ -1,4 +1,4 @@
-import { findMapCentre, findMapEdgesCentres } from "../actions";
+import { findMapCentre, findMapEdgesCentres } from "../mainWindow/actions";
 
 export function onClickBisectEdgesButton() {
     findMapEdgesCentres()

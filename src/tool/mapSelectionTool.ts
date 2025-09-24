@@ -5,7 +5,7 @@
 // originaly licensed under MIT License
 // see licenses/mit_license_Basssiiie_ProxyPather}` */
 
-import { debug } from "./logger";
+import { debug } from "../logger/logger";
 import { MapSelection, toMapRange } from "./mapSelection";
 
 export type ToolMode = "tape" | "area" | "off"

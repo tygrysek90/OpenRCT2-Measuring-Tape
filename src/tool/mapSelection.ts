@@ -5,7 +5,7 @@
 // originaly licensed under MIT License
 // see licenses/mit_license_Basssiiie_ProxyPather}` */
 
-import { error } from "./logger";
+import { error } from "../logger/logger";
 
 const mapTileSize = 32
 
