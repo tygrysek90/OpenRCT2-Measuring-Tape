@@ -24,7 +24,7 @@ function updateObjGroup(ghostType: GhostConfigRow) {
     objSelModel.typeChosenObjLabel.set(loader._names[loader._identifiers.indexOf(ghostConfig[ghostType].objectIdentifer)])
     objSelModel.typeChosenObjLabel2.set(breakObjectName(`{BABYBLUE}${ghostConfig[ghostType].objectIdentifer}`))
     objSelModel.objList.set(loader.namesWithIdentifiers)
-    objSelModel.objGroupLabel.set(`Select an new object for ghost of ${ghostConfig[ghostType].humanReadable}`)
+    objSelModel.objGroupLabel.set(`Pick an new object for ghost of ${ghostConfig[ghostType].humanReadable}`)
 }
 
 export function onClickTypeList(item: number) {

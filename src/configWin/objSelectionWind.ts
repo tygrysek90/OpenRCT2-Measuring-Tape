@@ -41,7 +41,7 @@ export const objectSelectionWindow = window({
             direction: LayoutDirection.Horizontal,
             height: 200,
             width: "1w",
-            text: "Configure", 
+            text: "Select and pick below {BABYBLUE}- the configuration will be saved with the park", 
             content: [
                 
                 listview({

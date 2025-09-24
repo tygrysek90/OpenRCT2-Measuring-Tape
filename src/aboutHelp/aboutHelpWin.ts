@@ -12,14 +12,11 @@
  * GUI definition
  */
 
-import { Colour, FlexibleLayoutContainer, graphics, label, LayoutDirection, listview, tab, tabwindow, vertical,  } from "openrct2-flexui";
+import { Colour, FlexibleLayoutContainer, graphics, label, LayoutDirection, tab, tabwindow, vertical,  } from "openrct2-flexui";
 import { pluginVersion } from "../version";
 import { iPng } from "../imgs/i";
 import { questionMarkPng } from "../imgs/questionMark";
 import { tygrysek90Png } from "../imgs/tygrysek90";
-import { toMapRange } from "../tool/mapSelection";
-
-const tabHeight = 200
 
 
 const aboutLines = [
@@ -49,6 +46,7 @@ const aboutLines = [
     "originally by {TOPAZ}OpenRCT2 Authors"
     ]
 
+
 const helpLines = [
     "",
     "{YELLOW}A message from the author of the plugin:",
@@ -66,18 +64,16 @@ const helpLines = [
     "Have a pleasing day!"
 ]
 
+/** returns functionaly established set of UI elements */
 function makeLabels(lines: Array<string>):FlexibleLayoutContainer {
     let a:FlexibleLayoutContainer = []
     
-
     lines.forEach(line => {
         a.push(label({
             padding: {top: -6},
             text: line
         }))
     })
-
-
     return a
 }
 

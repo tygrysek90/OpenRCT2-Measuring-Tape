@@ -15,7 +15,6 @@
 import { button, Colour, groupbox, horizontal, label, LayoutDirection, window } from "openrct2-flexui";
 import { model } from "./mainModel";
 import { onClickAreaButton, onClickDisimissLast, onClickDissmissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton } from "./actions";
-import { SpriteIds } from "../common/spriteIds";
 import { tapePng } from "../imgs/tape";
 import { endsPng } from "../imgs/ends";
 import { centrePng } from "../imgs/centre";
@@ -31,6 +30,7 @@ import { answerToLifeAndEverything, imgbutton, imgbuttonSmall } from "../common/
 import { aboutHelpWindow } from "../aboutHelp/aboutHelpWin";
 import { openObjSelection } from "../configWin/openObjSelection";
 import { extraWindow } from "../extraToolsWin/extraWindow";
+import { measureAreaPng } from "../imgs/measureArea";
 
 
 /**
@@ -72,7 +72,7 @@ export const mainWindow = window({
                 button({
                     height: imgbutton.heigh,
                     width: imgbutton.widht,
-                    image: SpriteIds.SPR_G2_MOUNTAIN_TOOL_EVEN,
+                    image: measureAreaPng.image,
                     tooltip: "Area",
                     isPressed: model.modeButtonsPressed.area,
                     onClick: () => onClickAreaButton(),
