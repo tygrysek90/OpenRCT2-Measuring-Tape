@@ -75,6 +75,7 @@ export class MapSelectionTool
 		ui.activateTool({
 			id: this.name,
 			cursor: this.cursor,
+			filter: ["terrain", "water"],
 			onDown: a => down(this, a),
 			onUp: a => up(this, a),
 			onMove: a => move(this, a),
