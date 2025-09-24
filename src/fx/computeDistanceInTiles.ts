@@ -1,5 +1,5 @@
 import { MapSelectionVerified } from "../tool/mapSelection";
-import { mapTileSize } from "../tool/mapSelectionTool";
+import { mapTileSize } from "../common/mapTileSize";
 
 /**
  * Computes distance in tiles between two points

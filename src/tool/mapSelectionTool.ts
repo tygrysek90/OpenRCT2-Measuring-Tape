@@ -7,17 +7,17 @@
 
 import { debug } from "../logger/logger";
 import { MapSelection, toMapRange } from "./mapSelection";
+import { mapTileSize } from "../common/mapTileSize";
 
 export type ToolMode = "tape" | "area" | "off"
-
-export const mapTileSize = 32
-
 
 /**
  * Tool that can select an area.
  */
 export class MapSelectionTool
 {
+
+	mode: ToolMode = "off";
 
 	/**
 	 * Event that triggers when selection changes

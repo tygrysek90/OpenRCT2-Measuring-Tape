@@ -5,9 +5,9 @@
 // originaly licensed under MIT License
 // see licenses/mit_license_Basssiiie_ProxyPather}` */
 
+import { mapTileSize } from "../common/mapTileSize";
 import { error } from "../logger/logger";
 
-const mapTileSize = 32
 
 /**
  * Class to specify an area on the map.
