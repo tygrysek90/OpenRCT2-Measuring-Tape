@@ -1,3 +1,17 @@
+/*****************************************************************************
+ * Copyright (c) 2025 Ríša Szlachta (tygrysek90)
+ * 
+ * https://github.com/tygrysek90/OpenRCT2-Measuring-Tape
+ * 
+ * OpenRCT2-Measuring-Tape
+ * is licensed under the GNU General Public License version 3.
+ *****************************************************************************/
+
+/**
+ * Configuration window
+ * GUI definition
+ */
+
 import { window, Colour, groupbox, LayoutDirection, button, horizontal, vertical, label, textbox, listview, graphics, twoway } from "openrct2-flexui"
 import { objSelModel } from "./objSelModel"
 import { onClickClearSearch, onClickDefault, onClickObjectList, onClickTypeList, onCurrentDraw, onHighlightObjectLust, onPreviewDraw, onSearchBoxChange } from "./objSelActions"

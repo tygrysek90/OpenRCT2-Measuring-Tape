@@ -1,8 +1,12 @@
-/** Wrapper for getting graphics data
+/** 
+ * Wrapper for getting graphics data
  * 
  *  Uses excepts from:
  *  https://github.com/OpenRCT2/OpenRCT2/blob/develop/src/openrct2/SpriteIds.h
  */
+
+
+// todo optimize...
 export enum SpriteIds {
 
     SPR_MIRROR_ARROW = 5170,

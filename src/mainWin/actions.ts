@@ -1,3 +1,17 @@
+/*****************************************************************************
+ * Copyright (c) 2025 Ríša Szlachta (tygrysek90)
+ * 
+ * https://github.com/tygrysek90/OpenRCT2-Measuring-Tape
+ * 
+ * OpenRCT2-Measuring-Tape
+ * is licensed under the GNU General Public License version 3.
+ *****************************************************************************/
+
+/**
+ * Main window
+ * GUI functions
+ */
+
 import { ElementVisibility } from "openrct2-flexui";
 import { MapSelection } from "../tool/mapSelection";
 import { mapTileSize } from "../common/mapTileSize";
