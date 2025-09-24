@@ -1,4 +1,5 @@
 import { DataLoader } from "../fx/objDataLoader"
+import { readParkStorage, writeParkStorage } from "./parkStorage"
 
 export enum GhostConfigRow  { "tape_start" , "tape_mid_edge" , "tape_mid_tile" , "tape_end" , "area_corner" , "area_centre", "area_centre_uneven" }
 
@@ -51,9 +52,26 @@ function populateGhostConfig() {
 
 export function initConfig() {
     ghostConfig = defaultConfig()
+    let maybeConfig = readParkStorage()
+    if (maybeConfig != undefined) {
+        for (let i=0; i<ghostConfig.length; i++) {
+            ghostConfig[i].objectIdentifer = maybeConfig[i]
+        }
+    }
     populateGhostConfig()
 }
 
 export function objectConfigSetDefault() {
-    initConfig()
+    ghostConfig = defaultConfig()
+    populateGhostConfig()
+    ghostStoreConfig()
+
+}
+
+export function ghostStoreConfig() {
+    let sequential: Array<string> = []
+    ghostConfig.forEach(configLine => {
+        sequential.push(configLine.objectIdentifer)
+    })
+    writeParkStorage(sequential)
 }

@@ -1,6 +1,6 @@
 import { objSelModel } from "./objSelModel"
 import { DataLoader } from "../fx/objDataLoader";
-import { ghostConfig, GhostConfigRow, objectConfigSetDefault } from "../config/ghosts";
+import { ghostConfig, GhostConfigRow, ghostStoreConfig, objectConfigSetDefault } from "../config/ghosts";
 import { breakObjectName } from "../fx/breakObjectName";
 
 var loader: DataLoader
@@ -45,6 +45,7 @@ export function onClickObjectList(item: number){
     ghostConfig[objSelModel.typeChosen.get().row].image = loader.images[item]
     ghostConfig[objSelModel.typeChosen.get().row].objectIdentifer = loader.identifiers[item]
     ghostConfig[objSelModel.typeChosen.get().row].objectId = loader.ids[item]
+    ghostStoreConfig()
     objSelModel.typeChosenObjLabel.set(loader._names[loader._identifiers.indexOf(ghostConfig[objSelModel.typeChosen.get().row].objectIdentifer)])
     objSelModel.typeChosenObjLabel2.set(breakObjectName(`{BABYBLUE}${ghostConfig[objSelModel.typeChosen.get().row].objectIdentifer}`))
 }
