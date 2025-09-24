@@ -3,6 +3,7 @@ lib/openrct2.d.ts
 
 # Plugin images converted to base64 data - as, no, run rebuildPngToBase64.js for yourself :)
 src/imgs/*
+!src/imgs/run-rebuildPngToBase64.md
 
 # Logs
 logs
