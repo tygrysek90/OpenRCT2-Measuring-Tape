@@ -1,22 +1,22 @@
 import { button, Colour, groupbox, horizontal, label, LayoutDirection, window } from "openrct2-flexui";
-import { model } from "./model";
-import { onClickAreaButton, onClickDisimissLast, onClickDissmissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton } from "./actions";
-import { openObjSelection } from "./objectSelection/openObjSelection";
-import { SpriteIds } from "./spriteIds";
-import { tapePng } from "./imgs/tape";
-import { endsPng } from "./imgs/ends";
-import { centrePng } from "./imgs/centre";
-import { lockOnePng } from "./imgs/lockOne";
-import { lockAllPng } from "./imgs/lockAll";
-import { removeOnePng } from "./imgs/removeOne";
-import { removeAllPng } from "./imgs/removeAll";
-import { helpAboutPng } from "./imgs/helpAbout";
-import { extraPng } from "./imgs/extra";
-import { vrenchPng } from "./imgs/vrench";
-import { pluginVersion } from "./version";
-import { extraWindow } from "./extraTools/extraWindow";
-import { answerToLifeAndEverything, imgbutton, imgbuttonSmall } from "./commonUiConsts";
-import { aboutHelpWindow } from "./aboutHelp/aboutHelpWin";
+import { model } from "./mainModel";
+import { onClickAreaButton, onClickDisimissLast, onClickDissmissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton } from "../actions";
+import { openObjSelection } from "../objectSelection/openObjSelection";
+import { SpriteIds } from "../spriteIds";
+import { tapePng } from "../imgs/tape";
+import { endsPng } from "../imgs/ends";
+import { centrePng } from "../imgs/centre";
+import { lockOnePng } from "../imgs/lockOne";
+import { lockAllPng } from "../imgs/lockAll";
+import { removeOnePng } from "../imgs/removeOne";
+import { removeAllPng } from "../imgs/removeAll";
+import { helpAboutPng } from "../imgs/helpAbout";
+import { extraPng } from "../imgs/extra";
+import { vrenchPng } from "../imgs/vrench";
+import { pluginVersion } from "../version";
+import { extraWindow } from "../extraTools/extraWindow";
+import { answerToLifeAndEverything, imgbutton, imgbuttonSmall } from "../common/commonUiConsts";
+import { aboutHelpWindow } from "../aboutHelp/aboutHelpWin";
 
 
 /**

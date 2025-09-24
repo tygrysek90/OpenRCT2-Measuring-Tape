@@ -1,6 +1,6 @@
 import { MapSelection, mapSelectionToVerified, MapSelectionVerified } from "./mapSelection";
 import { MapSelectionTool, mapTileSize, ToolMode } from "./mapSelectionTool";
-import { defaults, model } from "./model";
+import { defaults, model } from "./mainWindow/mainModel";
 import { opositeDirection } from "./fx/opositeDirection";
 import { computeDistanceInTiles } from "./fx/computeDistanceInTiles";
 import { selectionMidPoint } from "./fx/selectionMidPoint";

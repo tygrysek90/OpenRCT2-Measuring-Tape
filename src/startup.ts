@@ -1,6 +1,6 @@
 import {  shortcutCallback } from "./actions";
 import { initConfig as initPluginConfig } from "./config/ghosts";
-import { mainWindow } from "./mainWindow";
+import { mainWindow } from "./mainWindow/mainWindow";
 
 const shortcutOpenWindow: ShortcutDesc = {
 	id: "measuring-tape.mainwindow.open",

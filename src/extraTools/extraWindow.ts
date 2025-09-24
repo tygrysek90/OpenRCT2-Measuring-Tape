@@ -1,5 +1,5 @@
 import { button, Colour, groupbox, LayoutDirection, window } from "openrct2-flexui";
-import { imgbutton } from "../commonUiConsts";
+import { imgbutton } from "../common/commonUiConsts";
 import { bisectMapEdghesPng } from "../imgs/bisectMapEdghes";
 import { centreOfMapPng } from "../imgs/centreOfMap";
 import { onClickBisectEdgesButton, onClickMapCentre } from "./extraActions";
