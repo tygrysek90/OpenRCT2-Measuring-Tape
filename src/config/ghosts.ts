@@ -1,6 +1,6 @@
 import { DataLoader } from "../fx/objDataLoader"
 
-export enum GhostConfigRow  { "tape_start" , "tape_mid_edge" , "tape_mid_tile" , "tape_end" , "area_corner" , "area_centre" }
+export enum GhostConfigRow  { "tape_start" , "tape_mid_edge" , "tape_mid_tile" , "tape_end" , "area_corner" , "area_centre", "area_centre_uneven" }
 
 interface GhostConfig {
     /** Config option name for UI */
@@ -28,6 +28,7 @@ function defaultConfig(): Array<GhostConfig> {
     {humanReadable: "Tape end", image: 0,  objectIdentifer: "rct2.scenery_wall.wallcb32", objectId: 0, objectType:"wall" ,shown: true},
     {humanReadable: "Area corner", image: 0,  objectIdentifer: "rct2.scenery_small.cwfcrv33", objectId: 0, objectType: "small_scenery",shown: true},
     {humanReadable: "Area centre", image: 0,  objectIdentifer: "rct2.scenery_small.brbase", objectId: 0, objectType: "small_scenery" ,shown: true},
+    {humanReadable: "Area centre (uneven)", image: 0,  objectIdentifer: "rct2.scenery_wall.wallcb32", objectId: 0, objectType: "wall" ,shown: true},
 
 ]}
 

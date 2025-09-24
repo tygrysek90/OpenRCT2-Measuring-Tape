@@ -275,7 +275,17 @@ function findGhostCentreOfArea(verifiedSelection: MapSelectionVerified) {
         setGhost(GhostConfigRow.area_centre, map.getTile( (midPointOfOrdered.x/mapTileSize)+1, (midPointOfOrdered.y/mapTileSize)+1 )    )
     }
     // TODO: there is a third case
-    // ale jako co tam dát?
+    // 3rd & 4rd case : sides are one even and one odd 
+    if  ((Math.abs(verifiedSelection.start.x-verifiedSelection.end.x)/mapTileSize)%2 == 1 && (Math.abs(verifiedSelection.start.y-verifiedSelection.end.y)/mapTileSize)%2 == 0) {
+        let orderedSelection = orderVerifiedSelection(verifiedSelection)
+        let midPointOfOrdered = selectionMidPoint(orderedSelection)
+        setGhost(GhostConfigRow.area_centre_uneven, map.getTile(midPointOfOrdered.x/mapTileSize, midPointOfOrdered.y/mapTileSize), <Direction>(2))
+    }
+    if  ((Math.abs(verifiedSelection.start.x-verifiedSelection.end.x)/mapTileSize)%2 == 0 && (Math.abs(verifiedSelection.start.y-verifiedSelection.end.y)/mapTileSize)%2 == 1) {
+        let orderedSelection = orderVerifiedSelection(verifiedSelection)
+        let midPointOfOrdered = selectionMidPoint(orderedSelection)
+        setGhost(GhostConfigRow.area_centre_uneven, map.getTile(midPointOfOrdered.x/mapTileSize, midPointOfOrdered.y/mapTileSize), <Direction>(1))
+    }
 }
 
 
