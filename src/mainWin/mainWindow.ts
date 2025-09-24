@@ -1,7 +1,6 @@
 import { button, Colour, groupbox, horizontal, label, LayoutDirection, window } from "openrct2-flexui";
 import { model } from "./mainModel";
 import { onClickAreaButton, onClickDisimissLast, onClickDissmissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton } from "./actions";
-import { openObjSelection } from "../objectSelection/openObjSelection";
 import { SpriteIds } from "../common/spriteIds";
 import { tapePng } from "../imgs/tape";
 import { endsPng } from "../imgs/ends";
@@ -14,9 +13,10 @@ import { helpAboutPng } from "../imgs/helpAbout";
 import { extraPng } from "../imgs/extra";
 import { vrenchPng } from "../imgs/vrench";
 import { pluginVersion } from "../version";
-import { extraWindow } from "../extraTools/extraWindow";
 import { answerToLifeAndEverything, imgbutton, imgbuttonSmall } from "../common/commonUiConsts";
 import { aboutHelpWindow } from "../aboutHelp/aboutHelpWin";
+import { openObjSelection } from "../configWin/openObjSelection";
+import { extraWindow } from "../extraToolsWin/extraWindow";
 
 
 /**

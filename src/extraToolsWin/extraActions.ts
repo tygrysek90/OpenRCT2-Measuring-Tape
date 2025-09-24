@@ -1,5 +1,5 @@
 import { findMapCentre, findMapEdgesCentres } from "../ghosts/ghostActions";
-import { onToolUp } from "../mainWindow/actions";
+import { onToolUp } from "../mainWin/actions";
 
 export function onClickBisectEdgesButton() {
     findMapEdgesCentres()

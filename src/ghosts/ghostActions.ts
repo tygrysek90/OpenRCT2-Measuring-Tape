@@ -6,7 +6,7 @@ import { opositeDirection } from "../fx/opositeDirection"
 import { orderVerifiedSelection } from "../fx/orderVerifiedSelection"
 import { selectionMidPoint } from "../fx/selectionMidPoint"
 import { tool } from "../tool/tool"
-import { model } from "../mainWindow/mainModel"
+import { model } from "../mainWin/mainModel"
 import { MapSelectionVerified, mapSelectionToVerified } from "../tool/mapSelection"
 import { mapTileSize } from "../common/mapTileSize"
 
