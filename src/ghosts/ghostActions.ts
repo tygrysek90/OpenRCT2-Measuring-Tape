@@ -22,17 +22,15 @@ interface TileWithGhost {
     ghostDirection?: Direction
 }
 
-/**
- * Stores ghosts
- */
+/** Stores ghosts (current working set) */
 var cementery: Array<TileWithGhost> = []
 
+/** Stores history of ghosts (old working sets) */
 var cementeryHistory: TileWithGhost[][] = []
 
-/**
- * Stores last selection in case of ghost manipulation
- */
+/** Stores last selection in case of visibility or object parameter change and thus ghost manipulation */
 var lastVerifiedSelection: MapSelectionVerified | undefined
+
 
 /**
  * Remove ghosts out of internal store
@@ -61,24 +59,41 @@ export function summonOldGhosts() {
 }
 
 
+/**
+ * Removes last ghost set from history and projects updated history
+ */
 export function removeLastFromHistory() {
     cementeryHistory.pop()
     exorciseCementery()
     summonOldGhosts()
 }
 
+
+/**
+ * Purges history
+ */
 export function eraseHistory() {
     cementeryHistory = []
     exorciseCementery()
 }
 
+
+/**
+ * TODO: naming 
+ * @returns TODO...
+ */
 export function isHistory(): boolean {
     return cementery.length == 0 && cementeryHistory.length == 0
 }
 
+
+/**
+ * Adds current working ghost set to history
+ */
 export function addToHistory() {
     cementeryHistory.push(cementery.slice())
 }
+
 
 /**
  * Moves ghosts based on new selection area
@@ -139,6 +154,27 @@ export function moveGhosts() {
 }
 
 
+export function determineGoodHeight(tile: Tile): number | undefined {
+    let retVal: number | undefined
+    tile.elements.forEach(element => {
+        if (element.type == "surface") {
+            if (element.waterHeight == 0) {
+                if (element.slope == 0) {
+                    retVal = element.baseHeight
+                }
+                else {
+                    retVal = element.baseHeight + 1
+                }
+            }
+            else {
+                retVal = element.waterHeight/8
+            }
+        }
+    })
+    return retVal
+}
+
+
 /**
  * Place a ghost on the game map and write into cementery storage
  * @param type 
@@ -146,14 +182,16 @@ export function moveGhosts() {
  * @param direction 
  */
 function setGhost(type: GhostConfigRow, tile: Tile, direction?: Direction) {
-    if (noGhostsOnTile(tile)) {
+    let goodHeight = determineGoodHeight(tile)
+
+    if (noGhostsOnTile(tile) && goodHeight != undefined) {
         // two cases: a wall or a small scenery
         switch (ghostConfig[type].objectType) {
             case "wall": 
                 if (direction != undefined) {
                     let newE = tile.insertElement(tile.numElements) as WallElement
                     newE.type = "wall"
-                    newE.baseHeight = tile.getElement(0).baseHeight
+                    newE.baseHeight = goodHeight
                     newE.direction = direction
                     newE.object = ghostConfig[type].objectId
                     newE.isGhost = true
@@ -162,7 +200,7 @@ function setGhost(type: GhostConfigRow, tile: Tile, direction?: Direction) {
             case "small_scenery":
                 let newE = tile.insertElement(tile.numElements) as SmallSceneryElement
                 newE.type = "small_scenery"
-                newE.baseHeight = tile.getElement(0).baseHeight
+                newE.baseHeight = goodHeight
                 newE.object = ghostConfig[type].objectId
                 newE.direction = direction??<Direction>(0)
                 newE.isGhost = true
@@ -267,7 +305,7 @@ function findGhostCentreLine(verifiedSelection: MapSelectionVerified): void {
     }
 }
 
-
+/** Self explanatory */
 function mapSizeToCoordsXYAsSelection(): CoordsXY {
     let mapsize = map.size // this is in tiles!  
 
@@ -277,7 +315,10 @@ function mapSizeToCoordsXYAsSelection(): CoordsXY {
     }
 } 
 
-
+/**
+ * Finds centers of each map edge
+ * (extra fn)
+ */
 export function findMapEdgesCentres() {
     let mapsize = map.size // this is in tiles!  
     mapsize.x = (mapsize.x-2)*mapTileSize
@@ -291,6 +332,10 @@ export function findMapEdgesCentres() {
     
 }
 
+/**
+ * Finds centre of the game map
+ * (extra fn)
+ */
 export function findMapCentre() {
     findGhostCentreOfArea({start: {x:mapTileSize,y:mapTileSize}, end:mapSizeToCoordsXYAsSelection()})
 }  
