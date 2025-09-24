@@ -3,7 +3,7 @@
 // https://github.com/Basssiiie/OpenRCT2-ProxyPather
 // 
 // originaly licensed under MIT License
-// see ./license/mit_license_Basssiiie_ProxyPather}` */
+// see licenses/mit_license_Basssiiie_ProxyPather}` */
 
 import { error } from "./logger";
 
