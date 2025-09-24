@@ -5,8 +5,25 @@
 // originaly licensed under MIT License
 // see .licenses/mit_license_Basssiiie_ProxyPather}` */
 
-// todo: this cannot be hardcoded
-const isDevelopment:boolean = true
+/**
+ * Returns the build configuration of the plugin.
+ */
+export const buildConfiguration = "__BUILD_CONFIGURATION__";
+
+
+/**
+ * Returns true if the current build is a production build.
+ */
+// @ts-expect-error: boolean expression is affected by build variable replacement.
+export const isProduction = (buildConfiguration === "production");
+
+
+/**
+ * Returns true if the current build is a production build.
+ */
+// @ts-expect-error: boolean expression is affected by build variable replacement.
+export const isDevelopment = (buildConfiguration === "development");
+
 
 /**
  * Logs a message is debug mode is enabled, or does nothing otherwise.
