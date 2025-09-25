@@ -287,7 +287,6 @@ function findGhostCentreOfArea(verifiedSelection: MapSelectionVerified) {
         setGhost(GhostConfigRow.area_centre, map.getTile(midPointOfOrdered.x/mapTileSize, midPointOfOrdered.y/mapTileSize))
         setGhost(GhostConfigRow.area_centre, map.getTile( (midPointOfOrdered.x/mapTileSize)+1, (midPointOfOrdered.y/mapTileSize)+1 )    )
     }
-    // TODO: there is a third case
     // 3rd & 4rd case : sides are one even and one odd 
     if  ((Math.abs(verifiedSelection.start.x-verifiedSelection.end.x)/mapTileSize)%2 == 1 && (Math.abs(verifiedSelection.start.y-verifiedSelection.end.y)/mapTileSize)%2 == 0) {
         let orderedSelection = orderVerifiedSelection(verifiedSelection)

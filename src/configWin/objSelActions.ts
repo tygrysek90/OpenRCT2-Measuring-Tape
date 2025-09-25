@@ -78,7 +78,6 @@ export function onCurrentDraw(g: GraphicsContext) {
 
 export function onSearchBoxChange(text: string) {
     loader.filter(text)
-    console.log(text, loader.namesWithIdentifiers)
     objSelModel.objList.set(loader.namesWithIdentifiers)
 }
 
@@ -90,6 +89,5 @@ export function onClickClearSearch() {
 export function onClickDefault() {
     let selectedRow = objSelModel.typeChosen.get().row
     objectConfigSetDefault()
-    console.log("defaulting seletion: "+selectedRow.toString())
     selectTop(selectedRow)
 }

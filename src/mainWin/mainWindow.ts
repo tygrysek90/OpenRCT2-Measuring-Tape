@@ -157,7 +157,7 @@ export const mainWindow = window({
                     width: imgbuttonSmall.widht,
                     image: vrenchPng.image,
                     tooltip: "Configure",
-                    onClick: () => openObjSelection(), // the parameter is unused
+                    onClick: () => openObjSelection(), 
                 }),
                 button({
                     height: imgbuttonSmall.heigh,

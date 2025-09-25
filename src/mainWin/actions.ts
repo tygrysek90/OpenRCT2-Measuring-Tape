@@ -155,7 +155,6 @@ function updateMeasurementTape(selection: MapSelection): void {
         model.currentMeasurement2Visibility.set(<ElementVisibility>("visible"))
         model.currentMeasurement2.set(`Area: {GREY}${(lengthX+1)*(lengthY+1)}`)
     }
-    //console.log(JSON.stringify(tool._selection))
     moveGhosts()
 }
 
