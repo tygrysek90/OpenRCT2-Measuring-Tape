@@ -13,14 +13,17 @@
  */
 
 import { Colour, FlexibleLayoutContainer, graphics, label, LayoutDirection, tab, tabwindow, vertical,  } from "openrct2-flexui";
-import { pluginVersion } from "../version";
 import { iPng } from "../imgs/i";
 import { questionMarkPng } from "../imgs/questionMark";
 import { tygrysek90Png } from "../imgs/tygrysek90";
+import { pluginVersionReadableWithName } from "../version";
+
+
 
 
 const aboutLines = [
     "",
+    `OpenRCT2-Measuring-Tape, v${pluginVersionReadableWithName}`,
     "Copyright © 2025 {TOPAZ}Ríša Szlachta (tygrysek90)",
     "", 
     "{BABYBLUE}https://github.com/tygrysek90/OpenRCT2-Measuring-Tape",
@@ -30,7 +33,7 @@ const aboutLines = [
     "",
     "",
     "{BABYBLUE}visit web for updates,",
-    "{BABYBLUE}choose \"Watch\" -> \"Custom\" -> \"Releases\" to get notifications",
+    "{BABYBLUE}choose “Watch“ -> “Custom“ -> “Releases“ to get notifications",
     "",
     "",
     "",
@@ -59,7 +62,7 @@ const helpLines = [
     "{BABYBLUE} OpenRCT2 discord channel ",
     "{BABYBLUE} #plugin @tygrysek90 or DM,",
     "or via {BABYBLUE}GitHub (if you would like",
-    "to make issue for bug report)",
+    "{BABYBLUE}to make issue for bug report)",
     "",
     "Have a pleasing day!"
 ]
@@ -79,7 +82,7 @@ function makeLabels(lines: Array<string>):FlexibleLayoutContainer {
 
 
 export const aboutHelpWindow = tabwindow({
-    title: `Measuring Tape - ${pluginVersion} - Info`,
+    title: `Measuring Tape - Info`,
     width: 360,
     height: "auto" ,
     position: "center",

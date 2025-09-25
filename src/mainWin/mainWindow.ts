@@ -25,7 +25,7 @@ import { removeAllPng } from "../imgs/removeAll";
 import { helpAboutPng } from "../imgs/helpAbout";
 import { extraPng } from "../imgs/extra";
 import { vrenchPng } from "../imgs/vrench";
-import { pluginVersion } from "../version";
+import { pluginVersionReadable } from "../version";
 import { answerToLifeAndEverything, imgbutton, imgbuttonSmall } from "../common/commonUiConsts";
 import { aboutHelpWindow } from "../aboutHelp/aboutHelpWin";
 import { openObjSelection } from "../configWin/openObjSelection";
@@ -182,7 +182,7 @@ export const mainWindow = window({
                 label({
                     disabled: true,
                     alignment: "centred",
-                    text: `${pluginVersion}`
+                    text: `v${pluginVersionReadable}`
                 })
             ]
         })

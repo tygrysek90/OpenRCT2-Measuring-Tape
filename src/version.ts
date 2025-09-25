@@ -7,4 +7,15 @@
  * is licensed under the GNU General Public License version 3.
  *****************************************************************************/
 
-export const pluginVersion = "v-0.0-preview"
+// TODO: resolve this automaticaly
+
+/** plugin version with 'v-' prefix */
+export const pluginVersion = "v-0.1"
+
+/** plugin version without 'v-' prefix */
+export const pluginVersionReadable = pluginVersion.slice(2)
+
+/** Release name */
+const pluginVersionReleaseName = "Bari"
+
+export const pluginVersionReadableWithName = `${pluginVersionReadable} “${pluginVersionReleaseName}“`
