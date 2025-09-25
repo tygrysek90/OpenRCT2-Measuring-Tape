@@ -1,31 +1,40 @@
 # OpenRCT2-Measuring-Tape
 ### Tired of counting tiles and finding perfect centres on your OpenRCT2 map?
-### Measuring Tape plugin is here to give you head!
+### Measuring Tape plugin is here to give you hand!
 
-<br/><br/>
+<br/>
 
-![measuring-tape-preview](https://github.com/user-attachments/assets/c8ba572a-3e63-42a5-9966-5c5dc1e3a63b)
+![master-pre](https://github.com/user-attachments/assets/18d879a6-4439-4fa3-bb69-7d3bb3634a68)
 
 
 ## Features
 
 ### Measure lenght
-<img width="677" height="442" alt="Snímek obrazovky z 2025-09-21 18-45-21" src="https://github.com/user-attachments/assets/d01d3f80-0a84-49f7-b148-3240485c1595" />
+<img width="490" height="395" alt="Snímek obrazovky z 2025-09-25 13-34-05" src="https://github.com/user-attachments/assets/32a9bb86-dec3-495c-94ad-5a552d1cd302" />
 
 ### Measure area
-<img width="792" height="448" alt="Snímek obrazovky z 2025-09-21 18-45-44" src="https://github.com/user-attachments/assets/ca13e079-e4a9-4f87-91d0-c4760e2af367" />
+<img width="490" height="395" alt="Snímek obrazovky z 2025-09-25 13-34-48" src="https://github.com/user-attachments/assets/1eadafe6-338c-4063-b056-66f1f5049db6" />
 
 ### Find centre of map and map edges
-<img width="659" height="681" alt="Snímek obrazovky z 2025-09-21 18-39-11" src="https://github.com/user-attachments/assets/baffc093-e0ae-40b5-ae31-c5b37e7c69e9" />
+<img width="608" height="653" alt="Snímek obrazovky z 2025-09-25 13-37-57" src="https://github.com/user-attachments/assets/424e4ca8-1e19-4203-ba39-b8f03833116b" />
 
 ### Configure objects used 
-<img width="736" height="475" alt="Snímek obrazovky z 2025-09-21 18-43-13" src="https://github.com/user-attachments/assets/34df9725-1171-43b6-84b1-974ad21d74d8" />
+<img width="561" height="460" alt="Snímek obrazovky z 2025-09-25 13-36-12" src="https://github.com/user-attachments/assets/026a7304-aa7c-48f5-9a75-b99c38398252" />
+
+### Stacking and undo-able history of measurements
+![meas-tape-hist-stack](https://github.com/user-attachments/assets/1ddcc70d-17da-4bf9-a981-8fd644bd5677)
+
 
 ### And more...
 
+## Release version
+(soon)
+
 ## Building from source
-(no releases yet, sorry!)
+Follow instruction from https://github.com/Basssiiie/OpenRCT2-Simple-Typescript-Template - with small spice: before `npm run build:dev` run `node rebuildPngToBase64.js`, as base64 version of images used on buttons is then rolled up in plugin.
 
-Follow instruction from https://github.com/Basssiiie/OpenRCT2-Simple-Typescript-Template - with small spice: before `npm run build:dev` you have to create (empty) direcotry `src/imgs` and then run `node rebuildPngToBase64.js`, as base64 version of images used on buttons is then rolled up in plugin.
+Visual Studio Code users can clone this repository in editor and use Terminal -> Run task... menu options (including downloading `openrct2.d.ts` into lib directory and running `rebuildPngToBase64.js`)
 
-Visual Studio Code users can clone this repository in editor and use Terminal -> Run task... menu options (including downloading openrct2.d.ts into lib directory)
+## Contact the author
+Bug reports, feature ideas or requests, any kind of collaboaration - I am open-minded to chat about anything: contact me
+via GitHub - you can make an Issue, or catch me via OpenRCT2 discord #plugin (or direct message)
