@@ -94,6 +94,9 @@ export function onClickKeepOneButton() {
 }
 
 export function onClickKeepAllButton() {
+    if (model.ghostsButtonsPressed.keepOne.get() == true) {
+        addToHistory()
+    }
     if (model.ghostsButtonsPressed.keepAll.get() == true) {
         exorciseCementery()
     }
