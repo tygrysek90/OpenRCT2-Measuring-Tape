@@ -10,12 +10,12 @@
 // TODO: resolve this automaticaly
 
 /** plugin version with 'v-' prefix */
-export const pluginVersion = "v-0.1"
+export const pluginVersion = "v-0.1.1-dev"
 
 /** plugin version without 'v-' prefix */
 export const pluginVersionReadable = pluginVersion.slice(2)
 
 /** Release name */
-const pluginVersionReleaseName = "Bari"
+const pluginVersionReleaseName = "development"
 
 export const pluginVersionReadableWithName = `${pluginVersionReadable} “${pluginVersionReleaseName}“`
