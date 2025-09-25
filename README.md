@@ -6,7 +6,9 @@
 
 ![master-pre](https://github.com/user-attachments/assets/18d879a6-4439-4fa3-bb69-7d3bb3634a68)
 
-
+## Release version
+**[Initial release: v0.1 "Bari"
+](https://github.com/tygrysek90/OpenRCT2-Measuring-Tape/releases/tag/v0.1)**
 ## Features
 
 ### Measure lenght
@@ -28,7 +30,8 @@
 ### And more...
 
 ## Release version
-(soon)
+**[Initial release: v0.1 "Bari"
+](https://github.com/tygrysek90/OpenRCT2-Measuring-Tape/releases/tag/v0.1)**
 
 ## Building from source
 Follow instruction from https://github.com/Basssiiie/OpenRCT2-Simple-Typescript-Template - with small spice: before `npm run build:dev` run `node rebuildPngToBase64.js`, as base64 version of images used on buttons is then rolled up in plugin.
