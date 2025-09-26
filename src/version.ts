@@ -13,7 +13,7 @@
 export const pluginVersion = "v-0.1.1-dev"
 
 /** plugin version without 'v-' prefix */
-export const pluginVersionReadable = pluginVersion.slice(2)
+export const pluginVersionReadable = `{TOPAZ}${pluginVersion.slice(2)}`
 
 /** Release name */
 const pluginVersionReleaseName = "development"
