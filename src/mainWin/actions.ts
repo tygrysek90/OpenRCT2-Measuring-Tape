@@ -33,22 +33,35 @@ function depressToolButtons() {
     model.modeButtonsPressed.tape.set(false)
 }
 
-export function onClickAreaButton() {
+function commonToolDepress() {
     onToolCancel()
     depressToolButtons()
     setDeafultMeasurementLabels()
-    model.modeButtonsPressed.area.set(true)
-    tool.mode = "area"
-    startTool()
+}
+
+export function onClickAreaButton() {
+    if (model.modeButtonsPressed.area.get()) {
+        commonToolDepress()
+    }
+    else {
+        depressToolButtons()
+        model.modeButtonsPressed.area.set(true)
+        tool.mode = "area"
+        startTool()
+    }
+    
 }
 
 export function onClickTapeButton() {
-    onToolCancel()
-    depressToolButtons()
-    setDeafultMeasurementLabels()
-    model.modeButtonsPressed.tape.set(true)
-    tool.mode = "tape"
-    startTool()
+    if (model.modeButtonsPressed.tape.get()) {
+        commonToolDepress()
+    }
+    else {
+        depressToolButtons()
+        model.modeButtonsPressed.tape.set(true)
+        tool.mode = "tape"
+        startTool()
+    }
 }
 // END GROUPBOX "Mode"
 
@@ -132,7 +145,7 @@ function onToolCancel(): void {
     }
     setDeafultMeasurementLabels()
     setDissmisButtonsDisability()
-
+    depressToolButtons()
     tool.mode = "off"
 }
 
@@ -189,6 +202,8 @@ export function	shortcutCallback()
 {
     if (tool.mode == "off") {
         tool.mode = "tape"
+        depressToolButtons()
+        model.modeButtonsPressed.tape.set(true)
         startTool()
     }
 }
