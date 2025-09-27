@@ -43,6 +43,7 @@ function commonToolDepress() {
 
 export function onClickAreaButton() {
     if (model.modeButtonsPressed.area.get()) {
+        stopTool()
         commonToolDepress()
     }
     else {
@@ -56,6 +57,7 @@ export function onClickAreaButton() {
 
 export function onClickTapeButton() {
     if (model.modeButtonsPressed.tape.get()) {
+        stopTool()
         commonToolDepress()
     }
     else {
