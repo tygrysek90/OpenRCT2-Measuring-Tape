@@ -18,6 +18,11 @@ import { breakObjectName } from "../fx/breakObjectName";
 
 var loader: DataLoader
 
+/**
+ * Updates upper "type" part of object selection,
+ * cleans up lower "object" part
+ * @param ghostType GhostConfigRow order is observed
+ */
 function updateObjGroup(ghostType: GhostConfigRow) {
     loader = new DataLoader(ghostConfig[ghostType].objectType)
     objSelModel.typeChosenLabel.set(`${ghostConfig[ghostType].humanReadable}`)
@@ -43,13 +48,10 @@ export function selectTop(which: GhostConfigRow) {
     updateObjGroup(which)
 }
 
-export function GetCurrentlySelectedObjectImage(): number {
-    return 1
-}
-
+/** Image number of currently previewed object */
 var previewObjectimage: number | undefined = undefined
 
-export function onHighlightObjectLust(num: number) {
+export function onHighlightObjectList(num: number) {
     previewObjectimage = loader.images[num]
     objSelModel.objSelectedName.set(loader.names[num])
 }

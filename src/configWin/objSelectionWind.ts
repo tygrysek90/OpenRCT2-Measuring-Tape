@@ -14,7 +14,7 @@
 
 import { window, Colour, groupbox, LayoutDirection, button, horizontal, vertical, label, textbox, listview, graphics, twoway } from "openrct2-flexui"
 import { objSelModel } from "./objSelModel"
-import { onClickClearSearch, onClickDefault, onClickObjectList, onClickTypeList, purgePreview, onCurrentDraw, onHighlightObjectLust, onPreviewDraw, onSearchBoxChange } from "./objSelActions"
+import { onClickClearSearch, onClickDefault, onClickObjectList, onClickTypeList, purgePreview, onCurrentDraw, onHighlightObjectList, onPreviewDraw, onSearchBoxChange } from "./objSelActions"
 
 
 const objButtonHeight = 16
@@ -130,7 +130,7 @@ export const objectSelectionWindow = window({
                         scrollbars: "vertical",
                         canSelect: true,
                         items: objSelModel.objList,
-                        onHighlight: (item) => onHighlightObjectLust(item),
+                        onHighlight: (item) => onHighlightObjectList(item),
                         onClick: (item) => onClickObjectList(item)
                         })
                     ]
