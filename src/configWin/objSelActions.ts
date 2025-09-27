@@ -25,6 +25,8 @@ function updateObjGroup(ghostType: GhostConfigRow) {
     objSelModel.typeChosenObjLabel2.set(breakObjectName(`{BABYBLUE}${ghostConfig[ghostType].objectIdentifer}`))
     objSelModel.objList.set(loader.namesWithIdentifiers)
     objSelModel.objGroupLabel.set(`Pick an new object for ghost of ${ghostConfig[ghostType].humanReadable}`)
+    objSelModel.objSearchFilter.set("")
+    purgePreview()
 }
 
 export function onClickTypeList(item: number) {
@@ -39,15 +41,13 @@ export function selectTop(which: GhostConfigRow) {
     })
     objSelModel.typeList.set(typeList)
     updateObjGroup(which)
-    
-    
 }
 
 export function GetCurrentlySelectedObjectImage(): number {
     return 1
 }
 
-var previewObjectimage: number = -1
+var previewObjectimage: number | undefined = undefined
 
 export function onHighlightObjectLust(num: number) {
     previewObjectimage = loader.images[num]
@@ -63,12 +63,10 @@ export function onClickObjectList(item: number){
     objSelModel.typeChosenObjLabel2.set(breakObjectName(`{BABYBLUE}${ghostConfig[objSelModel.typeChosen.get().row].objectIdentifer}`))
 }
 
-export function getShownObjectImage(): number {
-    return previewObjectimage
-}
-
 export function onPreviewDraw(g: GraphicsContext) {
-    g.image(previewObjectimage, 55, 80)
+    if (previewObjectimage != undefined) {
+        g.image(previewObjectimage, 55, 80)
+    }
 }
 
 export function onCurrentDraw(g: GraphicsContext) {
@@ -90,4 +88,9 @@ export function onClickDefault() {
     let selectedRow = objSelModel.typeChosen.get().row
     objectConfigSetDefault()
     selectTop(selectedRow)
+}
+
+export function purgePreview() {
+    previewObjectimage = undefined
+    objSelModel.objSelectedName.set("")
 }

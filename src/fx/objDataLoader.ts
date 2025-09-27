@@ -81,9 +81,10 @@ export class DataLoader {
     }
 
     filter(searchedString: string) {
+        let regex = new RegExp(searchedString, 'i')
         this._emptyArrays()
         for (let i=0; i<this._ids.length; i++) {
-            if (this._namesWithIdentifiers[i].search(searchedString) > -1) {
+            if (regex.test(this._namesWithIdentifiers[i])) {
                 this.ids.push(this._ids[i])
                 this.images.push(this._images[i])
                 this.names.push(this._names[i])
