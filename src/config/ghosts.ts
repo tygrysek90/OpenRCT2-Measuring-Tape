@@ -66,7 +66,6 @@ function populateGhostConfig() {
         let inLoaderIndex = loaders[loaderArrPos].identifiers.indexOf(config.objectIdentifer)
         config.image = loaders[loaderArrPos].images[inLoaderIndex]
         config.objectId = loaders[loaderArrPos].ids[inLoaderIndex]
-        console.log("xxx ",config.image, config.objectId)
     })
 }
 
