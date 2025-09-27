@@ -18,6 +18,8 @@ import { mapTileSize } from "../common/mapTileSize";
 import { defaults, model } from "./mainModel";
 import { addToHistory, eraseHistory, exorciseCementery, isHistory, moveGhosts, removeLastFromHistory } from "../ghosts/ghostActions";
 import { tool } from "../tool/tool";
+import { ToolMode } from "../tool/mapSelectionTool";
+import { savedToolMode } from "../config/toolMode";
 
 // GROUPBOX (measurement)
 function setDeafultMeasurementLabels() {
@@ -182,6 +184,7 @@ export function stopTool(){
 export function startTool() 
 {
     if (tool.mode == "tape") {
+        savedToolMode.set("tape")
         tool.setConstraint(1)
         tool.activate()
         tool.onCancel = () => onToolCancel()
@@ -190,6 +193,7 @@ export function startTool()
     }
 
     if (tool.mode == "area") {
+        savedToolMode.set("area")
         tool.remConstraint()
         tool.activate()
         tool.onCancel = () => onToolCancel()
@@ -202,12 +206,19 @@ export function startTool()
  * this should be for ALT+T keyboard shortcut
  * start a tool instantly, no wait, no extra clicks, just go for it
  */
-export function	nicelyStartDefaultTool()
+export function	nicelyStartTool(whichMode: ToolMode)
 {
     if (tool.mode == "off") {
-        tool.mode = "tape"
+        if (whichMode != undefined) {
+            tool.mode = whichMode
+        }
         depressToolButtons()
-        model.modeButtonsPressed.tape.set(true)
+        if (whichMode == "tape") {
+            model.modeButtonsPressed.tape.set(true)
+        }
+        if (whichMode == "area") {
+            model.modeButtonsPressed.area.set(true)
+        }
         startTool()
     }
 }

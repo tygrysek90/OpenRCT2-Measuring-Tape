@@ -7,7 +7,8 @@
  * is licensed under the GNU General Public License version 3.
  *****************************************************************************/
 
-import { nicelyStartDefaultTool } from "./mainWin/actions";
+import { savedToolMode } from "./config/toolMode";
+import { nicelyStartTool } from "./mainWin/actions";
 import { getMainWindowOpenState, setMainWindowOpenState } from "./mainWin/isOpen";
 import { mainWindow } from "./mainWin/mainWindow";
 
@@ -29,7 +30,7 @@ function openMainWindowIfNotAllready() {
 	}
 	else {
 		mainWindow.focus()
-		nicelyStartDefaultTool()
+		nicelyStartTool(savedToolMode.get())
 	}
 }
 
