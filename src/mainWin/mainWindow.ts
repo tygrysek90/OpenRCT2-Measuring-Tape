@@ -33,7 +33,7 @@ import { extraWindow } from "../extraToolsWin/extraWindow";
 import { measureAreaPng } from "../imgs/measureArea";
 import { initConfig } from "../config/ghosts";
 import { setMainWindowOpenState } from "./isOpen";
-import { savedToolMode } from "../config/toolMode";
+import { startToolMode } from "../config/toolMode";
 
 
 /**
@@ -193,7 +193,7 @@ export const mainWindow = window({
     onOpen() {
         setMainWindowOpenState(true)
         initConfig()
-        nicelyStartTool(savedToolMode.get())
+        nicelyStartTool(startToolMode.get())
     },
     onClose() {
         stopTool()

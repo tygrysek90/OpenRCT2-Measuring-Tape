@@ -1,7 +1,7 @@
 import { ToolMode } from "../tool/mapSelectionTool";
 
-export const savedToolMode = {
-    savedToolMode: <ToolMode>("area"),
+export const startToolMode = {
+    savedToolMode: <ToolMode>("tape"),
 
     get() {
         return this.savedToolMode

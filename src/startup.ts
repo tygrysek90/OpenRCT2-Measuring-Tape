@@ -7,21 +7,46 @@
  * is licensed under the GNU General Public License version 3.
  *****************************************************************************/
 
-import { savedToolMode } from "./config/toolMode";
-import { nicelyStartTool } from "./mainWin/actions";
+import { startToolMode } from "./config/toolMode";
+import { nicelyStartTool, stopTool } from "./mainWin/actions";
 import { getMainWindowOpenState, setMainWindowOpenState } from "./mainWin/isOpen";
 import { mainWindow } from "./mainWin/mainWindow";
 
-const shortcutOpenWindow: ShortcutDesc = {
-	id: "measuring-tape.mainwindow.open",
-	text: "Measuring Tape: Open & measure",
-	bindings: ["ALT+T"],
-	callback() {
-		openMainWindowIfNotAllready()
-	}
-}
+const shortcuts: Array<ShortcutDesc> = [
+	{
+		id: "measuring-tape.mainwindow.open",
+		text: "[Meas. Tape] Open & measure",
+		bindings: ["ALT+T"],
+		callback() {
+			openMainWindowIfNotAllready()
+		}
 
-ui.registerShortcut(shortcutOpenWindow)
+	},
+	{
+		id: "measuring-tape.mainwindow.open-tape",
+		text: "[Meas. Tape] Tape tool",
+		bindings: [""],
+		callback() {
+			startToolMode.set("tape")
+			openMainWindowIfNotAllready()
+		}
+	},
+	{
+		id: "measuring-tape.mainwindow.open-area",
+		text: "[Meas. Tape] Area tool",
+		bindings: [""],
+		callback() {
+			startToolMode.set("area")
+			openMainWindowIfNotAllready()
+		}
+	}
+]
+
+export function registerShortcuts() {
+shortcuts.forEach(shortcut => {
+	ui.registerShortcut(shortcut)
+})
+}
 
 function openMainWindowIfNotAllready() {
 	if (getMainWindowOpenState() == false) {
@@ -30,12 +55,14 @@ function openMainWindowIfNotAllready() {
 	}
 	else {
 		mainWindow.focus()
-		nicelyStartTool(savedToolMode.get())
+		stopTool()
+		nicelyStartTool(startToolMode.get())
 	}
 }
 
 /** Register a menu item under the map icon: */
 export function startup() {
+	registerShortcuts()
 	if (typeof ui !== "undefined") {
 		const menuItemName = "Measuring Tape";
 		ui.registerMenuItem(menuItemName, () => openMainWindowIfNotAllready());

@@ -19,7 +19,7 @@ import { defaults, model } from "./mainModel";
 import { addToHistory, eraseHistory, exorciseCementery, isHistory, moveGhosts, removeLastFromHistory } from "../ghosts/ghostActions";
 import { tool } from "../tool/tool";
 import { ToolMode } from "../tool/mapSelectionTool";
-import { savedToolMode } from "../config/toolMode";
+import { startToolMode } from "../config/toolMode";
 
 // GROUPBOX (measurement)
 function setDeafultMeasurementLabels() {
@@ -184,7 +184,7 @@ export function stopTool(){
 export function startTool() 
 {
     if (tool.mode == "tape") {
-        savedToolMode.set("tape")
+        startToolMode.set("tape")
         tool.setConstraint(1)
         tool.activate()
         tool.onCancel = () => onToolCancel()
@@ -193,7 +193,7 @@ export function startTool()
     }
 
     if (tool.mode == "area") {
-        savedToolMode.set("area")
+        startToolMode.set("area")
         tool.remConstraint()
         tool.activate()
         tool.onCancel = () => onToolCancel()
