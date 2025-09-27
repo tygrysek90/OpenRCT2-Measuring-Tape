@@ -129,11 +129,11 @@ export const objectSelectionWindow = window({
                             ]
                         }),
                         listview({
-                        scrollbars: "vertical",
-                        canSelect: true,
-                        items: objSelModel.objList,
-                        onHighlight: (item) => onHighlightObjectList(item),
-                        onClick: (item) => onClickObjectList(item)
+                            scrollbars: "vertical",
+                            canSelect: true,
+                            items: objSelModel.objList,
+                            onHighlight: (item) => onHighlightObjectList(item),
+                            onClick: (item) => onClickObjectList(item)
                         }),
                         checkbox({
                             disabled: objSelModel.objCheckFilter.disabled,
