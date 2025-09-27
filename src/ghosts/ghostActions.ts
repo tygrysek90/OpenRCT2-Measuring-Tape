@@ -166,7 +166,11 @@ export function moveGhosts() {
     }
 }
 
-
+/**
+ * Finds height to place ghost at given tile
+ * @param tile OpenRCT2 Tile reference
+ * @returns height of land, if its sloped, height+1 and if theres water, returns water level (so the ghost will not be sunked underwater)
+ */
 export function determineGoodHeight(tile: Tile): number | undefined {
     let retVal: number | undefined
     tile.elements.forEach(element => {
