@@ -139,7 +139,7 @@ export function onClickDissmissAll() {
 /**
  * Generally canceling tool via ESC or when another tool (eg. place scenery or footpath) gets invoked
  */
-function onToolCancel(): void {
+export function onToolCancel(): void {
     if (!(model.ghostsButtonsPressed.keepOne.get() || model.ghostsButtonsPressed.keepAll.get())) {
     exorciseCementery()
     }
@@ -169,6 +169,10 @@ function updateMeasurementTape(selection: MapSelection): void {
         model.currentMeasurement2.set(`Area: {GREY}${(lengthX+1)*(lengthY+1)}`)
     }
     moveGhosts()
+}
+
+export function stopTool(){
+    tool.deactivate()
 }
 
 

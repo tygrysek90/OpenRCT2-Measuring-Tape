@@ -14,7 +14,7 @@
 
 import { button, Colour, groupbox, horizontal, label, LayoutDirection, window } from "openrct2-flexui";
 import { model } from "./mainModel";
-import { nicelyStartDefaultTool, onClickAreaButton, onClickDisimissLast, onClickDissmissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton } from "./actions";
+import { nicelyStartDefaultTool, onClickAreaButton, onClickDisimissLast, onClickDissmissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton, stopTool } from "./actions";
 import { tapePng } from "../imgs/tape";
 import { endsPng } from "../imgs/ends";
 import { centrePng } from "../imgs/centre";
@@ -32,6 +32,7 @@ import { openObjSelection } from "../configWin/openObjSelection";
 import { extraWindow } from "../extraToolsWin/extraWindow";
 import { measureAreaPng } from "../imgs/measureArea";
 import { initConfig } from "../config/ghosts";
+import { setMainWindowOpenState } from "./isOpen";
 
 
 /**
@@ -48,7 +49,7 @@ export const mainWindow = window({
             height: answerToLifeAndEverything,
             content: [
                 label({
-                    text: model.currentMeasurement
+                    text: model.currentMeasurement,
                 }),
                 label({
                     text: model.currentMeasurement2,
@@ -189,7 +190,12 @@ export const mainWindow = window({
         })
     ],
     onOpen() {
+        setMainWindowOpenState(true)
         initConfig()
         nicelyStartDefaultTool()
     },
+    onClose() {
+        stopTool()
+        setMainWindowOpenState(false)
+    }
 })
