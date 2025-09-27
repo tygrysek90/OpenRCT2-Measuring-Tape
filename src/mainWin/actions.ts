@@ -198,7 +198,7 @@ export function startTool()
  * this should be for ALT+T keyboard shortcut
  * start a tool instantly, no wait, no extra clicks, just go for it
  */
-export function	shortcutCallback()
+export function	nicelyStartDefaultTool()
 {
     if (tool.mode == "off") {
         tool.mode = "tape"

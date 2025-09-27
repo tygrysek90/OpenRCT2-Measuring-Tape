@@ -14,7 +14,7 @@
 
 import { button, Colour, groupbox, horizontal, label, LayoutDirection, window } from "openrct2-flexui";
 import { model } from "./mainModel";
-import { onClickAreaButton, onClickDisimissLast, onClickDissmissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton } from "./actions";
+import { nicelyStartDefaultTool, onClickAreaButton, onClickDisimissLast, onClickDissmissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton } from "./actions";
 import { tapePng } from "../imgs/tape";
 import { endsPng } from "../imgs/ends";
 import { centrePng } from "../imgs/centre";
@@ -31,6 +31,7 @@ import { aboutHelpWindow } from "../aboutHelp/aboutHelpWin";
 import { openObjSelection } from "../configWin/openObjSelection";
 import { extraWindow } from "../extraToolsWin/extraWindow";
 import { measureAreaPng } from "../imgs/measureArea";
+import { initConfig } from "../config/ghosts";
 
 
 /**
@@ -186,5 +187,9 @@ export const mainWindow = window({
                 })
             ]
         })
-    ]
+    ],
+    onOpen() {
+        initConfig()
+        nicelyStartDefaultTool()
+    },
 })

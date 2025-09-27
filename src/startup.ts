@@ -7,8 +7,6 @@
  * is licensed under the GNU General Public License version 3.
  *****************************************************************************/
 
-import {  shortcutCallback } from "./mainWin/actions";
-import { initConfig as initPluginConfig } from "./config/ghosts";
 import { mainWindow } from "./mainWin/mainWindow";
 
 const shortcutOpenWindow: ShortcutDesc = {
@@ -17,12 +15,10 @@ const shortcutOpenWindow: ShortcutDesc = {
 	bindings: ["ALT+T"],
 	callback() {
 		mainWindow.open()
-		shortcutCallback()
 	}
 }
 
 ui.registerShortcut(shortcutOpenWindow)
-initPluginConfig()
 
 /** Register a menu item under the map icon: */
 export function startup() {

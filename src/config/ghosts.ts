@@ -52,15 +52,22 @@ function defaultConfig(): Array<GhostConfig> {
 export var ghostConfig: Array<GhostConfig>
 
 function populateGhostConfig() {
+    let loaders: Array<DataLoader> = []
+ 
+    let loadersOrder: Array<ObjectType> = []
+    
+    loaders.push(new DataLoader("wall"))
+    loadersOrder.push("wall")
+    loaders.push(new DataLoader("small_scenery"))
+    loadersOrder.push("small_scenery")
+
     ghostConfig.forEach(config => {
-        let loader = new DataLoader(config.objectType)
-        for (let i=0; i<loader.identifiers.length; i++) {
-            if (config.objectIdentifer == loader.identifiers[i]) {
-                config.image = loader.images[i]
-                config.objectId = loader.ids[i]
-            }
-        }
-    }) 
+        let loaderArrPos = loadersOrder.indexOf(config.objectType)
+        let inLoaderIndex = loaders[loaderArrPos].identifiers.indexOf(config.objectIdentifer)
+        config.image = loaders[loaderArrPos].images[inLoaderIndex]
+        config.objectId = loaders[loaderArrPos].ids[inLoaderIndex]
+        console.log("xxx ",config.image, config.objectId)
+    })
 }
 
 export function initConfig() {
