@@ -8,6 +8,7 @@
  *****************************************************************************/
 
 import { debug } from "../logger/logger"
+import { smolScIsNormal } from "./smolScIsNormal"
 
 
 /**
@@ -45,13 +46,16 @@ export class DataLoader {
     _identifiers: string [] = []
     _namesWithIdentifiers: string[] = []
 
+    /** Store loaded object type for self-touching functions */
+    _objectType: ObjectType
+
     constructor(objectType: ObjectType) {
     /**
      * Loads data from the game
      * @param objectType openrct2.d.ts ObjectType
      */
         let loadedObjects:LoadedObject[] = objectManager.getAllObjects(objectType)
-
+        this._objectType = objectType
 
         loadedObjects.forEach(object => {
             this._ids.push(object.index)
@@ -60,11 +64,11 @@ export class DataLoader {
             this._identifiers.push(object.identifier)
             this._namesWithIdentifiers.push(`${object.name}  {GREY}(${object.identifier})`)
         })
-        this._populateArrays()
+        this.populateArrays()
         debug("dataLoader: Loaded "+objectType.valueOf())
     }
 
-    _populateArrays() {
+    private populateArrays() {
         this.ids = this._ids.slice()
         this.images = this._images.slice()
         this.names = this._names.slice()
@@ -72,7 +76,7 @@ export class DataLoader {
         this.namesWithIdentifiers = this._namesWithIdentifiers.slice()
     }
 
-    _emptyArrays() {
+    private emptyArrays() {
         this.ids = []
         this.images = []
         this.names = []
@@ -80,17 +84,35 @@ export class DataLoader {
         this.namesWithIdentifiers = []
     }
 
-    filter(searchedString: string) {
+    private filterPush(i: number) {
+        this.ids.push(this._ids[i])
+        this.images.push(this._images[i])
+        this.names.push(this._names[i])
+        this.identifiers.push(this._identifiers[i])
+        this.namesWithIdentifiers.push(this._namesWithIdentifiers[i])
+    }
+
+    filter(searchedString: string, filterSmolScenery:boolean) {
         let regex = new RegExp(searchedString, 'i')
-        this._emptyArrays()
+        this.emptyArrays()
         for (let i=0; i<this._ids.length; i++) {
             if (regex.test(this._namesWithIdentifiers[i])) {
-                this.ids.push(this._ids[i])
-                this.images.push(this._images[i])
-                this.names.push(this._names[i])
-                this.identifiers.push(this._identifiers[i])
-                this.namesWithIdentifiers.push(this._namesWithIdentifiers[i])
-            }
+
+                if (this._objectType != "small_scenery") {
+                        this.filterPush(i)
+                    
+                }
+                else {
+                    if (filterSmolScenery == true) {
+                        if (smolScIsNormal(this._ids[i])) {
+                            this.filterPush(i)
+                        }
+                    }
+                    else {
+                        this.filterPush(i)
+                    }
+                }
+            }   
         }
     }
 		

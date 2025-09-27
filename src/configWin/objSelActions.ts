@@ -28,10 +28,16 @@ function updateObjGroup(ghostType: GhostConfigRow) {
     objSelModel.typeChosenLabel.set(`${ghostConfig[ghostType].humanReadable}`)
     objSelModel.typeChosenObjLabel.set(loader._names[loader._identifiers.indexOf(ghostConfig[ghostType].objectIdentifer)])
     objSelModel.typeChosenObjLabel2.set(breakObjectName(`{BABYBLUE}${ghostConfig[ghostType].objectIdentifer}`))
-    objSelModel.objList.set(loader.namesWithIdentifiers)
+    onSearchParamChange()
     objSelModel.objGroupLabel.set(`Pick an new object for ghost of ${ghostConfig[ghostType].humanReadable}`)
     objSelModel.objSearchFilter.set("")
     purgePreview()
+    if (ghostConfig[ghostType].objectType == "small_scenery") {
+        objSelModel.objCheckFilter.disabled.set(false)
+    }
+    else {
+        objSelModel.objCheckFilter.disabled.set(true)
+    }
 }
 
 export function onClickTypeList(item: number) {
@@ -46,6 +52,7 @@ export function selectTop(which: GhostConfigRow) {
     })
     objSelModel.typeList.set(typeList)
     updateObjGroup(which)
+
 }
 
 /** Image number of currently previewed object */
@@ -76,14 +83,16 @@ export function onCurrentDraw(g: GraphicsContext) {
   
 }
 
-export function onSearchBoxChange(text: string) {
-    loader.filter(text)
+export function onSearchParamChange() {
+    let searchIn = objSelModel.objSearchFilter.get()
+    let isFilter = objSelModel.objCheckFilter.value.get()
+    loader.filter(searchIn,isFilter)
     objSelModel.objList.set(loader.namesWithIdentifiers)
 }
 
 export function onClickClearSearch() {
     objSelModel.objSearchFilter.set("")
-    onSearchBoxChange("")
+    onSearchParamChange()
 }
 
 export function onClickDefault() {

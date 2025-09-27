@@ -12,9 +12,9 @@
  * GUI definition
  */
 
-import { window, Colour, groupbox, LayoutDirection, button, horizontal, vertical, label, textbox, listview, graphics, twoway } from "openrct2-flexui"
+import { window, Colour, groupbox, LayoutDirection, button, horizontal, vertical, label, textbox, listview, graphics, twoway, checkbox } from "openrct2-flexui"
 import { objSelModel } from "./objSelModel"
-import { onClickClearSearch, onClickDefault, onClickObjectList, onClickTypeList, purgePreview, onCurrentDraw, onHighlightObjectList, onPreviewDraw, onSearchBoxChange } from "./objSelActions"
+import { onClickClearSearch, onClickDefault, onClickObjectList, onClickTypeList, purgePreview, onCurrentDraw, onHighlightObjectList, onPreviewDraw, onSearchParamChange } from "./objSelActions"
 
 
 const objButtonHeight = 16
@@ -94,6 +94,8 @@ export const objectSelectionWindow = window({
                             //isPressed: ,
                             onClick: () => onClickDefault(),
                         }),
+
+                        
                     ]
                 })
                  
@@ -115,7 +117,7 @@ export const objectSelectionWindow = window({
                                     text: twoway(objSelModel.objSearchFilter),
                                     maxLength: 40,
                                     tooltip: "Enter text to search object list",
-                                    onChange: (text: string) => onSearchBoxChange(text)
+                                    onChange: () => onSearchParamChange()
                                 }),
                                 button({
                                     width: 65,
@@ -132,6 +134,13 @@ export const objectSelectionWindow = window({
                         items: objSelModel.objList,
                         onHighlight: (item) => onHighlightObjectList(item),
                         onClick: (item) => onClickObjectList(item)
+                        }),
+                        checkbox({
+                            disabled: objSelModel.objCheckFilter.disabled,
+                            height: 8,
+                            text: "Filter unfit small scenery {BABYBLUE} - trees, swamps, cocks, 1/4 tiles",
+                            isChecked: twoway(objSelModel.objCheckFilter.value),
+                            onChange: () => onSearchParamChange()
                         })
                     ]
                 }),

@@ -26,8 +26,12 @@ export const objSelModel = {
     objGroupLabel: store<string>("Error: not initialized"),
     /** Input field for searching */
     objSearchFilter: store<string>(""),
+    /** Checkbox for scenery filter */
+    objCheckFilter: {
+        value: store<boolean>(true),
+        disabled: store<boolean>(false)
+    } ,
     objList: store<string[]>( ["error:", "no", "items", "loaded", ":("]),
     objSelectedName: store<string>("")
-
 
 }
