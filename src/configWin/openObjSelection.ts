@@ -15,5 +15,6 @@ import { objectSelectionWindow } from "./objSelectionWind";
 export function openObjSelection() {
     objectSelectionWindow.open();
     objectSelectionWindow.focus();
+    
     selectTop(GhostConfigRow.tape_start);
 }

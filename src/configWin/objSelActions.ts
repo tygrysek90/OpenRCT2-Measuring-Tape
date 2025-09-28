@@ -15,8 +15,10 @@ import { objSelModel } from "./objSelModel"
 import { DataLoader } from "../fx/objDataLoader";
 import { ghostConfig, GhostConfigRow, ghostStoreConfig, ghostUpdateConfigFromSimple, objectConfigSetDefault, simpleToProConfig } from "../config/ghosts";
 import { breakObjectName } from "../fx/breakObjectName";
+import { configs, sharedStorageGet, sharedStorageHas, sharedStorageSet } from "../config/sharedStorage";
 
 var loader: DataLoader
+
 
 /**
  * Updates upper "type" part of object selection,
@@ -65,7 +67,9 @@ export function onClickTypeList(item: number) {
 export function selectTop(which?: GhostConfigRow) {
     if (which == undefined) {
         which = 0 // when calling from more options checkbox, jump to top of the list
-        objSelModel.typeChosen.set(<RowColumn>({row: 0, column: 0}))
+        if (objSelModel.moreOptionsCheck.get() == false) {
+            objSelModel.typeChosen.set(<RowColumn>({row: 0, column: 0}))
+        }
     }
     let typeList: Array<string> = []
     ghostConfig.forEach(record => {
@@ -80,7 +84,7 @@ export function selectTop(which?: GhostConfigRow) {
     })
     objSelModel.typeShownList.set(typeList)
     updateObjGroup(which)
-
+    //writeUIConfig(objSelModel.moreOptionsCheck.get())
 }
 
 /** Image number of currently previewed object */
@@ -125,7 +129,7 @@ export function onCurrentDraw(g: GraphicsContext) {
         gcr = objSelModel.typeChosen.get().row
     }
     else {
-        gcr = 0
+        gcr = simpleToProConfig[objSelModel.typeChosen.get().row]
     }
     g.image(ghostConfig[gcr].image, 55, 80)
   
@@ -152,4 +156,15 @@ export function onClickDefault() {
 export function purgePreview() {
     previewObjectimage = undefined
     objSelModel.objSelectedName.set("")
+}
+
+export function onWindowOpen () {
+    if (sharedStorageHas(configs.moreObjectOptions)) {
+        objSelModel.moreOptionsCheck.set(sharedStorageGet(configs.moreObjectOptions)??false)
+    }
+}
+
+export function onWindowClose() {
+    purgePreview()
+    sharedStorageSet(configs.moreObjectOptions, objSelModel.moreOptionsCheck.get())
 }
