@@ -32,8 +32,8 @@ import { openObjSelection } from "../configWin/openObjSelection";
 import { extraWindow } from "../extraToolsWin/extraWindow";
 import { measureAreaPng } from "../imgs/measureArea";
 import { initConfig } from "../config/ghosts";
-import { setMainWindowOpenState } from "./isOpen";
 import { startToolMode } from "../config/toolMode";
+import { mainWindowIsOpen } from "./isOpen";
 
 
 /**
@@ -191,12 +191,12 @@ export const mainWindow = window({
         })
     ],
     onOpen() {
-        setMainWindowOpenState(true)
+        mainWindowIsOpen.set(true)
         initConfig()
         nicelyStartTool(startToolMode.get())
     },
     onClose() {
         stopTool()
-        setMainWindowOpenState(false)
+        mainWindowIsOpen.set(false)
     }
 })

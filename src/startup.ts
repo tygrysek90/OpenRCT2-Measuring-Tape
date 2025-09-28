@@ -9,7 +9,7 @@
 
 import { startToolMode } from "./config/toolMode";
 import { nicelyStartTool, stopTool } from "./mainWin/actions";
-import { getMainWindowOpenState, setMainWindowOpenState } from "./mainWin/isOpen";
+import { mainWindowIsOpen } from "./mainWin/isOpen";
 import { mainWindow } from "./mainWin/mainWindow";
 
 const shortcuts: Array<ShortcutDesc> = [
@@ -49,9 +49,9 @@ shortcuts.forEach(shortcut => {
 }
 
 function openMainWindowIfNotAllready() {
-	if (getMainWindowOpenState() == false) {
+	if (mainWindowIsOpen.get() == false) {
 		mainWindow.open()
-		setMainWindowOpenState(true)
+		mainWindowIsOpen.set(true)
 	}
 	else {
 		mainWindow.focus()
