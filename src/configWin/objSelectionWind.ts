@@ -14,7 +14,7 @@
 
 import { window, Colour, groupbox, LayoutDirection, button, horizontal, vertical, label, textbox, listview, graphics, twoway, checkbox } from "openrct2-flexui"
 import { objSelModel } from "./objSelModel"
-import { onClickClearSearch, onClickDefault, onClickObjectList, onClickTypeList, onCurrentDraw, onHighlightObjectList, onPreviewDraw, onSearchParamChange, selectTop, onWindowOpen, onWindowClose } from "./objSelActions"
+import { onClickClearSearch, onClickDefault, onClickObjectList, onClickTypeList, onCurrentDraw, onHighlightObjectList, onPreviewDraw, onSearchParamChange, selectTop, onWindowOpen, onWindowClose, onClickSavePersonal, onClickLoadPersonal } from "./objSelActions"
 
 
 const objButtonHeight = 16
@@ -92,34 +92,31 @@ export const objectSelectionWindow = window({
 
                         label({
                             height:26,
-                            text: "Personal profile:{NEWLINE}{BABYBLUE}(saved in the game config.)"
+                            text: "Personal profile:{NEWLINE}{BABYBLUE}(park independent)"
                         }),
                         button({
                             height: objButtonHeight,
                             width: "1w",
-                            text: "Save as default",
-                            tooltip: "Save as your personal default for all new parks (game configuration storage)"
-                            //isPressed: ,
-                            //onClick: () => onClickDefault(),
+                            text: "Save all as default",
+                            tooltip: "Save as your personal default for all new parks (game configuration storage)",
+                            onClick: () => onClickSavePersonal(),
                         }),
                         button({
                             height: objButtonHeight,
                             width: "1w",
-                            text: "Load defaults",
+                            text: "Load all defaults",
                             tooltip: "Load your personal defaults (from game configuration storage)",
-                            //isPressed: ,
-                            //onClick: () => onClickDefault(),
+                            onClick: () => onClickLoadPersonal(),
                         }),
                         button({
                             height: objButtonHeight,
                             width: "1w",
                             text: "{BABYBLUE}Load plugin defaults",
-                            //isPressed: ,
                             onClick: () => onClickDefault(),
                         }),
 
                         label({
-                            padding: {top: "100%"},
+                            padding: {top: "100%", bottom: -2},
                             text: "{BABYBLUE}Profi mode:"
                         }),
                         checkbox({

@@ -13,7 +13,8 @@
 
 
 export const configs = {
-    moreObjectOptions: "moreObjectOptions"
+    moreObjectOptions: "moreObjectOptions",
+    sequential: "sequential"
 }
 
 

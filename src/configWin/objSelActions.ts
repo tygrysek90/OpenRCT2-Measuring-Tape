@@ -13,7 +13,7 @@
 
 import { objSelModel } from "./objSelModel"
 import { DataLoader } from "../fx/objDataLoader";
-import { ghostConfig, GhostConfigRow, ghostStoreConfig, ghostUpdateConfigFromSimple, objectConfigSetDefault, simpleToProConfig } from "../config/ghosts";
+import { ghostConfig, GhostConfigRow, ghostSharedStorageLoad, ghostSharedStorageSave, ghostStoreConfig, ghostUpdateConfigFromSimple, objectConfigSetDefault, simpleToProConfig } from "../config/ghosts";
 import { breakObjectName } from "../fx/breakObjectName";
 import { configs, sharedStorageGet, sharedStorageHas, sharedStorageSet } from "../config/sharedStorage";
 
@@ -117,9 +117,23 @@ export function onClickObjectList(item: number){
     }
 }
 
+function getRealConfigRow(): GhostConfigRow {
+    if (objSelModel.moreOptionsCheck.get() == true) {
+        return objSelModel.typeChosen.get().row
+    }
+    else {
+        return simpleToProConfig[objSelModel.typeChosen.get().row]
+    }
+}
+
 export function onPreviewDraw(g: GraphicsContext) {
     if (previewObjectimage != undefined) {
-        g.image(previewObjectimage, 55, 80)
+        if (ghostConfig[getRealConfigRow()].objectType == "wall") {
+            g.image(previewObjectimage, 70, 95)
+        }
+        else {
+            g.image(previewObjectimage, 55, 80)
+        }
     }
 }
 
@@ -131,7 +145,12 @@ export function onCurrentDraw(g: GraphicsContext) {
     else {
         gcr = simpleToProConfig[objSelModel.typeChosen.get().row]
     }
-    g.image(ghostConfig[gcr].image, 55, 80)
+    if (ghostConfig[gcr].objectType == "wall") {
+        g.image(ghostConfig[gcr].image, 70, 95)
+    }
+    else {
+        g.image(ghostConfig[gcr].image, 55, 80)
+    }
   
 }
 
@@ -148,9 +167,9 @@ export function onClickClearSearch() {
 }
 
 export function onClickDefault() {
-    let selectedRow = objSelModel.typeChosen.get().row
     objectConfigSetDefault()
-    selectTop(selectedRow)
+    selectTop(0)
+    objSelModel.typeChosen.set(<RowColumn>({row:0, column: 0}))
 }
 
 export function purgePreview() {
@@ -167,4 +186,14 @@ export function onWindowOpen () {
 export function onWindowClose() {
     purgePreview()
     sharedStorageSet(configs.moreObjectOptions, objSelModel.moreOptionsCheck.get())
+}
+
+export function onClickSavePersonal() {
+    ghostSharedStorageSave()
+}
+
+export function onClickLoadPersonal() {
+    ghostSharedStorageLoad()
+    selectTop(0)
+    objSelModel.typeChosen.set(<RowColumn>({row:0, column: 0}))
 }

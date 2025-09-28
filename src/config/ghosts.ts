@@ -13,6 +13,7 @@
 
 import { DataLoader } from "../fx/objDataLoader"
 import { readParkStorage, writeParkStorage } from "./parkStorage"
+import { configs, sharedStorageGet, sharedStorageSet } from "./sharedStorage"
 
 
 export enum GhostConfigRow  { "tape_start" , "tape_mid_edge" , "mid_tile" , "tape_end" , "area_corner" , "area_centre_x", "area_centre_uneven" }
@@ -133,7 +134,13 @@ function populateGhostConfig() {
 
 export function initConfig() {
     ghostConfig = defaultConfig()
+    let maybeSharedStorage = sharedStorageGet<Array<string>>(configs.sequential)
     let maybeConfig = readParkStorage()
+    if (maybeSharedStorage != undefined) {
+        for (let i=0; i<ghostConfig.length; i++) {
+            ghostConfig[i].objectIdentifer = maybeSharedStorage[i]
+        }
+    }
     if (maybeConfig != undefined) {
         for (let i=0; i<ghostConfig.length; i++) {
             ghostConfig[i].objectIdentifer = maybeConfig[i]
@@ -167,4 +174,24 @@ export function ghostUpdateConfigFromSimple() {
             })
         }
     })
+}
+
+export function ghostSharedStorageSave(){
+    let sequential: Array<string> = []
+    ghostConfig.forEach(configLine => {
+        sequential.push(configLine.objectIdentifer)
+    })
+    sharedStorageSet(configs.sequential, sequential)
+}
+
+export function ghostSharedStorageLoad() {
+    ghostConfig = defaultConfig()
+    let maybeSharedStorage = sharedStorageGet<Array<string>>(configs.sequential)
+    if (maybeSharedStorage != undefined) {
+        for (let i=0; i<ghostConfig.length; i++) {
+            ghostConfig[i].objectIdentifer = maybeSharedStorage[i]
+        }
+    }
+    populateGhostConfig()
+    ghostStoreConfig()
 }
