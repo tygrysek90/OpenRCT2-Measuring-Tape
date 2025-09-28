@@ -14,7 +14,7 @@
 
 import { window, Colour, groupbox, LayoutDirection, button, horizontal, vertical, label, textbox, listview, graphics, twoway, checkbox } from "openrct2-flexui"
 import { objSelModel } from "./objSelModel"
-import { onClickClearSearch, onClickDefault, onClickObjectList, onClickTypeList, purgePreview, onCurrentDraw, onHighlightObjectList, onPreviewDraw, onSearchParamChange } from "./objSelActions"
+import { onClickClearSearch, onClickDefault, onClickObjectList, onClickTypeList, purgePreview, onCurrentDraw, onHighlightObjectList, onPreviewDraw, onSearchParamChange, selectTop } from "./objSelActions"
 
 
 const objButtonHeight = 16
@@ -41,18 +41,20 @@ export const objectSelectionWindow = window({
             direction: LayoutDirection.Horizontal,
             height: 200,
             width: "1w",
-            text: "Select and pick below {BABYBLUE}- the configuration will be saved with the park", 
+            text: "Select and pick below {BABYBLUE}- the current configuration is saved with the park", 
             content: [
-                
+                // Ghost type object selector
+                // 1 of 3 columns (leftmost)
                 listview({
                     width: 200,
                     height: "1w",
                     canSelect: true,
                     selectedCell: twoway(objSelModel.typeChosen),
-                    items: objSelModel.typeList,
+                    items: objSelModel.typeShownList,
                     onClick: (item) => onClickTypeList(item)
                 }),
-        
+                // Currently selected ghost
+                // 2 of 3 columns (centre)
                 groupbox({
                     padding: {left: "1w"},
                     width: 160,
@@ -80,20 +82,51 @@ export const objectSelectionWindow = window({
                         })
                     ]
                 }),
-
+                // Options
+                // 3 of 3 column (rightmost)
                 groupbox({
                     padding: {left: "1w"},
                     width: 160,
                     height: "1w",
                     content: [
 
+                        label({
+                            height:26,
+                            text: "Personal profile:{NEWLINE}{BABYBLUE}(saved in the game config.)"
+                        }),
                         button({
                             height: objButtonHeight,
                             width: "1w",
-                            text: "Set all default",
+                            text: "Save as default",
+                            tooltip: "Save as your personal default for all new parks (game configuration storage)"
+                            //isPressed: ,
+                            //onClick: () => onClickDefault(),
+                        }),
+                        button({
+                            height: objButtonHeight,
+                            width: "1w",
+                            text: "Load defaults",
+                            tooltip: "Load your personal defaults (from game configuration storage)",
+                            //isPressed: ,
+                            //onClick: () => onClickDefault(),
+                        }),
+                        button({
+                            height: objButtonHeight,
+                            width: "1w",
+                            text: "{BABYBLUE}Load plugin defaults",
                             //isPressed: ,
                             onClick: () => onClickDefault(),
                         }),
+
+                        label({
+                            padding: {top: "100%"},
+                            text: "{BABYBLUE}Profi mode:"
+                        }),
+                        checkbox({
+                            text: "More setting options",
+                            isChecked: twoway(objSelModel.moreOptionsCheck),
+                            onChange: () => selectTop()
+                        })
 
                         
                     ]

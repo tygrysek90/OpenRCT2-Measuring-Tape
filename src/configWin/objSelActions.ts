@@ -13,7 +13,7 @@
 
 import { objSelModel } from "./objSelModel"
 import { DataLoader } from "../fx/objDataLoader";
-import { ghostConfig, GhostConfigRow, ghostStoreConfig, objectConfigSetDefault } from "../config/ghosts";
+import { ghostConfig, GhostConfigRow, ghostStoreConfig, ghostUpdateConfigFromSimple, objectConfigSetDefault, simpleToProConfig } from "../config/ghosts";
 import { breakObjectName } from "../fx/breakObjectName";
 
 var loader: DataLoader
@@ -25,11 +25,21 @@ var loader: DataLoader
  */
 function updateObjGroup(ghostType: GhostConfigRow) {
     loader = new DataLoader(ghostConfig[ghostType].objectType)
-    objSelModel.typeChosenLabel.set(`${ghostConfig[ghostType].humanReadable}`)
-    objSelModel.typeChosenObjLabel.set(loader._names[loader._identifiers.indexOf(ghostConfig[ghostType].objectIdentifer)])
-    objSelModel.typeChosenObjLabel2.set(breakObjectName(`{BABYBLUE}${ghostConfig[ghostType].objectIdentifer}`))
-    onSearchParamChange()
-    objSelModel.objGroupLabel.set(`Pick an new object for ghost of ${ghostConfig[ghostType].humanReadable}`)
+    
+    if (objSelModel.moreOptionsCheck.get() == true) {
+        objSelModel.typeChosenLabel.set(`${ghostConfig[ghostType].humanReadable}`)
+        objSelModel.typeChosenObjLabel.set(loader._names[loader._identifiers.indexOf(ghostConfig[ghostType].objectIdentifer)])
+        objSelModel.typeChosenObjLabel2.set(breakObjectName(`{BABYBLUE}${ghostConfig[ghostType].objectIdentifer}`))
+        onSearchParamChange()
+        objSelModel.objGroupLabel.set(`Pick an new object for ghost of ${ghostConfig[ghostType].humanReadable}`)
+    } else {
+        objSelModel.typeChosenLabel.set(`${ghostConfig[ghostType].humanReadableSimple}`)
+        objSelModel.typeChosenObjLabel.set(loader._names[loader._identifiers.indexOf(ghostConfig[ghostType].objectIdentifer)])
+        objSelModel.typeChosenObjLabel2.set(breakObjectName(`{BABYBLUE}${ghostConfig[ghostType].objectIdentifer}`))
+        onSearchParamChange()
+        objSelModel.objGroupLabel.set(`Pick an new object for ghost of ${ghostConfig[ghostType].humanReadableSimple}`)
+    }
+           
     objSelModel.objSearchFilter.set("")
     purgePreview()
     if (ghostConfig[ghostType].objectType == "small_scenery") {
@@ -42,15 +52,33 @@ function updateObjGroup(ghostType: GhostConfigRow) {
 
 export function onClickTypeList(item: number) {
     // the "items" in type list are in order of GhostConfigRow enum
-    updateObjGroup(item) 
+    // only in case there is "more settings" option on
+    if (objSelModel.moreOptionsCheck.get() == true) {
+        updateObjGroup(item) 
+    }
+    else {
+        updateObjGroup(simpleToProConfig[item])
+    }
 }
 
-export function selectTop(which: GhostConfigRow) {
+
+export function selectTop(which?: GhostConfigRow) {
+    if (which == undefined) {
+        which = 0 // when calling from more options checkbox, jump to top of the list
+        objSelModel.typeChosen.set(<RowColumn>({row: 0, column: 0}))
+    }
     let typeList: Array<string> = []
     ghostConfig.forEach(record => {
-        typeList.push(record.humanReadable)
+        if (objSelModel.moreOptionsCheck.get() == true) {
+            typeList.push(record.humanReadable)
+        }
+        else {
+            if (record.humanReadableSimple != undefined) {
+                typeList.push(record.humanReadableSimple)
+            }
+        }
     })
-    objSelModel.typeList.set(typeList)
+    objSelModel.typeShownList.set(typeList)
     updateObjGroup(which)
 
 }
@@ -64,12 +92,25 @@ export function onHighlightObjectList(num: number) {
 }
 
 export function onClickObjectList(item: number){
-    ghostConfig[objSelModel.typeChosen.get().row].image = loader.images[item]
-    ghostConfig[objSelModel.typeChosen.get().row].objectIdentifer = loader.identifiers[item]
-    ghostConfig[objSelModel.typeChosen.get().row].objectId = loader.ids[item]
-    ghostStoreConfig()
-    objSelModel.typeChosenObjLabel.set(loader._names[loader._identifiers.indexOf(ghostConfig[objSelModel.typeChosen.get().row].objectIdentifer)])
-    objSelModel.typeChosenObjLabel2.set(breakObjectName(`{BABYBLUE}${ghostConfig[objSelModel.typeChosen.get().row].objectIdentifer}`))
+    let cnfRow: number
+    if (objSelModel.moreOptionsCheck.get() == true) {
+        cnfRow = objSelModel.typeChosen.get().row
+    }
+    else {
+        cnfRow = simpleToProConfig[objSelModel.typeChosen.get().row]
+    }
+    ghostConfig[cnfRow].image = loader.images[item]
+    ghostConfig[cnfRow].objectIdentifer = loader.identifiers[item]
+    ghostConfig[cnfRow].objectId = loader.ids[item]
+    objSelModel.typeChosenObjLabel.set(loader._names[loader._identifiers.indexOf(ghostConfig[cnfRow].objectIdentifer)])
+    objSelModel.typeChosenObjLabel2.set(breakObjectName(`{BABYBLUE}${ghostConfig[cnfRow].objectIdentifer}`))
+    if (objSelModel.moreOptionsCheck.get() == true) {
+        ghostStoreConfig()
+    }
+    else {
+        ghostUpdateConfigFromSimple()
+        ghostStoreConfig()
+    }
 }
 
 export function onPreviewDraw(g: GraphicsContext) {
@@ -79,7 +120,14 @@ export function onPreviewDraw(g: GraphicsContext) {
 }
 
 export function onCurrentDraw(g: GraphicsContext) {
-    g.image(ghostConfig[objSelModel.typeChosen.get().row].image, 55, 80)
+    let gcr: number
+    if (objSelModel.moreOptionsCheck.get() == true) {
+        gcr = objSelModel.typeChosen.get().row
+    }
+    else {
+        gcr = 0
+    }
+    g.image(ghostConfig[gcr].image, 55, 80)
   
 }
 

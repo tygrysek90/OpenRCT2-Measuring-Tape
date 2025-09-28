@@ -17,7 +17,7 @@ import {  store } from "openrct2-flexui"
 
 
 export const objSelModel = {
-    typeList: store<string[]>( ["error:", "config", "types", "not", "loaded"] ),
+    typeShownList: store<string[]>( ["error:", "config", "types", "not", "loaded"] ),
     typeChosen: store<RowColumn>({row: 0, column: 0}),
     typeChosenLabel: store<string>("top label"),
     typeChosenObjLabel: store<string>("1st line below image"),
@@ -32,6 +32,7 @@ export const objSelModel = {
         disabled: store<boolean>(false)
     } ,
     objList: store<string[]>( ["error:", "no", "items", "loaded", ":("]),
-    objSelectedName: store<string>("")
+    objSelectedName: store<string>(""),
 
+    moreOptionsCheck: store<boolean>(false)
 }

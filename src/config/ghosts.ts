@@ -14,11 +14,16 @@
 import { DataLoader } from "../fx/objDataLoader"
 import { readParkStorage, writeParkStorage } from "./parkStorage"
 
-export enum GhostConfigRow  { "tape_start" , "tape_mid_edge" , "tape_mid_tile" , "tape_end" , "area_corner" , "area_centre", "area_centre_uneven" }
+
+export enum GhostConfigRow  { "tape_start" , "tape_mid_edge" , "mid_tile" , "tape_end" , "area_corner" , "area_centre_x", "area_centre_uneven" }
 
 interface GhostConfig {
     /** Config option name for UI */
     humanReadable: string
+    /** Config option name for simple Mode UI */
+    humanReadableSimple?: string
+    /** Define which rows are affected by this row in simple mode */
+    controlsAsWell?: GhostConfigRow[]
     /** Alike LoadedImageObject.baseImageId: number */
     image: number 
     /** Alike LoadedObject.identifier: string */
@@ -27,22 +32,79 @@ interface GhostConfig {
     objectId: number,
     /** OpenRCT2 ObjectType */
     objectType: ObjectType
-    /** NOT IMPLEMENTED if is shown in config list */
-    shown: boolean,
+    
 }
+
+/** Which original row does it control in simple mode
+ * this is hardcoded, since for now there is no need to calculate
+ * translation matrix every time run time. Let's save electricity :)
+ */
+export const simpleToProConfig = [0, 2, 4]
 
 /**
  * Default config, position in array is determined by GhostConfigRow enum
  */
 function defaultConfig(): Array<GhostConfig> {
     return [
-    {humanReadable: "Tape start", image: 0,  objectIdentifer: "rct2.scenery_wall.wallcb32", objectId: 0, objectType:"wall", shown: true},
-    {humanReadable: "Tape centre (on edge)", image: 0,  objectIdentifer: "rct2.scenery_wall.wallcb32", objectId: 0, objectType: "wall", shown: true},
-    {humanReadable: "Tape centre (on tile)", image: 0,  objectIdentifer: "rct2.scenery_small.brbase", objectId: 0, objectType: "small_scenery", shown: true},
-    {humanReadable: "Tape end", image: 0,  objectIdentifer: "rct2.scenery_wall.wallcb32", objectId: 0, objectType:"wall" ,shown: true},
-    {humanReadable: "Area corner", image: 0,  objectIdentifer: "rct2.scenery_small.cwfcrv33", objectId: 0, objectType: "small_scenery",shown: true},
-    {humanReadable: "Area centre", image: 0,  objectIdentifer: "rct2.scenery_small.brbase", objectId: 0, objectType: "small_scenery" ,shown: true},
-    {humanReadable: "Area centre (uneven)", image: 0,  objectIdentifer: "rct2.scenery_wall.wallcb32", objectId: 0, objectType: "wall" ,shown: true},
+        {//0
+            humanReadable: "Tape start", 
+            humanReadableSimple: "Edges of tiles", 
+            controlsAsWell: [GhostConfigRow.tape_mid_edge, GhostConfigRow.tape_end, GhostConfigRow.area_centre_uneven], 
+            image: 0,  
+            objectIdentifer: "rct2.scenery_wall.wallcb32", 
+            objectId: 0, 
+            objectType:"wall", 
+        },
+        {//1   
+            // simple mode: tape start copy
+            humanReadable: "Tape centre (on edge)",
+            image: 0,  
+            objectIdentifer: "rct2.scenery_wall.wallcb32", 
+            objectId: 0, 
+            objectType: "wall", 
+        },
+        {//2
+            humanReadable: "Centre (on tile)", 
+            humanReadableSimple: "Full tiles", 
+            controlsAsWell: [GhostConfigRow.area_centre_x],
+            image: 0,  
+            objectIdentifer: "rct2.scenery_small.brbase", 
+            objectId: 0, 
+            objectType: "small_scenery",
+        },
+        {//3
+            // simple mode: tape start copy
+            humanReadable: "Tape end", 
+            image: 0,  
+            objectIdentifer: 
+            "rct2.scenery_wall.wallcb32",
+            objectId: 0, 
+            objectType:"wall",
+        },
+        {//4
+            humanReadable: "Area corner",
+            image: 0, 
+            humanReadableSimple: "Area corners", 
+            objectIdentifer: "rct2.scenery_small.cwfcrv33", 
+            objectId: 0, 
+            objectType: "small_scenery",
+        },
+        {//5
+            // simple mode: copy mid_tile ("centre on tile")
+            humanReadable: "Area centre (edge ❌)", 
+            image: 0,  
+            objectIdentifer: "rct2.scenery_small.brbase", 
+            objectId: 0, 
+            objectType: "small_scenery",
+        },
+        {//6
+            // simple mode: tape start copy
+            humanReadable: "Area centre (uneven)",
+            image: 0,  
+            objectIdentifer: "rct2.scenery_wall.wallcb32", 
+            objectId: 0, 
+            objectType: "wall",
+        },
 
 ]}
 
@@ -93,4 +155,16 @@ export function ghostStoreConfig() {
         sequential.push(configLine.objectIdentifer)
     })
     writeParkStorage(sequential)
+}
+
+export function ghostUpdateConfigFromSimple() {
+    ghostConfig.forEach(config => {
+        if (config.controlsAsWell != undefined) {
+            config.controlsAsWell.forEach(item => {
+                ghostConfig[item].image = config.image
+                ghostConfig[item].objectId = config.objectId
+                ghostConfig[item].objectIdentifer = config.objectIdentifer
+            })
+        }
+    })
 }
