@@ -1,5 +1,5 @@
 /**
- * Uses execreps from OpenRCT2's SmallSceneryEntry.h:
+ * Uses excepts from OpenRCT2's SmallSceneryEntry.h:
  * https://github.com/OpenRCT2/OpenRCT2/blob/develop/src/openrct2/object/SmallSceneryEntry.h
  * Copyright (c) 2014-2025 OpenRCT2 developers
  * OpenRCT2 is licensed under the GNU General Public License version 3.

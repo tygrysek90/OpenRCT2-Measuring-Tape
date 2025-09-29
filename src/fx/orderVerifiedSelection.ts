@@ -10,9 +10,9 @@
 import { MapSelectionVerified } from "../tool/mapSelection";
 
 /**
- * Order a map selection to a way that start being always numericaly lower than end
+ * Order a map selection to a way that start being always numerically lower than end
  * @param selection
- * @returns selection ordered in a way such that start corner is always closer to (0,0) tile and end is futher into map
+ * @returns selection ordered in a way such that start corner is always closer to (0,0) tile and end is further into map
  */
 export function orderVerifiedSelection(selection: MapSelectionVerified): MapSelectionVerified {
     return {

@@ -30,14 +30,14 @@ function updateObjGroup(ghostType: GhostConfigRow) {
     
     if (objSelModel.moreOptionsCheck.get() == true) {
         objSelModel.typeChosenLabel.set(`${ghostConfig[ghostType].humanReadable}`)
-        objSelModel.typeChosenObjLabel.set(loader._names[loader._identifiers.indexOf(ghostConfig[ghostType].objectIdentifer)])
-        objSelModel.typeChosenObjLabel2.set(breakObjectName(`{BABYBLUE}${ghostConfig[ghostType].objectIdentifer}`))
+        objSelModel.typeChosenObjLabel.set(loader._names[loader._identifiers.indexOf(ghostConfig[ghostType].objectIdentifier)])
+        objSelModel.typeChosenObjLabel2.set(breakObjectName(`{BABYBLUE}${ghostConfig[ghostType].objectIdentifier}`))
         onSearchParamChange()
         objSelModel.objGroupLabel.set(`Pick an new object for ghost of ${ghostConfig[ghostType].humanReadable}`)
     } else {
         objSelModel.typeChosenLabel.set(`${ghostConfig[ghostType].humanReadableSimple}`)
-        objSelModel.typeChosenObjLabel.set(loader._names[loader._identifiers.indexOf(ghostConfig[ghostType].objectIdentifer)])
-        objSelModel.typeChosenObjLabel2.set(breakObjectName(`{BABYBLUE}${ghostConfig[ghostType].objectIdentifer}`))
+        objSelModel.typeChosenObjLabel.set(loader._names[loader._identifiers.indexOf(ghostConfig[ghostType].objectIdentifier)])
+        objSelModel.typeChosenObjLabel2.set(breakObjectName(`{BABYBLUE}${ghostConfig[ghostType].objectIdentifier}`))
         onSearchParamChange()
         objSelModel.objGroupLabel.set(`Pick an new object for ghost of ${ghostConfig[ghostType].humanReadableSimple}`)
     }
@@ -88,10 +88,10 @@ export function selectTop(which?: GhostConfigRow) {
 }
 
 /** Image number of currently previewed object */
-var previewObjectimage: number | undefined = undefined
+var previewObjectImage: number | undefined = undefined
 
 export function onHighlightObjectList(num: number) {
-    previewObjectimage = loader.images[num]
+    previewObjectImage = loader.images[num]
     objSelModel.objSelectedName.set(loader.names[num])
 }
 
@@ -104,10 +104,10 @@ export function onClickObjectList(item: number){
         cnfRow = simpleToProConfig[objSelModel.typeChosen.get().row]
     }
     ghostConfig[cnfRow].image = loader.images[item]
-    ghostConfig[cnfRow].objectIdentifer = loader.identifiers[item]
+    ghostConfig[cnfRow].objectIdentifier = loader.identifiers[item]
     ghostConfig[cnfRow].objectId = loader.ids[item]
-    objSelModel.typeChosenObjLabel.set(loader._names[loader._identifiers.indexOf(ghostConfig[cnfRow].objectIdentifer)])
-    objSelModel.typeChosenObjLabel2.set(breakObjectName(`{BABYBLUE}${ghostConfig[cnfRow].objectIdentifer}`))
+    objSelModel.typeChosenObjLabel.set(loader._names[loader._identifiers.indexOf(ghostConfig[cnfRow].objectIdentifier)])
+    objSelModel.typeChosenObjLabel2.set(breakObjectName(`{BABYBLUE}${ghostConfig[cnfRow].objectIdentifier}`))
     if (objSelModel.moreOptionsCheck.get() == true) {
         ghostStoreConfig()
     }
@@ -127,12 +127,12 @@ function getRealConfigRow(): GhostConfigRow {
 }
 
 export function onPreviewDraw(g: GraphicsContext) {
-    if (previewObjectimage != undefined) {
+    if (previewObjectImage != undefined) {
         if (ghostConfig[getRealConfigRow()].objectType == "wall") {
-            g.image(previewObjectimage, 70, 95)
+            g.image(previewObjectImage, 70, 95)
         }
         else {
-            g.image(previewObjectimage, 55, 80)
+            g.image(previewObjectImage, 55, 80)
         }
     }
 }
@@ -173,7 +173,7 @@ export function onClickDefault() {
 }
 
 export function purgePreview() {
-    previewObjectimage = undefined
+    previewObjectImage = undefined
     objSelModel.objSelectedName.set("")
 }
 

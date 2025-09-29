@@ -11,7 +11,7 @@
 import { ToolMode } from "../tool/mapSelectionTool";
 
 /**
- * Configures tool mode before actual tool is programaticaly invoked
+ * Configures tool mode before actual tool is programmatically invoked
  */
 export const startToolMode = {
     savedToolMode: <ToolMode>("tape"),

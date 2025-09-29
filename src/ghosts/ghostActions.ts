@@ -15,7 +15,7 @@ import { GhostConfigRow, ghostConfig } from "../config/ghosts"
 import { computeDistanceInTiles } from "../fx/computeDistanceInTiles"
 import { determineDirection } from "../fx/determineDirection"
 import { noGhostsOnTile } from "../fx/noGhostsOnTile"
-import { opositeDirection } from "../fx/opositeDirection"
+import { oppositeDirection } from "../fx/oppositeDirection"
 import { orderVerifiedSelection } from "../fx/orderVerifiedSelection"
 import { selectionMidPoint } from "../fx/selectionMidPoint"
 import { tool } from "../tool/tool"
@@ -36,10 +36,10 @@ interface TileWithGhost {
 }
 
 /** Stores ghosts (current working set) */
-var cementery: Array<TileWithGhost> = []
+var cemetery: Array<TileWithGhost> = []
 
 /** Stores history of ghosts (old working sets) */
-var cementeryHistory: TileWithGhost[][] = []
+var cemeteryHistory: TileWithGhost[][] = []
 
 /** Stores last selection in case of visibility or object parameter change and thus ghost manipulation */
 var lastVerifiedSelection: MapSelectionVerified | undefined
@@ -49,23 +49,23 @@ var lastVerifiedSelection: MapSelectionVerified | undefined
  * Remove ghosts out of internal store
  * and load history of ghosts if desired
  */
-export function exorciseCementery() {
-    cementery.forEach(ghostStored => {
+export function exorciseCemetery() {
+    cemetery.forEach(ghostStored => {
             ghostStored.tile.removeElement(ghostStored.elementIndex)
     });  
-    cementery = []
+    cemetery = []
     if (model.ghostsButtonsPressed.keepAll.get() == true) {
         summonOldGhosts()
     } 
 }
 
 /**
- * Project cementeryHistory on the game map via setGhost
+ * Project cemeteryHistory on the game map via setGhost
  */
 export function summonOldGhosts() {
-    cementeryHistory.forEach(historyRecord => {
+    cemeteryHistory.forEach(historyRecord => {
         historyRecord.forEach(ghost => {
-            cementery.push(ghost)
+            cemetery.push(ghost)
             setGhost(ghost.ghostType, ghost.tile, ghost.ghostDirection)
         })
     });
@@ -76,8 +76,8 @@ export function summonOldGhosts() {
  * Removes last ghost set from history and projects updated history
  */
 export function removeLastFromHistory() {
-    cementeryHistory.pop()
-    exorciseCementery()
+    cemeteryHistory.pop()
+    exorciseCemetery()
     summonOldGhosts()
 }
 
@@ -86,8 +86,8 @@ export function removeLastFromHistory() {
  * Purges history
  */
 export function eraseHistory() {
-    cementeryHistory = []
-    exorciseCementery()
+    cemeteryHistory = []
+    exorciseCemetery()
 }
 
 
@@ -96,7 +96,7 @@ export function eraseHistory() {
  * @returns TODO...
  */
 export function isHistory(): boolean {
-    return cementery.length == 0 && cementeryHistory.length == 0
+    return cemetery.length == 0 && cemeteryHistory.length == 0
 }
 
 
@@ -104,7 +104,7 @@ export function isHistory(): boolean {
  * Adds current working ghost set to history
  */
 export function addToHistory() {
-    cementeryHistory.push(cementery.slice())
+    cemeteryHistory.push(cemetery.slice())
 }
 
 
@@ -115,7 +115,7 @@ export function moveGhosts() {
     if (tool._selection != null) {
         if (tool._selection.end?.x != undefined && tool._selection.end.y != undefined) {
             // clean up working stack
-            exorciseCementery()
+            exorciseCemetery()
 
             let verifiedSelection = mapSelectionToVerified(tool._selection)
             if (verifiedSelection != undefined) {
@@ -137,13 +137,13 @@ export function moveGhosts() {
                     }
                 }
             }
-            //remeber last selection in case of ghost manipulation
+            //remember last selection in case of ghost manipulation
             lastVerifiedSelection = verifiedSelection
         }
     }
     else {
         if (lastVerifiedSelection != undefined) {
-            exorciseCementery()
+            exorciseCemetery()
 
             if (tool.mode == "tape") {
                 if (model.showButtonsPressed.ends.get()) {
@@ -169,7 +169,7 @@ export function moveGhosts() {
 /**
  * Finds height to place ghost at given tile
  * @param tile OpenRCT2 Tile reference
- * @returns height of land, if its sloped, height+1 and if theres water, returns water level (so the ghost will not be sunked underwater)
+ * @returns height of land, if its sloped, height+1 and if there’s water, returns water level (so the ghost will not be sunken underwater)
  */
 export function determineGoodHeight(tile: Tile): number | undefined {
     let retVal: number | undefined
@@ -193,7 +193,7 @@ export function determineGoodHeight(tile: Tile): number | undefined {
 
 
 /**
- * Place a ghost on the game map and write into cementery storage
+ * Place a ghost on the game map and write into cemetery storage
  * @param type 
  * @param tile 
  * @param direction 
@@ -230,7 +230,7 @@ function setGhost(type: GhostConfigRow, tile: Tile, direction?: Direction) {
             ghostDirection: direction
         } 
 
-        cementery.push(ghosts)
+        cemetery.push(ghosts)
     }
 }
 
@@ -251,7 +251,7 @@ function findGhostEnd(verifiedSelection: MapSelectionVerified): void {
  */
 function findGhostStart(verifiedSelection: MapSelectionVerified): void {
     let tile = map.getTile(verifiedSelection.start.x/mapTileSize, verifiedSelection.start.y/mapTileSize)
-    setGhost(GhostConfigRow.tape_start, tile, opositeDirection(determineDirection(verifiedSelection)))
+    setGhost(GhostConfigRow.tape_start, tile, oppositeDirection(determineDirection(verifiedSelection)))
 }
 
 
@@ -280,11 +280,11 @@ function findGhostCorners(verifiedSelection: MapSelectionVerified): void {
 function findGhostCentreOfArea(verifiedSelection: MapSelectionVerified) {
     let midPoint = selectionMidPoint(verifiedSelection)
 
-    // 1 st case: sides lenght are odd numbers
+    // 1 st case: sides length are odd numbers
     if ((Math.abs(verifiedSelection.start.x-verifiedSelection.end.x)/mapTileSize)%2 == 0 && (Math.abs(verifiedSelection.start.y-verifiedSelection.end.y)/mapTileSize)%2 == 0) {
         setGhost(GhostConfigRow.mid_tile, map.getTile(midPoint.x/mapTileSize, midPoint.y/mapTileSize))
     }
-    // 2nd case: sides leghts are even numbers
+    // 2nd case: sides lengths are even numbers
     if  ((Math.abs(verifiedSelection.start.x-verifiedSelection.end.x)/mapTileSize)%2 == 1 && (Math.abs(verifiedSelection.start.y-verifiedSelection.end.y)/mapTileSize)%2 == 1) {
         let orderedSelection = orderVerifiedSelection(verifiedSelection)
         let midPointOfOrdered = selectionMidPoint(orderedSelection)
@@ -333,11 +333,11 @@ function findGhostCentreLine(verifiedSelection: MapSelectionVerified): void {
 
 /** Self explanatory */
 function mapSizeToCoordsXYAsSelection(): CoordsXY {
-    let mapsize = map.size // this is in tiles!  
+    let mapSize = map.size // this is in tiles!  
 
     return {
-        x: (mapsize.x-2)*mapTileSize,
-        y: (mapsize.y-2)*mapTileSize
+        x: (mapSize.x-2)*mapTileSize,
+        y: (mapSize.y-2)*mapTileSize
     }
 } 
 
@@ -346,14 +346,14 @@ function mapSizeToCoordsXYAsSelection(): CoordsXY {
  * (extra fn)
  */
 export function findMapEdgesCentres() {
-    let mapsize = map.size // this is in tiles!  
-    mapsize.x = (mapsize.x-2)*mapTileSize
-    mapsize.y = (mapsize.y-2)*mapTileSize
+    let mapSize = map.size // this is in tiles!  
+    mapSize.x = (mapSize.x-2)*mapTileSize
+    mapSize.y = (mapSize.y-2)*mapTileSize
 
-    findGhostCentreLine({start:{x:32, y:32},end:{x: mapsize.x, y: 32}})
-    findGhostCentreLine({start:{x: mapsize.x, y:32},end:{x: mapsize.x, y: mapsize.y}})
-    findGhostCentreLine({start:{x: mapsize.x, y: mapsize.y},end:{x: 32, y: mapsize.y}})
-    findGhostCentreLine({start:{x:32, y:mapsize.y},end:{x: 32, y: 32}})
+    findGhostCentreLine({start:{x:32, y:32},end:{x: mapSize.x, y: 32}})
+    findGhostCentreLine({start:{x: mapSize.x, y:32},end:{x: mapSize.x, y: mapSize.y}})
+    findGhostCentreLine({start:{x: mapSize.x, y: mapSize.y},end:{x: 32, y: mapSize.y}})
+    findGhostCentreLine({start:{x:32, y:mapSize.y},end:{x: 32, y: 32}})
 
     
 }

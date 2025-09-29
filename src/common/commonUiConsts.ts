@@ -13,18 +13,18 @@
 
 
 /**
- * Sizes for bigger buton
+ * Sizes for bigger button
  */
-export const imgbutton = {
-    widht: 45,
+export const imgButton = {
+    width: 45,
     heigh: 34
 };
 
 /**
  * Sizes for smaller button
  */
-export const imgbuttonSmall = {
-    widht: 28,
+export const imgButtonSmall = {
+    width: 28,
     heigh: 25
 };
 

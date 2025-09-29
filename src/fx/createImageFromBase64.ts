@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 /*****************************************************************************
- * This source file uses exerpts from The OpenRCT2 plug-in "WorldPainter"
+ * This source file uses excerpts from The OpenRCT2 plug-in "WorldPainter"
  * licensed under the GNU General Public License version 3.
  *
  * "WorldPainter" Copyright (c) 2024 Sadret 

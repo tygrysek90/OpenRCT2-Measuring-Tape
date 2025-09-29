@@ -11,7 +11,7 @@
 // Based on OpenRCT2-ProxyPather by Basssiiie, 
 // https://github.com/Basssiiie/OpenRCT2-ProxyPather
 // 
-// originaly licensed under MIT License
+// originally licensed under MIT License
 // see licenses/mit_license_Basssiiie_ProxyPather}` */
 
 import { debug } from "../logger/logger";
@@ -113,7 +113,7 @@ export class MapSelectionTool
 	}
 
 	/**
-	 * Constraints tool from freeform square/rectangle select to mode where one side is "size" 
+	 * Constraints tool from free-form square/rectangle select to mode where one side is "size" 
 	 * @param size currently not supported, any number will result 1 tile wide selection
 	 */
 	setConstraint(size: number): void {
@@ -239,7 +239,7 @@ const viewportFlagGridlines = (1 << 7);
 
 
 /**
- * Toogles the map grid overlay on or off.
+ * Toggles the map grid overlay on or off.
  * @param value True for on, false for off.
  */
 function toggleGridOverlay(value: boolean): void

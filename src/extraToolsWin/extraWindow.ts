@@ -8,10 +8,10 @@
  *****************************************************************************/
 
 import { button, Colour, groupbox, LayoutDirection, window } from "openrct2-flexui";
-import { imgbutton } from "../common/commonUiConsts";
-import { bisectMapEdghesPng } from "../imgs/bisectMapEdghes";
+import { imgButton } from "../common/commonUiConsts";
 import { centreOfMapPng } from "../imgs/centreOfMap";
 import { onClickBisectEdgesButton, onClickMapCentre } from "./extraActions";
+import { bisectMapEdgesPng } from "../imgs/bisectMapEdges";
 
 /**
  * Extra tools window definition
@@ -28,15 +28,15 @@ export const extraWindow = window({
             text: "Extra tools",
             content:[
                 button({
-                    width: imgbutton.widht,
-                    height: imgbutton.heigh,
-                    image: bisectMapEdghesPng.image,
+                    width: imgButton.width,
+                    height: imgButton.heigh,
+                    image: bisectMapEdgesPng.image,
                     tooltip: "Bisect (to half) map edges",
                     onClick: () => onClickBisectEdgesButton()
                 }),
                 button({
-                    width: imgbutton.widht,
-                    height: imgbutton.heigh,
+                    width: imgButton.width,
+                    height: imgButton.heigh,
                     image: centreOfMapPng.image,
                     tooltip: "Find centre of map",
                     onClick: () => onClickMapCentre()

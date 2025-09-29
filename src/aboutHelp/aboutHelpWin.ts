@@ -67,7 +67,7 @@ const helpLines = [
     "Have a pleasing day!"
 ]
 
-/** returns functionaly established set of UI elements */
+/** returns functionally established set of UI elements */
 function makeLabels(lines: Array<string>):FlexibleLayoutContainer {
     let a:FlexibleLayoutContainer = []
     

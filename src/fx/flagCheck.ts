@@ -11,8 +11,8 @@
 /**
  * Checks for a bit flag
  * @param what a bitmask number to be checked
- * @param flag a flag to be seeeked in *what*
- * @returns true if flag is present, flase otherwise
+ * @param flag a flag to be seeked in *what*
+ * @returns true if flag is present, false otherwise
  */
 export function hasFlag(what: number, flag: number): boolean {
     if ((what & flag) == flag) {

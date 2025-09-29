@@ -14,7 +14,7 @@ import { build } from "../environment";
 // Based on OpenRCT2-ProxyPather by Basssiiie, 
 // https://github.com/Basssiiie/OpenRCT2-ProxyPather
 // 
-// originaly licensed under MIT License
+// originally licensed under MIT License
 // see .licenses/mit_license_Basssiiie_ProxyPather}` */
 
 /**
@@ -33,7 +33,7 @@ export function debug(message: string): void
 /**
  * Logs an error message with an optional method name for specifying the origin.
  * @param message The error message to be logged.
- * @param method The method specifying where the error occured.
+ * @param method The method specifying where the error occurred.
  */
 export function error(message: string, method?:string): void
 {

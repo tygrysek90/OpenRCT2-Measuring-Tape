@@ -1,7 +1,7 @@
 import { SMALL_SCENERY_FLAGS } from "../common/smallSceneryFlags";
 import { hasOneFlagOf } from "./flagCheck";
 
-export function smolScIsNormal(objectId: number): boolean {
+export function smallScIsNormal(objectId: number): boolean {
     let object = objectManager.getObject("small_scenery", objectId)
 
     if (hasOneFlagOf(object.flags, 

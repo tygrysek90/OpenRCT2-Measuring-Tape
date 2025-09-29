@@ -11,7 +11,7 @@
 // Based on OpenRCT2-ProxyPather by Basssiiie, 
 // https://github.com/Basssiiie/OpenRCT2-ProxyPather
 // 
-// originaly licensed under MIT License
+// originally licensed under MIT License
 // see licenses/mit_license_Basssiiie_ProxyPather}` */
 
 import { mapTileSize } from "../common/mapTileSize";

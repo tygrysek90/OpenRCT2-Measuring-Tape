@@ -13,9 +13,9 @@
  * @returns string with {NEWLINE} inserted before second "."
  */
 export function breakObjectName(str: string): string {
-    let splited = str.split(".")
-    if (splited.length == 3) {
-        return `${splited[0]}.${splited[1]}{NEWLINE}.${splited[2]}`
+    let split = str.split(".")
+    if (split.length == 3) {
+        return `${split[0]}.${split[1]}{NEWLINE}.${split[2]}`
     }
     else {
         return str

@@ -17,9 +17,9 @@ import { MapSelectionVerified } from "../tool/mapSelection";
  */
 export function determineDirection(selection: MapSelectionVerified): Direction {
     // 1st determine general axis
-    let xLenght = Math.abs(selection.start.x - selection.end.x);
-    let yLenght = Math.abs(selection.start.y - selection.end.y);
-    if (xLenght > yLenght) {
+    let xLength = Math.abs(selection.start.x - selection.end.x);
+    let yLength = Math.abs(selection.start.y - selection.end.y);
+    if (xLength > yLength) {
         // 2nd determine end on that axis
         if (selection.start.x < selection.end.x) {
             return 2;

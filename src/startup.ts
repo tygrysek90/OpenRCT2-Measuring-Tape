@@ -18,7 +18,7 @@ const shortcuts: Array<ShortcutDesc> = [
 		text: "[Meas. Tape] Open & measure",
 		bindings: ["ALT+T"],
 		callback() {
-			openMainWindowIfNotAllready()
+			openMainWindowIfNotAlready()
 		}
 
 	},
@@ -28,7 +28,7 @@ const shortcuts: Array<ShortcutDesc> = [
 		bindings: [""],
 		callback() {
 			startToolMode.set("tape")
-			openMainWindowIfNotAllready()
+			openMainWindowIfNotAlready()
 		}
 	},
 	{
@@ -37,7 +37,7 @@ const shortcuts: Array<ShortcutDesc> = [
 		bindings: [""],
 		callback() {
 			startToolMode.set("area")
-			openMainWindowIfNotAllready()
+			openMainWindowIfNotAlready()
 		}
 	}
 ]
@@ -48,7 +48,7 @@ shortcuts.forEach(shortcut => {
 })
 }
 
-function openMainWindowIfNotAllready() {
+function openMainWindowIfNotAlready() {
 	if (mainWindowIsOpen.get() == false) {
 		mainWindow.open()
 		mainWindowIsOpen.set(true)
@@ -65,6 +65,6 @@ export function startup() {
 	registerShortcuts()
 	if (typeof ui !== "undefined") {
 		const menuItemName = "Measuring Tape";
-		ui.registerMenuItem(menuItemName, () => openMainWindowIfNotAllready());
+		ui.registerMenuItem(menuItemName, () => openMainWindowIfNotAlready());
 	}
 }

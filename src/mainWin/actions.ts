@@ -16,18 +16,18 @@ import { ElementVisibility } from "openrct2-flexui";
 import { MapSelection } from "../tool/mapSelection";
 import { mapTileSize } from "../common/mapTileSize";
 import { defaults, model } from "./mainModel";
-import { addToHistory, eraseHistory, exorciseCementery, isHistory, moveGhosts, removeLastFromHistory } from "../ghosts/ghostActions";
+import { addToHistory, eraseHistory, exorciseCemetery, isHistory, moveGhosts, removeLastFromHistory } from "../ghosts/ghostActions";
 import { tool } from "../tool/tool";
 import { ToolMode } from "../tool/mapSelectionTool";
 import { startToolMode } from "../config/toolMode";
 
 // GROUPBOX (measurement)
-function setDeafultMeasurementLabels() {
+function setDefaultMeasurementLabels() {
     model.currentMeasurement2Visibility.set(defaults.currentMeasurement2Visibility)
     model.currentMeasurement2.set(defaults.currentMeasurement2)
     model.currentMeasurement.set(defaults.currentMeasurement)
 }
-// END GRUPBOX (measuremet)
+// END GROUPBOX (measurement)
 
 // GROUPBOX "Mode"
 function depressToolButtons() {
@@ -38,7 +38,7 @@ function depressToolButtons() {
 function commonToolDepress() {
     onToolCancel()
     depressToolButtons()
-    setDeafultMeasurementLabels()
+    setDefaultMeasurementLabels()
 }
 
 export function onClickAreaButton() {
@@ -82,32 +82,32 @@ export function onClickShowGhCentreButton() {
 // END GROUPBOX "Show Ghosts"
 
 // GROUPBOX "Ghosts"
-function setDissmisButtonsDisability() {
+function setDismissButtonsDisability() {
     // tvl to je logika
     if (model.ghostsButtonsPressed.keepOne.get() == false && model.ghostsButtonsPressed.keepAll.get() == false) {
-        model.ghostsButtonsDisabled.dissmissLast.set(true)
-        model.ghostsButtonsDisabled.dissmiisAll.set(true)
+        model.ghostsButtonsDisabled.dismissLast.set(true)
+        model.ghostsButtonsDisabled.dismissAll.set(true)
     }
     if (model.ghostsButtonsPressed.keepOne.get() == true || model.ghostsButtonsPressed.keepAll.get() == true) {
-        model.ghostsButtonsDisabled.dissmissLast.set(false)
-        model.ghostsButtonsDisabled.dissmiisAll.set(false)
+        model.ghostsButtonsDisabled.dismissLast.set(false)
+        model.ghostsButtonsDisabled.dismissAll.set(false)
     }
     if (isHistory()) {
-        model.ghostsButtonsDisabled.dissmissLast.set(true)
-        model.ghostsButtonsDisabled.dissmiisAll.set(true)
+        model.ghostsButtonsDisabled.dismissLast.set(true)
+        model.ghostsButtonsDisabled.dismissAll.set(true)
     }
     if (model.ghostsButtonsPressed.keepAll.get() == false) {
-        model.ghostsButtonsDisabled.dissmiisAll.set(true)
+        model.ghostsButtonsDisabled.dismissAll.set(true)
     }
 }
 
 export function onClickKeepOneButton() {
     if (model.ghostsButtonsPressed.keepOne.get() == true) {
-        exorciseCementery()
+        exorciseCemetery()
     }
     model.ghostsButtonsPressed.keepOne.set(!model.ghostsButtonsPressed.keepOne.get())
     model.ghostsButtonsPressed.keepAll.set(false)
-    setDissmisButtonsDisability()
+    setDismissButtonsDisability()
 }
 
 export function onClickKeepAllButton() {
@@ -115,24 +115,24 @@ export function onClickKeepAllButton() {
         addToHistory()
     }
     if (model.ghostsButtonsPressed.keepAll.get() == true) {
-        exorciseCementery()
+        exorciseCemetery()
     }
     model.ghostsButtonsPressed.keepAll.set(!model.ghostsButtonsPressed.keepAll.get())
     model.ghostsButtonsPressed.keepOne.set(false)
-    setDissmisButtonsDisability()
+    setDismissButtonsDisability()
 }
 
-export function onClickDisimissLast() {
+export function onClickDismissLast() {
     removeLastFromHistory()
-    setDeafultMeasurementLabels()
-    setDissmisButtonsDisability()
+    setDefaultMeasurementLabels()
+    setDismissButtonsDisability()
 
 }
 
-export function onClickDissmissAll() {
+export function onClickDismissAll() {
     eraseHistory()
-    setDeafultMeasurementLabels()
-    setDissmisButtonsDisability()
+    setDefaultMeasurementLabels()
+    setDismissButtonsDisability()
 }
 // END GROUPBOX "Ghosts"
 
@@ -141,14 +141,14 @@ export function onClickDissmissAll() {
 // TOOL ACTIONS (the tool is bound to main window)
 
 /**
- * Generally canceling tool via ESC or when another tool (eg. place scenery or footpath) gets invoked
+ * Generally cancelling tool via ESC or when another tool (eg. place scenery or footpath) gets invoked
  */
 export function onToolCancel(): void {
     if (!(model.ghostsButtonsPressed.keepOne.get() || model.ghostsButtonsPressed.keepAll.get())) {
-    exorciseCementery()
+    exorciseCemetery()
     }
-    setDeafultMeasurementLabels()
-    setDissmisButtonsDisability()
+    setDefaultMeasurementLabels()
+    setDismissButtonsDisability()
     depressToolButtons()
     tool.mode = "off"
 }
@@ -232,10 +232,10 @@ export function	nicelyStartTool(whichMode: ToolMode)
  */
 export function onToolUp() {
     if (model.ghostsButtonsPressed.keepOne.get() == false && model.ghostsButtonsPressed.keepAll.get() == false) {
-        exorciseCementery() 
+        exorciseCemetery() 
     }
     if (model.ghostsButtonsPressed.keepAll.get() ==  true) {
         addToHistory()
     }
-    setDissmisButtonsDisability()
+    setDismissButtonsDisability()
 }

@@ -40,11 +40,11 @@ export const model = {
         keepAll: store<boolean>(false),
         // other two buttons in Ghosts group are clickable only
     },
-    //rest of buttons are clickable only (no pressed state perservation)
+    //rest of buttons are clickable only (no pressed state preservation)
 
     ghostsButtonsDisabled: {
-        dissmissLast: store<boolean>(true),
-        dissmiisAll: store<boolean>(true)
+        dismissLast: store<boolean>(true),
+        dismissAll: store<boolean>(true)
     }
      
 }

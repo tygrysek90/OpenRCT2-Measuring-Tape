@@ -28,7 +28,7 @@ interface GhostConfig {
     /** Alike LoadedImageObject.baseImageId: number */
     image: number 
     /** Alike LoadedObject.identifier: string */
-    objectIdentifer: string
+    objectIdentifier: string
     /** Alike LoadedObject.index: number */
     objectId: number,
     /** OpenRCT2 ObjectType */
@@ -52,7 +52,7 @@ function defaultConfig(): Array<GhostConfig> {
             humanReadableSimple: "Edges of tiles", 
             controlsAsWell: [GhostConfigRow.tape_mid_edge, GhostConfigRow.tape_end, GhostConfigRow.area_centre_uneven], 
             image: 0,  
-            objectIdentifer: "rct2.scenery_wall.wallcb32", 
+            objectIdentifier: "rct2.scenery_wall.wallcb32", 
             objectId: 0, 
             objectType:"wall", 
         },
@@ -60,7 +60,7 @@ function defaultConfig(): Array<GhostConfig> {
             // simple mode: tape start copy
             humanReadable: "Tape centre (on edge)",
             image: 0,  
-            objectIdentifer: "rct2.scenery_wall.wallcb32", 
+            objectIdentifier: "rct2.scenery_wall.wallcb32", 
             objectId: 0, 
             objectType: "wall", 
         },
@@ -69,7 +69,7 @@ function defaultConfig(): Array<GhostConfig> {
             humanReadableSimple: "Full tiles", 
             controlsAsWell: [GhostConfigRow.area_centre_x],
             image: 0,  
-            objectIdentifer: "rct2.scenery_small.brbase", 
+            objectIdentifier: "rct2.scenery_small.brbase", 
             objectId: 0, 
             objectType: "small_scenery",
         },
@@ -77,7 +77,7 @@ function defaultConfig(): Array<GhostConfig> {
             // simple mode: tape start copy
             humanReadable: "Tape end", 
             image: 0,  
-            objectIdentifer: 
+            objectIdentifier: 
             "rct2.scenery_wall.wallcb32",
             objectId: 0, 
             objectType:"wall",
@@ -86,7 +86,7 @@ function defaultConfig(): Array<GhostConfig> {
             humanReadable: "Area corner",
             image: 0, 
             humanReadableSimple: "Area corners", 
-            objectIdentifer: "rct2.scenery_small.cwfcrv33", 
+            objectIdentifier: "rct2.scenery_small.cwfcrv33", 
             objectId: 0, 
             objectType: "small_scenery",
         },
@@ -94,7 +94,7 @@ function defaultConfig(): Array<GhostConfig> {
             // simple mode: copy mid_tile ("centre on tile")
             humanReadable: "Area centre (edge ❌)", 
             image: 0,  
-            objectIdentifer: "rct2.scenery_small.brbase", 
+            objectIdentifier: "rct2.scenery_small.brbase", 
             objectId: 0, 
             objectType: "small_scenery",
         },
@@ -102,7 +102,7 @@ function defaultConfig(): Array<GhostConfig> {
             // simple mode: tape start copy
             humanReadable: "Area centre (uneven)",
             image: 0,  
-            objectIdentifer: "rct2.scenery_wall.wallcb32", 
+            objectIdentifier: "rct2.scenery_wall.wallcb32", 
             objectId: 0, 
             objectType: "wall",
         },
@@ -126,7 +126,7 @@ function populateGhostConfig() {
 
     ghostConfig.forEach(config => {
         let loaderArrPos = loadersOrder.indexOf(config.objectType)
-        let inLoaderIndex = loaders[loaderArrPos].identifiers.indexOf(config.objectIdentifer)
+        let inLoaderIndex = loaders[loaderArrPos].identifiers.indexOf(config.objectIdentifier)
         config.image = loaders[loaderArrPos].images[inLoaderIndex]
         config.objectId = loaders[loaderArrPos].ids[inLoaderIndex]
     })
@@ -138,12 +138,12 @@ export function initConfig() {
     let maybeConfig = readParkStorage()
     if (maybeSharedStorage != undefined) {
         for (let i=0; i<ghostConfig.length; i++) {
-            ghostConfig[i].objectIdentifer = maybeSharedStorage[i]
+            ghostConfig[i].objectIdentifier = maybeSharedStorage[i]
         }
     }
     if (maybeConfig != undefined) {
         for (let i=0; i<ghostConfig.length; i++) {
-            ghostConfig[i].objectIdentifer = maybeConfig[i]
+            ghostConfig[i].objectIdentifier = maybeConfig[i]
         }
     }
     populateGhostConfig()
@@ -159,7 +159,7 @@ export function objectConfigSetDefault() {
 export function ghostStoreConfig() {
     let sequential: Array<string> = []
     ghostConfig.forEach(configLine => {
-        sequential.push(configLine.objectIdentifer)
+        sequential.push(configLine.objectIdentifier)
     })
     writeParkStorage(sequential)
 }
@@ -170,7 +170,7 @@ export function ghostUpdateConfigFromSimple() {
             config.controlsAsWell.forEach(item => {
                 ghostConfig[item].image = config.image
                 ghostConfig[item].objectId = config.objectId
-                ghostConfig[item].objectIdentifer = config.objectIdentifer
+                ghostConfig[item].objectIdentifier = config.objectIdentifier
             })
         }
     })
@@ -179,7 +179,7 @@ export function ghostUpdateConfigFromSimple() {
 export function ghostSharedStorageSave(){
     let sequential: Array<string> = []
     ghostConfig.forEach(configLine => {
-        sequential.push(configLine.objectIdentifer)
+        sequential.push(configLine.objectIdentifier)
     })
     sharedStorageSet(configs.sequential, sequential)
 }
@@ -189,7 +189,7 @@ export function ghostSharedStorageLoad() {
     let maybeSharedStorage = sharedStorageGet<Array<string>>(configs.sequential)
     if (maybeSharedStorage != undefined) {
         for (let i=0; i<ghostConfig.length; i++) {
-            ghostConfig[i].objectIdentifer = maybeSharedStorage[i]
+            ghostConfig[i].objectIdentifier = maybeSharedStorage[i]
         }
     }
     populateGhostConfig()

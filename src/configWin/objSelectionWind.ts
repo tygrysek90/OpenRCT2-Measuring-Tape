@@ -117,7 +117,7 @@ export const objectSelectionWindow = window({
 
                         label({
                             padding: {top: "100%", bottom: -2},
-                            text: "{BABYBLUE}Profi mode:"
+                            text: "{BABYBLUE}Professional mode:"
                         }),
                         checkbox({
                             text: "More setting options",

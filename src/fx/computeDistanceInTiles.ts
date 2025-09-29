@@ -14,7 +14,7 @@ import { mapTileSize } from "../common/mapTileSize";
  * Computes distance in tiles between two points
  * √[(x₂ - x₁)² + (y₂ - y₁)²]
  * @param verifiedSelection
- * @returns number of lenght in map Tiles (beware, not in Coords)
+ * @returns number of length in map Tiles (beware, not in Coords)
  */
 export function computeDistanceInTiles(verifiedSelection: MapSelectionVerified): number {
     return (

@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 import { debug } from "../logger/logger"
-import { smolScIsNormal } from "./smolScIsNormal"
+import { smallScIsNormal } from "./smallScIsNormal"
 
 
 /**
@@ -92,7 +92,7 @@ export class DataLoader {
         this.namesWithIdentifiers.push(this._namesWithIdentifiers[i])
     }
 
-    filter(searchedString: string, filterSmolScenery:boolean) {
+    filter(searchedString: string, filterSmallScenery:boolean) {
         let regex = new RegExp(searchedString, 'i')
         this.emptyArrays()
         for (let i=0; i<this._ids.length; i++) {
@@ -103,8 +103,8 @@ export class DataLoader {
                     
                 }
                 else {
-                    if (filterSmolScenery == true) {
-                        if (smolScIsNormal(this._ids[i])) {
+                    if (filterSmallScenery == true) {
+                        if (smallScIsNormal(this._ids[i])) {
                             this.filterPush(i)
                         }
                     }

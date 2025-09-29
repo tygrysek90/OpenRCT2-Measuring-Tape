@@ -37,7 +37,7 @@ function name():string {
 
 /**
  * 
- * @returns en empty string in case of production build, -dev suffix in topaz coulour otherwise 
+ * @returns en empty string in case of production build, -dev suffix in topaz colour otherwise 
  */
 function suffix(): string{
     if (build.isDevelopment) {
