@@ -191,7 +191,7 @@ export function startTool()
         tool.activate()
         tool.onCancel = () => onToolCancel()
         tool.onMove = (selection) => updateMeasurementTape(selection);  
-        tool.onUp = () => onToolUp();  
+        tool.onUp = () => onGhostActionFinish();  
     }
 
     if (tool.mode == "area") {
@@ -228,9 +228,8 @@ export function	nicelyStartTool(whichMode: ToolMode)
 /**
  * This is generally on L Mouse Button release after dragging area
  * it also gets called from extraActions
- * TODO: un-spaghetti this
  */
-export function onToolUp() {
+export function onGhostActionFinish() {
     if (model.ghostsButtonsPressed.keepOne.get() == false && model.ghostsButtonsPressed.keepAll.get() == false) {
         exorciseCemetery() 
     }

@@ -132,6 +132,7 @@ function populateGhostConfig() {
     })
 }
 
+// TODO! clean up, create fallback fallthrough cases
 export function initConfig() {
     ghostConfig = defaultConfig()
     let maybeSharedStorage = sharedStorageGet<Array<string>>(configs.sequential)

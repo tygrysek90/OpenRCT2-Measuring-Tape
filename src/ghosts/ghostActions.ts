@@ -260,7 +260,7 @@ function findGhostStart(verifiedSelection: MapSelectionVerified): void {
  * @param verifiedSelection 
  */
 function findGhostCorners(verifiedSelection: MapSelectionVerified): void {
-    // TODO: observe pattern and form "for" cycle
+    // TODO-low: observe pattern and form "for" cycle
     let cornerMinMin = map.getTile(Math.min(verifiedSelection.start.x/mapTileSize, verifiedSelection.end.x/mapTileSize), Math.min(verifiedSelection.start.y/mapTileSize, verifiedSelection.end.y/mapTileSize))
     let cornerMinMax = map.getTile(Math.min(verifiedSelection.start.x/mapTileSize, verifiedSelection.end.x/mapTileSize), Math.max(verifiedSelection.start.y/mapTileSize, verifiedSelection.end.y/mapTileSize))
     let cornerMaxMax = map.getTile(Math.max(verifiedSelection.start.x/mapTileSize, verifiedSelection.end.x/mapTileSize), Math.max(verifiedSelection.start.y/mapTileSize, verifiedSelection.end.y/mapTileSize))
