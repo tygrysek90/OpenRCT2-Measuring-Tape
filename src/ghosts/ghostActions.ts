@@ -92,10 +92,10 @@ export function eraseHistory() {
 
 
 /**
- * TODO: naming 
- * @returns TODO...
+ * Checks whether there is no current working ghost set *nor* any ghosts stored 
+ * @returns true when there are no ghost to project or remove
  */
-export function isHistory(): boolean {
+export function isNoGhostHistory(): boolean {
     return cemetery.length == 0 && cemeteryHistory.length == 0
 }
 

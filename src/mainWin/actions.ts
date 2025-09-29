@@ -16,7 +16,7 @@ import { ElementVisibility } from "openrct2-flexui";
 import { MapSelection } from "../tool/mapSelection";
 import { mapTileSize } from "../common/mapTileSize";
 import { defaults, model } from "./mainModel";
-import { addToHistory, eraseHistory, exorciseCemetery, isHistory, moveGhosts, removeLastFromHistory } from "../ghosts/ghostActions";
+import { addToHistory, eraseHistory, exorciseCemetery, isNoGhostHistory, moveGhosts, removeLastFromHistory } from "../ghosts/ghostActions";
 import { tool } from "../tool/tool";
 import { ToolMode } from "../tool/mapSelectionTool";
 import { startToolMode } from "../config/toolMode";
@@ -92,7 +92,7 @@ function setDismissButtonsDisability() {
         model.ghostsButtonsDisabled.dismissLast.set(false)
         model.ghostsButtonsDisabled.dismissAll.set(false)
     }
-    if (isHistory()) {
+    if (isNoGhostHistory()) {
         model.ghostsButtonsDisabled.dismissLast.set(true)
         model.ghostsButtonsDisabled.dismissAll.set(true)
     }
