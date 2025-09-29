@@ -23,7 +23,7 @@ import { pluginVersionReadableWithName } from "../version";
 
 const aboutLines = [
     "",
-    `OpenRCT2-Measuring-Tape, v${pluginVersionReadableWithName}`,
+    `{BABYBLUE}OpenRCT2-Measuring-Tape, ${pluginVersionReadableWithName}`,
     "Copyright © 2025 {TOPAZ}Ríša Szlachta (tygrysek90)",
     "", 
     "{BABYBLUE}https://github.com/tygrysek90/OpenRCT2-Measuring-Tape",

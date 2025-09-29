@@ -185,7 +185,7 @@ export const mainWindow = window({
                 label({
                     disabled: true,
                     alignment: "centred",
-                    text: `v${pluginVersionReadable}`
+                    text: pluginVersionReadable
                 })
             ]
         })

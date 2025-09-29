@@ -1,3 +1,4 @@
+import replace from "@rollup/plugin-replace";
 import resolve from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
@@ -70,6 +71,13 @@ const config = {
 	},
 	treeshake: "smallest",
 	plugins: [
+		replace({
+			include: "./src/environment.ts",
+			preventAssignment: true,
+			values: {
+				__BUILD_CONFIGURATION__: options.build
+			}
+		}),
 		resolve(),
 		typescript(),
 		terser({

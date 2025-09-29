@@ -7,6 +7,9 @@
  * is licensed under the GNU General Public License version 3.
  *****************************************************************************/
 
+import { build } from "../environment";
+
+
 //**
 // Based on OpenRCT2-ProxyPather by Basssiiie, 
 // https://github.com/Basssiiie/OpenRCT2-ProxyPather
@@ -15,32 +18,12 @@
 // see .licenses/mit_license_Basssiiie_ProxyPather}` */
 
 /**
- * Returns the build configuration of the plugin.
- */
-export const buildConfiguration = "__BUILD_CONFIGURATION__";
-
-
-/**
- * Returns true if the current build is a production build.
- */
-// @ts-expect-error: boolean expression is affected by build variable replacement.
-export const isProduction = (buildConfiguration === "production");
-
-
-/**
- * Returns true if the current build is a production build.
- */
-// @ts-expect-error: boolean expression is affected by build variable replacement.
-export const isDevelopment = (buildConfiguration === "development");
-
-
-/**
  * Logs a message is debug mode is enabled, or does nothing otherwise.
  * @param message The error message to be logged.
  */
 export function debug(message: string): void
 {
-	if (isDevelopment)
+	if (build.isDevelopment)
 	{
 		console.log(message);
 	}
