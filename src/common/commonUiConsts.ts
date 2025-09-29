@@ -17,7 +17,7 @@
  */
 export const imgButton = {
     width: 45,
-    heigh: 34
+    height: 34
 };
 
 /**
@@ -25,7 +25,7 @@ export const imgButton = {
  */
 export const imgButtonSmall = {
     width: 28,
-    heigh: 25
+    height: 25
 };
 
 /**

@@ -29,14 +29,14 @@ export const extraWindow = window({
             content:[
                 button({
                     width: imgButton.width,
-                    height: imgButton.heigh,
+                    height: imgButton.height,
                     image: bisectMapEdgesPng.image,
                     tooltip: "Bisect (to half) map edges",
                     onClick: () => onClickBisectEdgesButton()
                 }),
                 button({
                     width: imgButton.width,
-                    height: imgButton.heigh,
+                    height: imgButton.height,
                     image: centreOfMapPng.image,
                     tooltip: "Find centre of map",
                     onClick: () => onClickMapCentre()

@@ -64,7 +64,7 @@ export const mainWindow = window({
             direction: LayoutDirection.Horizontal,
             content: [
                 button({
-                    height: imgButton.heigh,
+                    height: imgButton.height,
                     width: imgButton.width,
                     image: tapePng.image,
                     border: false,
@@ -73,7 +73,7 @@ export const mainWindow = window({
                     onClick: () => onClickTapeButton(),
                 }),
                 button({
-                    height: imgButton.heigh,
+                    height: imgButton.height,
                     width: imgButton.width,
                     image: measureAreaPng.image,
                     tooltip: "Area",
@@ -88,7 +88,7 @@ export const mainWindow = window({
             direction: LayoutDirection.Horizontal,
             content: [
                 button({
-                    height: imgButton.heigh,
+                    height: imgButton.height,
                     width: imgButton.width,
                     image: endsPng.image,
                     tooltip: "Ends",
@@ -96,7 +96,7 @@ export const mainWindow = window({
                     onClick: () => onClickShowGhEndButton(),
                 }),
                 button({
-                    height: imgButton.heigh,
+                    height: imgButton.height,
                     width: imgButton.width,
                     image: centrePng.image,
                     tooltip: "Centre",
@@ -112,7 +112,7 @@ export const mainWindow = window({
                 horizontal({
                     content: [
                         button({
-                            height: imgButton.heigh,
+                            height: imgButton.height,
                             width: imgButton.width,
                             image: lockOnePng.image,
                             tooltip: "Keep 1 set",
@@ -120,7 +120,7 @@ export const mainWindow = window({
                             onClick: () => onClickKeepOneButton(),
                         }),
                         button({
-                            height: imgButton.heigh,
+                            height: imgButton.height,
                             width: imgButton.width,
                             image: lockAllPng.image,
                             tooltip: "Keep all",
@@ -132,7 +132,7 @@ export const mainWindow = window({
                 horizontal({
                     content: [
                         button({
-                           height: imgButton.heigh,
+                           height: imgButton.height,
                             width: imgButton.width,
                             image: removeOnePng.image,
                             tooltip: "Dismiss last",
@@ -140,7 +140,7 @@ export const mainWindow = window({
                             onClick: () => onClickDismissLast(),
                         }),
                         button({
-                            height: imgButton.heigh,
+                            height: imgButton.height,
                             width: imgButton.width,
                             image: removeAllPng.image,
                             tooltip: "Dismiss all",
@@ -156,14 +156,14 @@ export const mainWindow = window({
             direction: LayoutDirection.Horizontal,
             content: [
                 button({
-                    height: imgButtonSmall.heigh,
+                    height: imgButtonSmall.height,
                     width: imgButtonSmall.width,
                     image: wrenchPng.image,
                     tooltip: "Configure",
                     onClick: () => openObjSelection(), 
                 }),
                 button({
-                    height: imgButtonSmall.heigh,
+                    height: imgButtonSmall.height,
                     width: imgButtonSmall.width,
                     image:  helpAboutPng.image,
                     tooltip: "About & Help",
@@ -171,7 +171,7 @@ export const mainWindow = window({
                 }),
                 button({
                     padding: {left: "1px", right: "1px"},
-                    height: imgButtonSmall.heigh,
+                    height: imgButtonSmall.height,
                     width: imgButtonSmall.width,
                     image: extraPng.image,
                     tooltip: "Extra tools",
