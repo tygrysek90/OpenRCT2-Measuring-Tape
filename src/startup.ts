@@ -7,48 +7,48 @@
  * is licensed under the GNU General Public License version 3.
  *****************************************************************************/
 
-import { startToolMode } from "./config/toolMode";
 import { nicelyStartTool, stopTool } from "./mainWin/actions";
 import { mainWindowIsOpen } from "./mainWin/isOpen";
 import { mainWindow } from "./mainWin/mainWindow";
+import { startToolMode } from "./config/toolMode";
+
 
 const shortcuts: Array<ShortcutDesc> = [
 	{
 		id: "measuring-tape.mainwindow.open",
-		text: "[Meas. Tape] Open & measure",
+		text: "[MT] Open & measure",
 		bindings: ["ALT+T"],
 		callback() {
-			openMainWindowIfNotAlready()
+			openMainWindowIfNotAlready();
 		}
-
 	},
 	{
 		id: "measuring-tape.mainwindow.open-tape",
-		text: "[Meas. Tape] Tape tool",
+		text: "[MT] Tape tool",
 		bindings: [""],
 		callback() {
-			startToolMode.set("tape")
-			openMainWindowIfNotAlready()
+			startToolMode.set("tape");
+			openMainWindowIfNotAlready();
 		}
 	},
 	{
 		id: "measuring-tape.mainwindow.open-area",
-		text: "[Meas. Tape] Area tool",
+		text: "[MT] Area tool",
 		bindings: [""],
 		callback() {
-			startToolMode.set("area")
-			openMainWindowIfNotAlready()
+			startToolMode.set("area");
+			openMainWindowIfNotAlready();
 		}
 	}
-]
+];
 
 export function registerShortcuts() {
-shortcuts.forEach(shortcut => {
-	ui.registerShortcut(shortcut)
-})
+	shortcuts.forEach(shortcut => {
+		ui.registerShortcut(shortcut);
+	});
 }
 
-function openMainWindowIfNotAlready() {
+export function openMainWindowIfNotAlready() {
 	if (mainWindowIsOpen.get() == false) {
 		mainWindow.open()
 		mainWindowIsOpen.set(true)
@@ -62,8 +62,8 @@ function openMainWindowIfNotAlready() {
 
 /** Register a menu item under the map icon: */
 export function startup() {
-	registerShortcuts()
 	if (typeof ui !== "undefined") {
+		registerShortcuts()
 		const menuItemName = "Measuring Tape";
 		ui.registerMenuItem(menuItemName, () => openMainWindowIfNotAlready());
 	}
