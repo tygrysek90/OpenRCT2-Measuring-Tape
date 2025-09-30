@@ -7,13 +7,12 @@
 ![measuring-tape-v0 2-foggia](https://github.com/user-attachments/assets/047ab387-d286-409b-99db-393ead079ce0)
 
 
-## Release version
-The plugin is ready to download at  [Releases page
-](https://github.com/tygrysek90/OpenRCT2-Measuring-Tape/releases)
+## Release version v0.2 "Foggia"
+The plugin is ready to download at the [Releases page](https://github.com/tygrysek90/OpenRCT2-Measuring-Tape/releases/tag/v0.2)  
 
 
 ## What's new?
-Have a look at the [`changelog.md`](changelog.md) - it comes with gifs and screenshots
+Have a look at the [`changelog.md`](https://github.com/tygrysek90/OpenRCT2-Measuring-Tape/blob/main/changelog.md) - it comes with gifs and screenshots
 
 ____________
 ## Features
@@ -40,9 +39,8 @@ ____________
 ### And more...
 
 ____________
-## Release version
-The plugin is ready to download at [Releases page
-](https://github.com/tygrysek90/OpenRCT2-Measuring-Tape/releases)
+## Release version v0.2 "Foggia"
+The plugin is ready to download at the [Releases page](https://github.com/tygrysek90/OpenRCT2-Measuring-Tape/releases/tag/v0.2)  
 
 
 ## Building from source
