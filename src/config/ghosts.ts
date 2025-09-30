@@ -12,10 +12,8 @@
  */
 
 import { DataLoader } from "../fx/objDataLoader"
-import { debug } from "../logger/logger"
 import { readParkStorage, writeParkStorage } from "./parkStorage"
 import { configs, sharedStorageGet, sharedStorageSet } from "./sharedStorage"
-
 
 export enum GhostConfigRow  { "tape_start" , "tape_mid_edge" , "mid_tile" , "tape_end" , "area_corner" , "area_centre_x", "area_centre_uneven" }
 
