@@ -4,7 +4,7 @@
 
 <br/>
 
-![master-pre](https://github.com/user-attachments/assets/18d879a6-4439-4fa3-bb69-7d3bb3634a68)
+![measuring-tape-v0 2-foggia](https://github.com/user-attachments/assets/047ab387-d286-409b-99db-393ead079ce0)
 
 
 ## Release version
