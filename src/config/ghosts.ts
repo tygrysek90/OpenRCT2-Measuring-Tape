@@ -12,6 +12,7 @@
  */
 
 import { DataLoader } from "../fx/objDataLoader"
+import { debug } from "../logger/logger"
 import { readParkStorage, writeParkStorage } from "./parkStorage"
 import { configs, sharedStorageGet, sharedStorageSet } from "./sharedStorage"
 
@@ -134,7 +135,7 @@ function populateGhostConfig(reallyPopulate: boolean): boolean {
         let loaderArrPos = loadersOrder.indexOf(ghostConfig[i].objectType)
         let inLoaderIndex = loaders[loaderArrPos].identifiers.indexOf(ghostConfig[i].objectIdentifier)
         if (inLoaderIndex > -1) {
-            if (!reallyPopulate) { 
+            if (reallyPopulate) { 
                 ghostConfig[i].image = loaders[loaderArrPos].images[inLoaderIndex]
                 ghostConfig[i].objectId = loaders[loaderArrPos].ids[inLoaderIndex]
             }
