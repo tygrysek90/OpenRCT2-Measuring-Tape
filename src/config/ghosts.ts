@@ -114,7 +114,13 @@ function defaultConfig(): Array<GhostConfig> {
  */
 export var ghostConfig: Array<GhostConfig>
 
-function populateGhostConfig() {
+
+/**
+ * 
+ * @param reallyPopulate set false for "dry run"
+ * @returns true if all object names are found in current setting (are useable)
+ */
+function populateGhostConfig(reallyPopulate: boolean): boolean {
     let loaders: Array<DataLoader> = []
  
     let loadersOrder: Array<ObjectType> = []
@@ -124,37 +130,126 @@ function populateGhostConfig() {
     loaders.push(new DataLoader("small_scenery"))
     loadersOrder.push("small_scenery")
 
-    ghostConfig.forEach(config => {
-        let loaderArrPos = loadersOrder.indexOf(config.objectType)
-        let inLoaderIndex = loaders[loaderArrPos].identifiers.indexOf(config.objectIdentifier)
-        config.image = loaders[loaderArrPos].images[inLoaderIndex]
-        config.objectId = loaders[loaderArrPos].ids[inLoaderIndex]
-    })
+    for (let i=0; i<ghostConfig.length; i++) {
+        let loaderArrPos = loadersOrder.indexOf(ghostConfig[i].objectType)
+        let inLoaderIndex = loaders[loaderArrPos].identifiers.indexOf(ghostConfig[i].objectIdentifier)
+        if (inLoaderIndex > -1) {
+            if (!reallyPopulate) { 
+                ghostConfig[i].image = loaders[loaderArrPos].images[inLoaderIndex]
+                ghostConfig[i].objectId = loaders[loaderArrPos].ids[inLoaderIndex]
+            }
+        }
+        else {
+            return false
+        }
+    }
+    return true
 }
 
-// TODO! clean up, create fallback fallthrough cases
-export function initConfig() {
-    ghostConfig = defaultConfig()
+/**
+ * Edge case handling for ghost object loading, try to load at least something
+ * @returns false when there is absolutely no wall or no small scenery to load as a ghost
+ */
+function populateGhostConfigFail(): boolean {
+    let loaders: Array<DataLoader> = []
+ 
+    let loadersOrder: Array<ObjectType> = []
+    
+    loaders.push(new DataLoader("wall"))
+    loadersOrder.push("wall")
+    loaders.push(new DataLoader("small_scenery"))
+    loadersOrder.push("small_scenery")
+
+    for (let i=0; i<ghostConfig.length; i++) {
+        let loaderArrPos = loadersOrder.indexOf(ghostConfig[i].objectType)
+        if (loaders[loaderArrPos].images.length != 0) {
+            ghostConfig[i].image = loaders[loaderArrPos].images[0]
+            ghostConfig[i].objectId = loaders[loaderArrPos].ids[0]
+        }
+        else {
+            return false
+        }
+    }
+    return true
+
+}
+
+/**
+ * 
+ * @returns true when object names were loaded from plugin shared storage
+ */
+function loadSharedStorage() {
     let maybeSharedStorage = sharedStorageGet<Array<string>>(configs.sequential)
-    let maybeConfig = readParkStorage()
     if (maybeSharedStorage != undefined) {
         for (let i=0; i<ghostConfig.length; i++) {
             ghostConfig[i].objectIdentifier = maybeSharedStorage[i]
         }
+        return true
     }
+    else {
+        return false
+    }
+}
+
+/**
+ * Load configuration from park storage
+ * @returns true when object names were loaded from park storage
+ */
+function loadParkStorage():boolean {
+    let maybeConfig = readParkStorage()
     if (maybeConfig != undefined) {
         for (let i=0; i<ghostConfig.length; i++) {
             ghostConfig[i].objectIdentifier = maybeConfig[i]
         }
+        return true
     }
-    populateGhostConfig()
+    else {
+        return false
+    }
+}
+
+/**
+ * 
+ * @returns false when it's not possible to load any object at all and use ghosts
+ */
+export function initConfig():boolean {
+    ghostConfig = defaultConfig() // ghostConfig is empty upon creation!
+
+    // let's go in order 
+    // in-park config -> user profile (shared storage) -> default ->  fallback (just pick first one) -> total fail
+    if (loadParkStorage()) {
+        if (populateGhostConfig(false)) {
+            populateGhostConfig(true)
+            return true
+        }
+    }
+    if (loadSharedStorage()) {
+        if (populateGhostConfig(false)) {
+            populateGhostConfig(true)
+            return true
+        }
+        else{
+            ui.showError("Tape measure", "Personal configuration not applicable due to missing objects, falling back to plugin defaults")
+        }
+    }
+    ghostConfig = defaultConfig()
+    if (populateGhostConfig(false)) {
+        populateGhostConfig(true)
+        return true
+    }
+    if (populateGhostConfigFail()) {
+        return true
+    }
+
+    // this could happen only when park has 0 small scenery or 0 walls loaded
+    ui.showError("Tape measure", "No useable objects found, ghost functionality will be disabled")
+    return false
 }
 
 export function objectConfigSetDefault() {
     ghostConfig = defaultConfig()
-    populateGhostConfig()
+    populateGhostConfig(true)
     ghostStoreConfig()
-
 }
 
 export function ghostStoreConfig() {
@@ -187,12 +282,7 @@ export function ghostSharedStorageSave(){
 
 export function ghostSharedStorageLoad() {
     ghostConfig = defaultConfig()
-    let maybeSharedStorage = sharedStorageGet<Array<string>>(configs.sequential)
-    if (maybeSharedStorage != undefined) {
-        for (let i=0; i<ghostConfig.length; i++) {
-            ghostConfig[i].objectIdentifier = maybeSharedStorage[i]
-        }
-    }
-    populateGhostConfig()
+    loadSharedStorage()
+    populateGhostConfig(true)
     ghostStoreConfig()
 }
