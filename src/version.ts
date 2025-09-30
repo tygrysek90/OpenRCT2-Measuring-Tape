@@ -15,7 +15,7 @@
 import { build } from "./environment"
 
 /** Primary version designation */
-const version : string = "0.1.2"
+const version : string = "0.2"
 
 /** Release name */
 function name():string {
@@ -52,8 +52,8 @@ function suffix(): string{
 /** plugin version with 'v-' prefix */
 export const pluginVersion = `v-${version}${suffix()}`
 
-/** plugin version with 'v.' prefix */
-export const pluginVersionReadable = `v.${version}${suffix()}`
+/** plugin version with 'v' prefix */
+export const pluginVersionReadable = `v${version}${suffix()}`
 
 /** 
  * plugin version with: 

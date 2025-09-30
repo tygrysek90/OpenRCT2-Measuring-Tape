@@ -1,15 +1,15 @@
 ## OpenRCT2-Measuring-Tape summary changelog
 *This changelog is illustrative and might not offer complete summary, for full history, use GitHub's "Compare" functionality*
 
-### v0.2 (in develepolemnt)
+### v0.2
 
 **New:** 
-- Tools can be activated via keyboard shortcuts. Defaultly empty, to be assigned to suit your workflow.
+- Tools can be activated via keyboard shortcuts. Default empty, to be assigned to suit your workflow.
   <img width="439" height="105" alt="image" src="https://github.com/user-attachments/assets/aa86a6ee-df52-438b-af20-0c08a2a74958" />
 - Saving of ghost object configuration per park or in game settings
 - Switchable simple or professional configuration mode for objects
   ![Peek 2025-09-30 16-46](https://github.com/user-attachments/assets/a2bcb4b9-303c-4c3d-a359-b663ca020843)
-- Filtering of trees, swamp goos, 1/4 tile objects out of your object list for easier choice (filter defaultly on)
+- Filtering of trees, swamp goo-s, 1/4 tile objects out of your object list for easier choice (filter default on)
   ![Peek 2025-09-30 16-50](https://github.com/user-attachments/assets/f28ed7ec-444e-4ba8-b07f-9ae88d777313)
 
 **Fixes:** 

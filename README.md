@@ -18,7 +18,7 @@ Have a look at the [`changelog.md`](changelog.md) - it comes with gifs and scree
 ____________
 ## Features
 
-### Measure lenght
+### Measure length
 <img width="490" height="395" alt="Snímek obrazovky z 2025-09-25 13-34-05" src="https://github.com/user-attachments/assets/32a9bb86-dec3-495c-94ad-5a552d1cd302" />
 
 ### Measure area
@@ -51,5 +51,5 @@ Note there are two branches kept for this project, main is held at current relea
 Visual Studio Code users can clone this repository in editor and use Terminal -> Run task... menu options (including downloading `openrct2.d.ts` into lib directory and running `rebuildPngToBase64.js`)
 
 ## Contact the author
-Bug reports, feature ideas or requests, any kind of collaboaration - I am open-minded to chat about anything: contact me
+Bug reports, feature ideas or requests, any kind of collaboration - I am open-minded to chat about anything: contact me
 via GitHub - you can make an Issue, or catch me via OpenRCT2 discord #plugin (or direct message)
