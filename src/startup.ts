@@ -7,7 +7,7 @@
  * is licensed under the GNU General Public License version 3.
  *****************************************************************************/
 
-import { nicelyStartTool, stopTool } from "./mainWin/actions";
+import { nicelyStartTool, stopTool } from "./mainWin/mainActions";
 import { mainWindowIsOpen } from "./mainWin/isOpen";
 import { mainWindow } from "./mainWin/mainWindow";
 import { startToolMode } from "./config/toolMode";

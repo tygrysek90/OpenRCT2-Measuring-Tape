@@ -14,7 +14,7 @@
 
 import { button, Colour, groupbox, horizontal, label, LayoutDirection, window } from "openrct2-flexui";
 import { model } from "./mainModel";
-import { nicelyStartTool, onClickAreaButton, onClickDismissLast, onClickDismissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton, stopTool } from "./actions";
+import { nicelyStartTool, onClickAreaButton, onClickDismissLast, onClickDismissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton, stopTool } from "./mainActions";
 import { tapePng } from "../imgs/tape";
 import { endsPng } from "../imgs/ends";
 import { centrePng } from "../imgs/centre";

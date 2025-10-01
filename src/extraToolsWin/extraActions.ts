@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 import { findMapCentre, findMapEdgesCentres } from "../ghosts/ghostActions";
-import { onGhostActionFinish } from "../mainWin/actions";
+import { onGhostActionFinish } from "../mainWin/mainActions";
 
 export function onClickBisectEdgesButton() {
     findMapEdgesCentres()
