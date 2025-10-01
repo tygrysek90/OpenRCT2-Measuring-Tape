@@ -15,9 +15,8 @@
 // see licenses/mit_license_Basssiiie_OpenRCT2-RideVehicleEditor}` */
 
 
-//import { find } from "../utilities/array";
-//import * as Log from "../utilities/logger";
 import { isMultiplayer } from "./environment";
+import { find } from "./fx/arrayUtils";
 import { debug } from "./logger/logger";
 
 
@@ -27,7 +26,7 @@ import { debug } from "./logger/logger";
 export type Action<T> = (args: T) => void;
 
 
-//const requiredEditPermission: PermissionType = "ride_properties";
+const requiredEditPermission: PermissionType = "scenery";
 const registeredActions: Record<string, Action<never>> = {};
 
 
@@ -77,11 +76,11 @@ export function hasPermissions(playerId: number): boolean
 {
 	if (isMultiplayer())
 	{
-/* 		// Cannot use getPlayer and getGroup, because it uses indices instead of ids and player.group is an id.
+ 		// Cannot use getPlayer and getGroup, because it uses indices instead of ids and player.group is an id.
 		const player = find(network.players, p => p.id === playerId);
 		if (!player)
 		{
-			debug("Cannot apply update from player", playerId, ": player not found.");
+			debug(`Cannot apply update from player ${playerId}: player not found.`);
 			return false;
 		}
 
@@ -90,14 +89,14 @@ export function hasPermissions(playerId: number): boolean
 
 		if (!group)
 		{
-			debug("Cannot apply update from player", playerId, ": group id", groupId, "not found.");
+			debug(`Cannot apply update from player ${playerId}, group id ${groupId} not found.`);
 			return false;
 		}
 		if (group.permissions.indexOf(requiredEditPermission) < 0)
 		{
-			debug("Cannot apply update from player", playerId, ": lacking", requiredEditPermission, "permission.");
+			debug(`Cannot apply update from player ${playerId}: lacking ${requiredEditPermission} permission.`);
 			return false;
-		} */
+		} 
 	}
 	return true;
 }
@@ -111,6 +110,6 @@ function getPermissionError(): GameActionResult
 	return {
 		error: 2, // GameActions::Status::Disallowed
 		errorTitle: "Missing permissions!",
-		errorMessage: "Permission '(todo:doplnit!)' is required to use the Measuring Tape plugin on this server."
+		errorMessage: "Permission 'Scenery' is required to use the Measuring Tape plugin on this server."
 	};
 }
