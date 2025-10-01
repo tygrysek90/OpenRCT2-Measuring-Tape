@@ -45,3 +45,20 @@ export const build = {
     isDevelopment: (buildConfiguration === "development"),
 
 }
+
+
+
+//**
+// Based on OpenRCT2-RideVehicleEditor by Basssiiie, 
+// https://github.com/Basssiiie/OpenRCT2-RideVehicleEditor
+// 
+// originally licensed under MIT License
+// see licenses/mit_license_Basssiiie_OpenRCT2-RideVehicleEditor}` */
+
+/**
+ * Returns true if the player is in a multiplayer server, or false if it is a singleplayer game.
+ */
+export function isMultiplayer(): boolean
+{
+	return (network.mode !== "none");
+}

@@ -7,10 +7,17 @@
  * is licensed under the GNU General Public License version 3.
  *****************************************************************************/
 
+import { register } from "../actions"
+
 /**
  * Ghost place action
  */
 
+//const execute = register<SetGhostArgs>("ttt-ghost", setGhost);
+const execute = register<GhostPlaceArgs>("mt-set-ghost", ghostPlace)
+export function ghostPlaceAction(args:GhostPlaceArgs) {
+    execute(args)
+}
 
 export interface GhostPlaceArgs {
     /** x position in tiles */
@@ -27,11 +34,12 @@ export interface GhostPlaceArgs {
     object: number
 }
 
-export function ghostPlaceAction(args:GhostPlaceArgs) {
+function ghostPlace(args:GhostPlaceArgs) {
     let tile = map.getTile(args.xTiles, args.yTiles)
+    let numElements = tile.numElements
     switch (args.type) {
         case "wall": 
-            let newEl = tile.insertElement(tile.numElements) as WallElement
+            let newEl = tile.insertElement(numElements) as WallElement
             newEl.type = "wall"
             newEl.baseHeight = args.zBase
             newEl.direction = args.direction
@@ -39,7 +47,7 @@ export function ghostPlaceAction(args:GhostPlaceArgs) {
             newEl.isGhost = true
             break
         case "small_scenery":
-            let newE = tile.insertElement(tile.numElements) as SmallSceneryElement
+            let newE = tile.insertElement(numElements) as SmallSceneryElement
             newE.type = "small_scenery"
             newE.baseHeight = args.zBase
             newE.object = args.object

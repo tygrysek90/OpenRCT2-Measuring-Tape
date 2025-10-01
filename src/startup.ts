@@ -11,6 +11,7 @@ import { nicelyStartTool, stopTool } from "./mainWin/actions";
 import { mainWindowIsOpen } from "./mainWin/isOpen";
 import { mainWindow } from "./mainWin/mainWindow";
 import { startToolMode } from "./config/toolMode";
+import { registerActions } from "./actions";
 
 
 const shortcuts: Array<ShortcutDesc> = [
@@ -62,6 +63,7 @@ export function openMainWindowIfNotAlready() {
 
 /** Register a menu item under the map icon: */
 export function startup() {
+	registerActions()
 	if (typeof ui !== "undefined") {
 		registerShortcuts()
 		const menuItemName = "Measuring Tape";

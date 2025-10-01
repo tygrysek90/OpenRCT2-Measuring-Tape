@@ -16,7 +16,7 @@ registerPlugin({
 	name: "Measuring Tape",
 	version: pluginVersion,
 	authors: [ "Ríša Szlachta (tygrysek90)" ],
-	type: "local",
+	type: "remote",
 	licence: "GPL-3.0-only",
 	/**
 	 * This field determines which OpenRCT2 API version to use. It's best to always use the

@@ -154,6 +154,9 @@ export function onToolCancel(): void {
 }
 
 
+var lastStart: CoordsXY = {x:-32,y:-32}
+var lastLengthX: number = -1
+var lastLengthY: number = -1
 /**
  * Bound to tool.onMove(...)
  * @param selection 
@@ -162,17 +165,40 @@ function updateMeasurementTape(selection: MapSelection): void {
     let lengthX = Math.abs(selection.start.x-(selection.end?.x??0))/mapTileSize
     let lengthY = Math.abs(selection.start.y-(selection.end?.y??0))/mapTileSize
 
+    if (lastStart == selection.start) {
+        if (lastLengthX != lengthX || lastLengthY != lengthY) {
+            if (tool.mode == "tape") {
+                model.currentMeasurement.set(`Length: {WHITE}${Math.max(lengthX,lengthY)+1}`)
+                model.currentMeasurement2Visibility.set(<ElementVisibility>("none"))
+            }
+            if (tool.mode == "area") {
+                model.currentMeasurement.set(`Size: {WHITE}${lengthX+1} x ${lengthY+1}`)
+                model.currentMeasurement2Visibility.set(<ElementVisibility>("visible"))
+                model.currentMeasurement2.set(`Area: {GREY}${(lengthX+1)*(lengthY+1)}`)
+            }
+            moveGhosts()
 
-    if (tool.mode == "tape") {
-        model.currentMeasurement.set(`Length: {WHITE}${Math.max(lengthX,lengthY)+1}`)
-        model.currentMeasurement2Visibility.set(<ElementVisibility>("none"))
+            lastLengthX = lengthX
+            lastLengthY = lengthY
+
+        }
     }
-    if (tool.mode == "area") {
-        model.currentMeasurement.set(`Size: {WHITE}${lengthX+1} x ${lengthY+1}`)
-        model.currentMeasurement2Visibility.set(<ElementVisibility>("visible"))
-        model.currentMeasurement2.set(`Area: {GREY}${(lengthX+1)*(lengthY+1)}`)
+    else {
+        if (tool.mode == "tape") {
+            model.currentMeasurement.set(`Length: {WHITE}${Math.max(lengthX,lengthY)+1}`)
+            model.currentMeasurement2Visibility.set(<ElementVisibility>("none"))
+        }
+        if (tool.mode == "area") {
+            model.currentMeasurement.set(`Size: {WHITE}${lengthX+1} x ${lengthY+1}`)
+            model.currentMeasurement2Visibility.set(<ElementVisibility>("visible"))
+            model.currentMeasurement2.set(`Area: {GREY}${(lengthX+1)*(lengthY+1)}`)
+        }
+        moveGhosts()
+
+        lastLengthX = lengthX
+        lastLengthY = lengthY
+        lastStart = selection.start
     }
-    moveGhosts()
 }
 
 export function stopTool(){
