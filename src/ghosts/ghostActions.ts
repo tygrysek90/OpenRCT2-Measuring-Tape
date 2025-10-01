@@ -8,7 +8,7 @@
  *****************************************************************************/
 
 /**
- * Ghost placing and runtime storing functions
+ * Ghost position calculating and runtime storing functions
  */
 
 import { GhostConfigRow, ghostConfig } from "../config/ghosts"
@@ -22,6 +22,8 @@ import { tool } from "../tool/tool"
 import { model } from "../mainWin/mainModel"
 import { MapSelectionVerified, mapSelectionToVerified } from "../tool/mapSelection"
 import { mapTileSize } from "../common/mapTileSize"
+import { ghostPlaceAction, GhostPlaceArgs } from "./ghostPlaceAction"
+import { ghostRemoveAction, GhostRemoveArgs } from "./ghostRemoveAction"
 
 
 
@@ -51,7 +53,12 @@ var lastVerifiedSelection: MapSelectionVerified | undefined
  */
 export function exorciseCemetery() {
     cemetery.forEach(ghostStored => {
-            ghostStored.tile.removeElement(ghostStored.elementIndex)
+            //ghostStored.tile.removeElement(ghostStored.elementIndex)
+            ghostRemoveAction(<GhostRemoveArgs>{
+                xTiles: ghostStored.tile.x,
+                yTiles: ghostStored.tile.y,
+                index: ghostStored.elementIndex
+            })
     });  
     cemetery = []
     if (model.ghostsButtonsPressed.keepAll.get() == true) {
@@ -202,26 +209,15 @@ function setGhost(type: GhostConfigRow, tile: Tile, direction?: Direction) {
     let goodHeight = determineGoodHeight(tile)
 
     if (noGhostsOnTile(tile) && goodHeight != undefined) {
-        // two cases: a wall or a small scenery
-        switch (ghostConfig[type].objectType) {
-            case "wall": 
-                if (direction != undefined) {
-                    let newE = tile.insertElement(tile.numElements) as WallElement
-                    newE.type = "wall"
-                    newE.baseHeight = goodHeight
-                    newE.direction = direction
-                    newE.object = ghostConfig[type].objectId
-                    newE.isGhost = true
-                }
-                break
-            case "small_scenery":
-                let newE = tile.insertElement(tile.numElements) as SmallSceneryElement
-                newE.type = "small_scenery"
-                newE.baseHeight = goodHeight
-                newE.object = ghostConfig[type].objectId
-                newE.direction = direction??<Direction>(0)
-                newE.isGhost = true
-        }
+        ghostPlaceAction(<GhostPlaceArgs>{
+            xTiles: tile.x,
+            yTiles: tile.y,
+            zBase: goodHeight,
+            direction: direction??<Direction>(0),
+            type: ghostConfig[type].objectType,
+            object: ghostConfig[type].objectId
+        })       
+        
 
         let ghosts: TileWithGhost = {
             tile: tile,
