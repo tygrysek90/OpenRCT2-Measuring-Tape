@@ -21,7 +21,7 @@ export var parkStorage = context.getParkStorage()
 
 /**
  * Write ghost objects config to park storage
- * @param sequential array of strings containing object identfiers in order of ghostConfigRow and ghostConfig subsequentially
+ * @param sequential array of strings containing object identifiers in order of ghostConfigRow and ghostConfig subsequentially
  */
 export function writeParkStorage(sequential: Array<string>) {
     parkStorage.set(persistenceVersion, persistenceVersionValue)

@@ -7,16 +7,18 @@
  * is licensed under the GNU General Public License version 3.
  *****************************************************************************/
 
-/** Used for storing ghosts and passing them to ghostRemoveAction */
-export interface GhostRemoveArgs {
+/** Interface for passing arguments to ghostPlaceAction */
+export interface GhostPlaceArgs {
     /** x position in tiles */
     xTiles: number;
     /** y position in tiles */
     yTiles: number;
-    /** OpenRCT2 ObjectType */
-    objectType: ObjectType;
-    /** alike LoadedObject.index */
-    objectId: number;
-    /** OpenRCT2 Direction */
-    objectDirection: Direction;
+    /** base height as in element.BaseHeight */
+    zBase: number;
+    /** OpenRCT2 Direction type */
+    direction: Direction;
+    /** OpenRC2 ObjectType */
+    type: ObjectType;
+    /** object number (for the given object type) */
+    object: number;
 }

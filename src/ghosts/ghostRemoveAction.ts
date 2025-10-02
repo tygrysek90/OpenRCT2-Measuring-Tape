@@ -14,6 +14,7 @@ import { GhostRemoveArgs } from "./GhostRemoveArgs"
  * Ghost remove action
  */
 const execute = register<GhostRemoveArgs>("mt-remove-ghost", ghostRemove)
+/** Removes a ghost via registered action (multiplayer-compatible) */
 export function ghostRemoveAction(args:GhostRemoveArgs) {
     execute(args)
 }

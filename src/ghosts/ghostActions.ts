@@ -21,10 +21,10 @@ import { tool } from "../tool/tool"
 import { model } from "../mainWin/mainModel"
 import { MapSelectionVerified, mapSelectionToVerified } from "../tool/mapSelection"
 import { mapTileSize } from "../common/mapTileSize"
-import { ghostPlaceAction, GhostPlaceArgs } from "./ghostPlaceAction"
+import { ghostPlaceAction } from "./ghostPlaceAction"
 import { ghostRemoveAction } from "./ghostRemoveAction"
 import { GhostRemoveArgs } from "./GhostRemoveArgs"
-import { debug } from "../logger/logger"
+import { debug, error } from "../logger/logger"
 
 
 
@@ -59,14 +59,20 @@ export function summonOldGhosts() {
     cemeteryHistory.forEach(historyRecord => {
         historyRecord.forEach(ghost => {
             cemetery.push(ghost)
-            ghostPlaceAction(<GhostPlaceArgs>{
-                xTiles: ghost.xTiles,
-                yTiles: ghost.yTiles,
-                zBase: determineGoodHeight(map.getTile(ghost.xTiles, ghost.yTiles)),
-                direction: ghost.objectDirection??<Direction>(0),
-                type: ghost.objectType,
-                object: ghost.objectId
-            })
+            let goodHeight = determineGoodHeight(map.getTile(ghost.xTiles, ghost.yTiles))
+            if (goodHeight != undefined) {
+                ghostPlaceAction({
+                    xTiles: ghost.xTiles,
+                    yTiles: ghost.yTiles,
+                    zBase: goodHeight,
+                    direction: ghost.objectDirection??0 satisfies Direction,
+                    type: ghost.objectType,
+                    object: ghost.objectId
+                })
+            }
+            else {
+                error("Can not find a suitable place for a ghost", "summonOldGhosts")
+            }
         })
     });
 }
@@ -206,7 +212,7 @@ function setGhost(type: GhostConfigRow, xTile: number, yTile: number, direction:
     //if (noGhostsOnTile(tile) && goodHeight != undefined) {
     if (goodHeight != undefined) {
 
-        ghostPlaceAction(<GhostPlaceArgs>{
+        ghostPlaceAction({
             xTiles: tile.x,
             yTiles: tile.y,
             zBase: goodHeight,
@@ -215,7 +221,7 @@ function setGhost(type: GhostConfigRow, xTile: number, yTile: number, direction:
             object: ghostConfig[type].objectId
         })       
 
-        cemetery.push(<GhostRemoveArgs>{
+        cemetery.push({
             xTiles: tile.x,
             yTiles: tile.y,
             objectType: ghostConfig[type].objectType,
@@ -256,16 +262,16 @@ function findGhostCorners(verifiedSelection: MapSelectionVerified): void {
     // TODO-low: observe pattern and form "for" cycle
     setGhost(GhostConfigRow.area_corner, 
         Math.min(verifiedSelection.start.x/mapTileSize, verifiedSelection.end.x/mapTileSize), 
-        Math.min(verifiedSelection.start.y/mapTileSize, verifiedSelection.end.y/mapTileSize), <Direction>(0))
+        Math.min(verifiedSelection.start.y/mapTileSize, verifiedSelection.end.y/mapTileSize), 0 satisfies Direction)
     setGhost(GhostConfigRow.area_corner, 
         Math.min(verifiedSelection.start.x/mapTileSize, verifiedSelection.end.x/mapTileSize), 
-        Math.max(verifiedSelection.start.y/mapTileSize, verifiedSelection.end.y/mapTileSize), <Direction>(1))
+        Math.max(verifiedSelection.start.y/mapTileSize, verifiedSelection.end.y/mapTileSize), 1 satisfies Direction)
     setGhost(GhostConfigRow.area_corner, 
         Math.max(verifiedSelection.start.x/mapTileSize, verifiedSelection.end.x/mapTileSize), 
-        Math.max(verifiedSelection.start.y/mapTileSize, verifiedSelection.end.y/mapTileSize), <Direction>(2))
+        Math.max(verifiedSelection.start.y/mapTileSize, verifiedSelection.end.y/mapTileSize), 2 satisfies Direction)
     setGhost(GhostConfigRow.area_corner, 
         Math.max(verifiedSelection.start.x/mapTileSize, verifiedSelection.end.x/mapTileSize), 
-        Math.min(verifiedSelection.start.y/mapTileSize, verifiedSelection.end.y/mapTileSize), <Direction>(3))
+        Math.min(verifiedSelection.start.y/mapTileSize, verifiedSelection.end.y/mapTileSize), 3 satisfies Direction)
 
 }
 
@@ -279,25 +285,25 @@ function findGhostCentreOfArea(verifiedSelection: MapSelectionVerified) {
 
     // 1 st case: sides length are odd numbers
     if ((Math.abs(verifiedSelection.start.x-verifiedSelection.end.x)/mapTileSize)%2 == 0 && (Math.abs(verifiedSelection.start.y-verifiedSelection.end.y)/mapTileSize)%2 == 0) {
-        setGhost(GhostConfigRow.mid_tile, midPoint.x/mapTileSize, midPoint.y/mapTileSize, <Direction>(0))
+        setGhost(GhostConfigRow.mid_tile, midPoint.x/mapTileSize, midPoint.y/mapTileSize, 0 satisfies Direction)
     }
     // 2nd case: sides lengths are even numbers
     if  ((Math.abs(verifiedSelection.start.x-verifiedSelection.end.x)/mapTileSize)%2 == 1 && (Math.abs(verifiedSelection.start.y-verifiedSelection.end.y)/mapTileSize)%2 == 1) {
         let orderedSelection = orderVerifiedSelection(verifiedSelection)
         let midPointOfOrdered = selectionMidPoint(orderedSelection)
-        setGhost(GhostConfigRow.area_centre_x, midPointOfOrdered.x/mapTileSize, midPointOfOrdered.y/mapTileSize, <Direction>(2))
-        setGhost(GhostConfigRow.area_centre_x, (midPointOfOrdered.x/mapTileSize)+1, (midPointOfOrdered.y/mapTileSize)+1 , <Direction>(0)  )
+        setGhost(GhostConfigRow.area_centre_x, midPointOfOrdered.x/mapTileSize, midPointOfOrdered.y/mapTileSize, 2 satisfies Direction)
+        setGhost(GhostConfigRow.area_centre_x, (midPointOfOrdered.x/mapTileSize)+1, (midPointOfOrdered.y/mapTileSize)+1 , 0 satisfies Direction  )
     }
     // 3rd & 4rd case : sides are one even and one odd 
     if  ((Math.abs(verifiedSelection.start.x-verifiedSelection.end.x)/mapTileSize)%2 == 1 && (Math.abs(verifiedSelection.start.y-verifiedSelection.end.y)/mapTileSize)%2 == 0) {
         let orderedSelection = orderVerifiedSelection(verifiedSelection)
         let midPointOfOrdered = selectionMidPoint(orderedSelection)
-        setGhost(GhostConfigRow.area_centre_uneven, midPointOfOrdered.x/mapTileSize, midPointOfOrdered.y/mapTileSize, <Direction>(2))
+        setGhost(GhostConfigRow.area_centre_uneven, midPointOfOrdered.x/mapTileSize, midPointOfOrdered.y/mapTileSize, 2 satisfies Direction)
     }
     if  ((Math.abs(verifiedSelection.start.x-verifiedSelection.end.x)/mapTileSize)%2 == 0 && (Math.abs(verifiedSelection.start.y-verifiedSelection.end.y)/mapTileSize)%2 == 1) {
         let orderedSelection = orderVerifiedSelection(verifiedSelection)
         let midPointOfOrdered = selectionMidPoint(orderedSelection)
-        setGhost(GhostConfigRow.area_centre_uneven, midPointOfOrdered.x/mapTileSize, midPointOfOrdered.y/mapTileSize, <Direction>(1))
+        setGhost(GhostConfigRow.area_centre_uneven, midPointOfOrdered.x/mapTileSize, midPointOfOrdered.y/mapTileSize, 1 satisfies Direction)
     }
 }
 
@@ -322,7 +328,7 @@ function findGhostCentreLine(verifiedSelection: MapSelectionVerified): void {
             setGhost(GhostConfigRow.tape_mid_edge, midPoint.x/mapTileSize, midPoint.y/mapTileSize, direction)
         }
         else {
-            setGhost(GhostConfigRow.mid_tile, midPoint.x/mapTileSize, midPoint.y/mapTileSize, <Direction>(0))
+            setGhost(GhostConfigRow.mid_tile, midPoint.x/mapTileSize, midPoint.y/mapTileSize, 0 satisfies Direction)
         }
     }
 }

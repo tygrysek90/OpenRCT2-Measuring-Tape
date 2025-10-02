@@ -8,30 +8,15 @@
  *****************************************************************************/
 
 import { register } from "../actions"
+import { GhostPlaceArgs } from "./GhostPlaceArgs"
 
 /**
  * Ghost place action
  */
-
-//const execute = register<SetGhostArgs>("ttt-ghost", setGhost);
 const execute = register<GhostPlaceArgs>("mt-set-ghost", ghostPlace)
+/** Places a ghost on the map via registered action (multiplayer-aware) */
 export function ghostPlaceAction(args:GhostPlaceArgs) {
     execute(args)
-}
-
-export interface GhostPlaceArgs {
-    /** x position in tiles */
-    xTiles: number,
-    /** y position in tiles */
-    yTiles: number,
-    /** base height as in element.BaseHeight */
-    zBase: number
-    /** OpenRCT2 Direction type */
-    direction: Direction,
-    /** OpenRC2 ObjectType */
-    type: ObjectType,
-    /** object number (for the given object type) */
-    object: number
 }
 
 function ghostPlace(args:GhostPlaceArgs) {
