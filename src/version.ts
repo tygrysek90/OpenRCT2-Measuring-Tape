@@ -15,7 +15,7 @@
 import { build } from "./environment"
 
 /** Primary version designation */
-const version : string = "0.2.2"
+const version : string = "0.2.3"
 
 /** Release name */
 function name():string {
