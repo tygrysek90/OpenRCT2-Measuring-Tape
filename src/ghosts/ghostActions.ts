@@ -24,7 +24,7 @@ import { mapTileSize } from "../common/mapTileSize"
 import { ghostPlaceAction } from "./ghostPlaceAction"
 import { ghostRemoveAction } from "./ghostRemoveAction"
 import { GhostRemoveArgs } from "./GhostRemoveArgs"
-import { debug, error } from "../logger/logger"
+import { debug } from "../logger/logger"
 
 
 
@@ -39,42 +39,51 @@ var lastVerifiedSelection: MapSelectionVerified | undefined
 
 
 /**
- * Remove ghosts out of internal store
- * and load history of ghosts if desired
+ * Removes current working set from map and empties cemetery (current working set "stack")
  */
 export function exorciseCemetery() {
     cemetery.forEach(ghostStored => {
             ghostRemoveAction(ghostStored)
     })
     cemetery = []
-    if (model.ghostsButtonsPressed.keepAll.get() == true) {
-        summonOldGhosts()
-    } 
 }
 
 /**
- * Project cemeteryHistory on the game map via setGhost
+ * Removes reference of current working set from cemetery (memory), doesn't touch ghosts
  */
-export function summonOldGhosts() {
-    cemeteryHistory.forEach(historyRecord => {
-        historyRecord.forEach(ghost => {
-            cemetery.push(ghost)
-            let goodHeight = determineGoodHeight(map.getTile(ghost.xTiles, ghost.yTiles))
-            if (goodHeight != undefined) {
-                ghostPlaceAction({
-                    xTiles: ghost.xTiles,
-                    yTiles: ghost.yTiles,
-                    zBase: goodHeight,
-                    direction: ghost.objectDirection??0 satisfies Direction,
-                    type: ghost.objectType,
-                    object: ghost.objectId
-                })
+export function dereferenceCemetery() {
+    cemetery = []
+}
+
+
+/**
+ * Goes through cemeteryHistory (the memory of past measured sets, removes single piece in set)
+ * @param ghostRemoveArgs 
+ */
+export function ghostRemoveFromCemeteryHistory(ghostRemoveArgs: GhostRemoveArgs) {
+    let temporary: GhostRemoveArgs[][] = []
+    cemeteryHistory.forEach(historyLine => {
+        let temporaryLine: GhostRemoveArgs[] = []
+        historyLine.forEach(ghost => {
+            debug(`${JSON.stringify([ghost, ghostRemoveArgs])}`)
+            if (!(ghost.objectDirection == ghostRemoveArgs.objectDirection && 
+                ghost.objectId == ghostRemoveArgs.objectId &&
+                ghost.objectType == ghostRemoveArgs.objectType &&
+                ghost.xTiles == ghostRemoveArgs.xTiles &&
+                ghost.yTiles == ghostRemoveArgs.yTiles)) 
+                {
+                temporaryLine.push(ghost)
+
             }
             else {
-                error("Can not find a suitable place for a ghost", "summonOldGhosts")
+                debug(`removing from history ${JSON.stringify(ghostRemoveArgs)}`)
+
             }
         })
-    });
+        temporary.push(temporaryLine)
+    })
+    cemeteryHistory = []
+    cemeteryHistory = temporary.slice()
 }
 
 
@@ -82,9 +91,11 @@ export function summonOldGhosts() {
  * Removes last ghost set from history and projects updated history
  */
 export function removeLastFromHistory() {
-    cemeteryHistory.pop()
-    exorciseCemetery()
-    summonOldGhosts()
+    let historyLine = cemeteryHistory.pop()
+    //exorciseCemetery()
+    historyLine?.forEach(ghost => {
+        ghostRemoveAction(ghost)
+    })
 }
 
 
@@ -93,7 +104,7 @@ export function removeLastFromHistory() {
  */
 export function eraseHistory() {
     cemeteryHistory = []
-    exorciseCemetery()
+    //exorciseCemetery()
 }
 
 

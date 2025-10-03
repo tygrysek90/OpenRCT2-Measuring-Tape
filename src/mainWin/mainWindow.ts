@@ -14,7 +14,7 @@
 
 import { button, Colour, groupbox, horizontal, label, LayoutDirection, window } from "openrct2-flexui";
 import { model } from "./mainModel";
-import { nicelyStartTool, onClickAreaButton, onClickDismissLast, onClickDismissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton, stopTool } from "./mainActions";
+import { nicelyStartTool, onClickAreaButton, onClickDismissLast, onClickDismissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton, stopTool, onClickGhostEraseCrosshair, onClickGhostEraseArea } from "./mainActions";
 import { tapePng } from "../imgs/tape";
 import { endsPng } from "../imgs/ends";
 import { centrePng } from "../imgs/centre";
@@ -109,7 +109,7 @@ export const mainWindow = window({
            ]
         }),
         groupbox({
-            text: "Ghosts Sets",
+            text: "Sets",
             direction: LayoutDirection.Vertical,
             content: [
                 // 1st ROW - ghost keeping options (ghosts with locks)
@@ -157,7 +157,7 @@ export const mainWindow = window({
             ]
         }),
         groupbox({
-            text: "Ghost Precise",
+            text: "Tiles",
             direction: LayoutDirection.Vertical,
             content: [
                 // ghost removing other
@@ -167,9 +167,9 @@ export const mainWindow = window({
                             height: imgButtonSmall.height,
                             width: imgButtonSmall.width,
                             image: ghostCrosshairPng.image,
-                            tooltip: "Remove one",
-                            //disabled: model.ghostsButtonsDisabled.dismissLast,
-                            //onClick: () => onClickDismissLast(),
+                            tooltip: "Clean ghosts from one tile",
+                            isPressed: model.ghostSecondaryButtonsPressed.crosshair,
+                            onClick: () => onClickGhostEraseCrosshair()
                         }),
                         button({
                             padding: {left: "1px", right: "1px"},
@@ -177,8 +177,8 @@ export const mainWindow = window({
                             width: imgButtonSmall.width,
                             image: exorciseAreaPng.image,
                             tooltip: "Clean ghosts from selected area",
-                            //disabled: model.ghostsButtonsDisabled.dismissAll,
-                            //onClick: () => onClickDismissAll(),
+                            isPressed: model.ghostSecondaryButtonsPressed.area,
+                            onClick: () => onClickGhostEraseArea(),
                         }),
                         button({
                             height: imgButtonSmall.height,

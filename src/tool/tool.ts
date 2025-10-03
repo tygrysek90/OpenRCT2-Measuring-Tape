@@ -10,4 +10,4 @@
 import { MapSelectionTool } from "./mapSelectionTool";
 
 /** The tool */
-export var tool = new MapSelectionTool("measuring-tape", "cross_hair");
+export var tool = new MapSelectionTool("measuring-tape-measure", "cross_hair");
