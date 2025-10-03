@@ -128,6 +128,7 @@ export function onClickKeepAllButton() {
 }
 
 export function onClickDismissLast() {
+    exorciseCemetery()
     removeLastFromHistory()
     setDefaultMeasurementLabels()
     setDismissButtonsDisability()

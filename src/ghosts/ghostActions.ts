@@ -88,11 +88,10 @@ export function ghostRemoveFromCemeteryHistory(ghostRemoveArgs: GhostRemoveArgs)
 
 
 /**
- * Removes last ghost set from history and projects updated history
+ * Removes last ghost set from history 
  */
 export function removeLastFromHistory() {
     let historyLine = cemeteryHistory.pop()
-    //exorciseCemetery()
     historyLine?.forEach(ghost => {
         ghostRemoveAction(ghost)
     })
@@ -103,8 +102,11 @@ export function removeLastFromHistory() {
  * Purges history
  */
 export function eraseHistory() {
-    cemeteryHistory = []
-    //exorciseCemetery()
+    cemeteryHistory.forEach(historyLine => {
+        historyLine.forEach(ghost => {
+            ghostRemoveAction(ghost)
+        })
+    })
 }
 
 
