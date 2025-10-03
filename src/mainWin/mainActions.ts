@@ -21,6 +21,7 @@ import { tool } from "../tool/tool";
 import { ToolMode } from "../tool/mapSelectionTool";
 import { startToolMode } from "../config/toolMode";
 import { seekAndDestroy, seekAndDestroyArea } from "../ghosts/ghostPurge";
+import { nukeConfirmWin } from "../nukeConfirmWin/nukeConfirmWin";
 
 // GROUPBOX (measurement)
 function setDefaultMeasurementLabels() {
@@ -167,6 +168,11 @@ export function onClickGhostEraseArea() {
         tool.mode = "erase-area"
         startTool()
     }
+}
+
+export function onClickNukeGhosts() {
+    nukeConfirmWin.open()
+    nukeConfirmWin.focus()
 }
 
 // TOOL ACTIONS (the tool is bound to main window)
@@ -388,3 +394,4 @@ export function onEraseAreaFinish(coords: CoordsXY) {
         seekAndDestroyArea(range)
     }
 }
+

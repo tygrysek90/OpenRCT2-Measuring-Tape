@@ -14,7 +14,7 @@
 
 import { button, Colour, groupbox, horizontal, label, LayoutDirection, window } from "openrct2-flexui";
 import { model } from "./mainModel";
-import { nicelyStartTool, onClickAreaButton, onClickDismissLast, onClickDismissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton, stopTool, onClickGhostEraseCrosshair, onClickGhostEraseArea } from "./mainActions";
+import { nicelyStartTool, onClickAreaButton, onClickDismissLast, onClickDismissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton, stopTool, onClickGhostEraseCrosshair, onClickGhostEraseArea, onClickNukeGhosts } from "./mainActions";
 import { tapePng } from "../imgs/tape";
 import { endsPng } from "../imgs/ends";
 import { centrePng } from "../imgs/centre";
@@ -186,7 +186,7 @@ export const mainWindow = window({
                             image: atomicMushroomPng.image,
                             tooltip: "Obliterate all ghosts from the map",
                             //disabled: model.ghostsButtonsDisabled.dismissAll,
-                            //onClick: () => onClickDismissAll(),
+                            onClick: () => onClickNukeGhosts(),
                         }),
                     ]
                 }),

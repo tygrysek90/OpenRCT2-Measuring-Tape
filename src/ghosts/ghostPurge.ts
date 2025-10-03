@@ -68,5 +68,9 @@ export function seekAndDestroyArea(range: MapRange) {
  * Obliterates (completely removes) all ghosts from the map
  */
 export function obliterateGhosts() {
-    //debug(`${JSON.stringify(map.size)}`)
+    for (let x=1; x<map.size.x-1; x++) {
+        for (let y=1; y<map.size.y-1; y++) {
+            seekAndDestroy(x,y)
+        }
+    }
 }
