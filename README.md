@@ -14,6 +14,10 @@ The plugin is ready to download at the [Releases page](https://github.com/tygrys
 ## What's new?
 Have a look at the [`changelog.md`](https://github.com/tygrysek90/OpenRCT2-Measuring-Tape/blob/main/changelog.md) - it comes with gifs and screenshots
 
+
+## Table of contentes
+[User Manual](#user-manual)
+
 ____________
 ## Features
 
@@ -51,3 +55,55 @@ Visual Studio Code users can clone this repository in editor and use Terminal ->
 ## Contact the author
 Bug reports, feature ideas or requests, any kind of collaboration - I am open-minded to chat about anything: contact me
 via GitHub - you can make an Issue, or catch me via OpenRCT2 discord #plugin (or direct message)
+
+
+____________
+
+# User Manual
+
+## General
+
+<img align="left" width="116" height="413" alt="main-win" src="https://github.com/user-attachments/assets/809d8521-7552-4f6b-91ad-b76d7ae77c85" />
+
+OpenRCT2-Measuring-Tape is a plugin for OpenRCT2. This plugin supports multiplayer. Generaly it can be used to measure distance or area on map, find center point between two points, or centre of area, as well. The plugin works not only by measuring, but as well it denotes measured values on the map graphicaly by placing "ghosts" - scenery objects with ghost flag on. Ghosts are by their nature not save-able, saving and reopening the park will make them perish. In multiplayer, the ghosts projected on the map are visible for all players and players that have "Scenery" permission are able to place them or remove them. In multiplayer, it is possible to remove ghosts placed by other players, as well obliterate all the ghost of all the players from the map.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+## Main window
+The main window consists of seven main sections. 
+### Measurement output area
+Topmost, there is area showing "Click and drag" by default, otherwise it shows result of measurement.
+### Mode
+There is a choice of two modes (tools) to choose from:
+- <img width="47" height="36" alt="tape" src="https://github.com/user-attachments/assets/011c613f-3e02-45fd-b10a-3a3a4eaa2120" /> **Tape mode** works in one map tile wide tape, best suits for measuring distances. It is the default tool mode as well and hence is automaticaly active on plugin opening. To use it, utilize your pointing device (usualy mouse), press button, hold and move the cursor over the map. You can click the already pressed button to cancel the tool mode, or press ESC key.
+- <img width="47" height="36" alt="area" src="https://github.com/user-attachments/assets/aacb40d5-5032-4efe-be6e-e5bad957ebd5" /> **Area mode** works as rectangle, measurement is shown for both sides.
+### Show
+This section control whetherere the ghosts will be shown for your measurement. The buttons are on/off switches. It is possible to have both on, as well as select only one or disable both. If both buttons are disabled a white gird will remain projected on the map to show your measurement. For multiplayer, you must posses scenery permissions, otherwise ghost displaying will not work and these buttons will have no effect.
+- <img width="47" height="36" alt="show-ends" src="https://github.com/user-attachments/assets/f0f5b9e9-b958-4c8f-a081-e718ec77a76e" /> **Show the ends** The button is on/off switch, setting wheter your current measurement will have ghosts displayed at it's ends. Ghosts are selectable under Configuration. 
+- <img width="47" height="36" alt="show-centre" src="https://github.com/user-attachments/assets/bf1b500e-6077-4855-81b1-77d33a2675f1" /> **Show the centre** The button is on/off switch, setting wheter your current measurement will have ghosts displayed at it's cenre. Ghosts are selectable as well.
+### Sets
+The ghost sets work as memory to remember where you placed the ghosts. It is possible to use sets to keep visual track of all your measurements or to use them as the a guidelines.
+**Lock buttons**
+- <img width="47" height="36" alt="lock-one" src="https://github.com/user-attachments/assets/2dcba418-5afd-4495-af3f-e5d4d2c9f02f" /> **Lock one** The button is on/off switch exclusive with Lock all button - you can not have Lock one and Lock all at one time - but you can disable both of them. Lock one keeps the last measurement ghost set. When it's off and Lock all is off as well, the ghosts are to disappear immediately after releasing pointer button (usually left mouse button)
+- <img width="47" height="36" alt="lock-all" src="https://github.com/user-attachments/assets/822c07ae-8b6e-4cf3-9901-54fa1833d040" /> **Lock all** Setting this will make all your measurements stay on map in form of ghosts, whomse you can utilize as guidelines.
+**Remove buttons**
+- <img width="47" height="36" alt="remove-one" src="https://github.com/user-attachments/assets/eb72ebfd-3075-4160-ad0a-2e82f5e4b1e7" /> **Remove last set** Removes lastly placed set
+- <img width="47" height="36" alt="remove-all" src="https://github.com/user-attachments/assets/38c54538-1b89-458b-9d6e-36a5dd6ecda0" /> **Remove all sets** Removes all the sets you have placed. In multiplayer, this doesn't affect ghosts placed by other players.
+## Tiles
+Tiles tools work with ghosts based on their poisition, contrary to **_Sets_** buttons operating on order of placement basissss 
+- <img width="30" height="27" alt="erase-tile" src="https://github.com/user-attachments/assets/cbb4cf40-0f64-4d6c-a1e1-a6c9cdf4fd4e" /> **Erase ghosts from one tile** Using pointer device (usualy mouse) select a sigle tile to remove ghosts from -  all ghosts on the given tile will be removed. In multiplayer, this action affects all ghosts on chosen tile, no matter who placed them.
+- <img width="30" height="27" alt="erase-area" src="https://github.com/user-attachments/assets/c7813d4a-2eb4-4537-9071-36e3d19eea4c" /> **Erase ghosts in given area** Using pointer device (usualy mouse) select a area to remove ghosts from. In multiplayer, this action affects all ghosts in given area, no matter who placed them.
+- <img width="30" height="27" alt="erase-nuke" src="https://github.com/user-attachments/assets/5d8e7d10-c0e9-4197-b763-260d086fe4dd" /> **Nuke tool (obliterate all ghosts)** Prompts a window with waring message asking to confirm, after selecting yes, removes all ghosts from the map. Primarly this function is for multiplayer, but is useable in single-player as well.
+  
+
+
+
