@@ -1,6 +1,14 @@
 ## OpenRCT2-Measuring-Tape summary changelog
 *This changelog is illustrative and might not offer complete summary, for full history, use GitHub's "Compare" functionality*
 
+### v0.3 (in development)
+**New:** 
+- Full multiplayer support
+![meas-tape-multipl](https://github.com/user-attachments/assets/d556b519-b005-4d7f-bae8-ffcae5edf3fc)
+- Remove placed ghosts by tile, by area or nuke them all out of the map!<br/>
+  <img width="126" height="58" alt="image" src="https://github.com/user-attachments/assets/03267b72-9846-4323-8e96-f44b851f1fb4" />
+
+
 ### v0.2
 
 **New:** 
