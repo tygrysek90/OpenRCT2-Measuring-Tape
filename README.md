@@ -6,6 +6,11 @@
 
 ![measuring-tape-v0 2-foggia](https://github.com/user-attachments/assets/047ab387-d286-409b-99db-393ead079ce0)
 
+## Jump to…
+- [User Manual](#user-manual)
+- [Thanks to…](#thanks-to)
+- [Building from source](#building-from-source)
+- [Contact the author](#contact-the-author)
 
 ## Release version v0.2 "Foggia"
 The plugin is ready to download at the [Releases page](https://github.com/tygrysek90/OpenRCT2-Measuring-Tape/releases/tag/v0.2)  
@@ -15,8 +20,7 @@ The plugin is ready to download at the [Releases page](https://github.com/tygrys
 Have a look at the [`changelog.md`](https://github.com/tygrysek90/OpenRCT2-Measuring-Tape/blob/main/changelog.md) - it comes with gifs and screenshots
 
 
-## Table of contentes
-[User Manual](#user-manual)
+
 
 ____________
 ## Features
@@ -64,17 +68,15 @@ ____________
 
 <img align="left" width="116" height="413" alt="main-win" src="https://github.com/user-attachments/assets/809d8521-7552-4f6b-91ad-b76d7ae77c85" />
 
+#### Table of contctents
+[Main window](#main-window)<br/>
+[Configure window](#configure)<br/>
+[Extra tools](#extra-tools)<br/>
+
+
 ### General
 
 OpenRCT2-Measuring-Tape is a plugin for OpenRCT2. This plugin supports multiplayer. Generaly it can be used to measure distance or area on map, find center point between two points, or centre of area, as well. The plugin works not only by measuring, but as well it denotes measured values on the map graphicaly by placing "ghosts" - scenery objects with ghost flag on. Ghosts are by their nature not save-able, saving and reopening the park will make them perish. In multiplayer, the ghosts projected on the map are visible for all players and players that have "Scenery" permission are able to place them or remove them. In multiplayer, it is possible to remove ghosts placed by other players, as well obliterate all the ghost of all the players from the map.
-
-.
-
-.
-
-.
-
-.
 
 .
 
@@ -123,4 +125,35 @@ Extra tools offer tools that work with map as a whole, without need of using poi
 
 
 ## Configure
+<img align="left" width="550" height="451" alt="options-win" src="https://github.com/user-attachments/assets/341ca4e8-a52d-42fc-87c3-d5ad097600b0" />
+The configure window serves to select objects that are used as the ghosts there after for your measurements. You can select from all objects of applicable type - either wall or small scenery, that are currently loaded in park you are playing. Your selection is automaticaly saved with the park save file. You can also opt to save your personal profile as game-wide settings, which once saved, Measuring Tape will try to utilize personal settings at first on newly opened parks (otherwise it will use selection saved with the park) - if your personal selection can not be satisfied with objects in any park you open, the plugin will auto fallback to plugin defaults, if that is possible, otherwise it will just select first object of each applicable type.
 
+.
+
+.
+
+.
+
+.
+
+### Top right: Personal profile & Professional mode
+<img align="left" width="162" height="182" alt="options-right" src="https://github.com/user-attachments/assets/597fd226-b168-4cd6-8e44-29a83d4054e2" />
+
+#### Save all as default
+Saves your current object choice into "shared plugin storage".
+#### Load all defaults
+Loads your previously saved object choice from "shared plugin storage"
+
+.
+
+#### Load plugin defaults
+Loads hard-coded defaults
+#### More setting options
+When enabled, the left box will have more options, where you can (for exemple) set different ghosts for each of tape ends.
+
+____________
+
+# Thanks to
+
+- **[Basssiiie](https://github.com/Basssiiie), [Sadret](https://github.com/Sadret)** - this plugin makes use of parts of their works, in the spirit of a open source
+- Everyone on OpenRCT2 and DKMP discord servers, for creating such a nice and welcoming community!
