@@ -41,7 +41,8 @@ const aboutLines = [
     "",
     `OpenRCT2-Simple-Typescript-Template`, 
     "OpenRCT2-FlexUI",
-    "OpenRCT2-ProxyPather",
+    "(parts of) OpenRCT2-ProxyPather",
+    "(parts of) OpenRCT2-RideVehicleEditor",
     "",
     "And utilizes tiny piece of code from {TOPAZ}Sadret",
     "",
@@ -51,20 +52,20 @@ const aboutLines = [
 
 
 const helpLines = [
+    "A full manual is available:",
+    "{BABYBLUE}https://github.com/",
+    "{BABYBLUE}tygrysek90/OpenRCT2-Measuring-Tape",
+    "{BABYBLUE}/README.md",
     "",
-    "{YELLOW}A message from the author of the plugin:",
-    "",
-    "I hope all user interface and functions are",
-    "enough self explanatory. If you need help, ",
+    "If you need help beyond that,",
     "want to suggest or ask for a feature to be",
     "added, report an bug or cooperate in some ",
     "way, feel free to contact me, via ",
     "{BABYBLUE} OpenRCT2 discord channel ",
     "{BABYBLUE} #plugin @tygrysek90 or DM,",
-    "or via {BABYBLUE}GitHub (if you would like",
-    "{BABYBLUE}to make issue for bug report)",
+    "or via {BABYBLUE}GitHub",
     "",
-    "Have a pleasing day!"
+    "Have a nice day!"
 ]
 
 /** returns functionally established set of UI elements */

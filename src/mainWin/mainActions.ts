@@ -52,6 +52,7 @@ export function onClickAreaButton() {
         commonToolDepress()
     }
     else {
+        setDefaultMeasurementLabels()
         depressToolButtons()
         model.modeButtonsPressed.area.set(true)
         tool.mode = "area"
@@ -66,6 +67,7 @@ export function onClickTapeButton() {
         commonToolDepress()
     }
     else {
+        setDefaultMeasurementLabels()
         depressToolButtons()
         model.modeButtonsPressed.tape.set(true)
         tool.mode = "tape"
