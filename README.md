@@ -128,13 +128,6 @@ Extra tools offer tools that work with map as a whole, without need of using poi
 <img align="left" width="550" height="451" alt="options-win" src="https://github.com/user-attachments/assets/341ca4e8-a52d-42fc-87c3-d5ad097600b0" />
 The configure window serves to select objects that are used as the ghosts there after for your measurements. You can select from all objects of applicable type - either wall or small scenery, that are currently loaded in park you are playing. Your selection is automatically saved with the park save file. You can also opt to save your personal profile as game-wide settings, which once saved, Measuring Tape will try to utilize personal settings at first on newly opened parks (otherwise it will use selection saved with the park) - if your personal selection can not be satisfied with objects in any park you open, the plugin will auto fallback to plugin defaults, if that is possible, otherwise it will just select first object of each applicable type.
 
-.
-
-.
-
-.
-
-.
 
 ### Top right: Personal profile & Professional mode
 <img align="left" width="162" height="182" alt="options-right" src="https://github.com/user-attachments/assets/597fd226-b168-4cd6-8e44-29a83d4054e2" />
