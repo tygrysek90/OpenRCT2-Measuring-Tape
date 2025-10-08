@@ -159,7 +159,7 @@ When enabled, the left box will have more options, where you can (for example) s
 Measuring Tape can be used in multiplayer and must be installed on server in order to be used in multiplayer game. The plugin automatically detects whether is run with server or client. Sever-side part of plugin works as data persistency, storing all issued ghosts regardless of their creator. Once a client connects to server, all present ghosts will be seamlessly synchronized to client. (Kindly bear in mind that ghosts don't get saved or transferred with the map, the plugin does it on its own)
 ### Permissions
 
-<img align="left" width="157" height="83" alt="image" src="https://github.com/user-attachments/assets/235ec317-deb2-4ce9-ae4a-0790c254d974" />
+<img align="right" width="157" height="83" alt="image" src="https://github.com/user-attachments/assets/235ec317-deb2-4ce9-ae4a-0790c254d974" />
 For to place or remove the ghosts, a player must have "Scenery" permission.
 Without restriction, any player can see all the ghosts as it were ordinary scenery on the map. 
 A player without "Scenery" permission can still use the tools of the plugin, read measurements from the plugin window, but will be unable to set or remove any existing ghosts, while being continuously slapped in the face with a warning message.
