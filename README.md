@@ -72,7 +72,7 @@ ____________
 [Main window](#main-window)<br/>
 [Configure window](#configure)<br/>
 [Extra tools](#extra-tools)<br/>
-
+[Multiplayer](#multiplayer)<br/>
 
 ### General
 
@@ -126,7 +126,9 @@ Extra tools offer tools that work with map as a whole, without need of using poi
 
 ## Configure
 <img align="left" width="550" height="451" alt="options-win" src="https://github.com/user-attachments/assets/341ca4e8-a52d-42fc-87c3-d5ad097600b0" />
-The configure window serves to select objects that are used as the ghosts there after for your measurements. You can select from all objects of applicable type - either wall or small scenery, that are currently loaded in park you are playing. Your selection is automatically saved with the park save file. You can also opt to save your personal profile as game-wide settings, which once saved, Measuring Tape will try to utilize personal settings at first on newly opened parks (otherwise it will use selection saved with the park) - if your personal selection can not be satisfied with objects in any park you open, the plugin will auto fallback to plugin defaults, if that is possible, otherwise it will just select first object of each applicable type.
+The configure window serves to select objects that are used as the ghosts there after for your measurements. You can select from all objects of applicable type - either wall or small scenery, that are currently loaded in park you are playing.
+
+Your selection is automatically saved with the park save file. You can also opt to save your personal profile as game-wide settings, which once saved, Measuring Tape will try to utilize personal settings at first on newly opened parks (otherwise it will use selection saved with the park) - if your personal selection can not be satisfied with objects in any park you open, the plugin will auto fallback to plugin defaults, if that is possible, otherwise it will just select first object of each applicable type.
 
 
 ### Top right: Personal profile & Professional mode
@@ -143,6 +145,26 @@ Loads your previously saved object choice from "shared plugin storage"
 Loads hard-coded defaults
 #### More setting options
 When enabled, the left box will have more options, where you can (for example) set different ghosts for each of tape ends.
+
+
+
+
+
+<img align="left" width="30" height="27" alt="multiplayer" src="https://github.com/user-attachments/assets/48bd9ffc-ea20-48ad-9a3e-719b1fbecf8b" />
+
+## Multiplayer
+
+
+### Overview
+Measuring Tape can be used in multiplayer and must be installed on server in order to be used in multiplayer game. The plugin automaticaly detects wheter is run with server or client. Sever-side part of plugin works as data persistency, storing all issued ghosts regardless of their creator. Once a client connects to server, all present ghosts will be seamlessly synchronized to client. (Kinldy bear in mind that ghosts don't get saved or transferred with the map, the plugin does it on its own)
+### Permissions
+For to place or remove the ghosts, a player must have "Scenery" permission.
+Without restriction, any player can see all the ghosts as it were ordinary scenery on the map. 
+A player without "Scenery" permission can still use the tools of the plugin, read measurements from the plugin window, but will be unable to set or remove any existing ghosts, while being continously slapped in the face with a warning message
+### Headless server
+The plugin is able to be run headless. If you want your players to be able to utilize the Mesuring Tape on your headless server, it must be installed on your server.
+<img width="157" height="83" alt="image" src="https://github.com/user-attachments/assets/235ec317-deb2-4ce9-ae4a-0790c254d974" />
+
 
 ____________
 
