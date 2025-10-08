@@ -31,7 +31,7 @@ export type ImageData = {
 export function createImageFromBase64(base64: string): ImageData  {
     if (typeof ui !== "undefined") {
         const range = ui.imageManager.allocate(1);
-        if (!range) throw new Error("[WP] Cannot allocate image from image manager.");
+        if (!range) throw new Error("[MT] Cannot allocate image from image manager.");
         const id = range.start;
         ui.imageManager.setPixelData(id, {
             type: "png",
@@ -39,7 +39,7 @@ export function createImageFromBase64(base64: string): ImageData  {
             data: base64,
         });
         const info = ui.imageManager.getImageInfo(id);
-        if (!info) throw new Error("[WP] Cannot get image info from image manager.");
+        if (!info) throw new Error("[MT] Cannot get image info from image manager.");
         return {
             image: info.id,
             width: info.width,

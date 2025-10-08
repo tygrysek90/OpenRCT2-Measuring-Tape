@@ -23,7 +23,7 @@ import { GhostRealmSynchronization } from "./GhostRealmArgs"
  */
 
 const execute = registerWithoutPermissions<GhostRealmSynchronization>("mt-network-welcome-sync", synchronize)
-/** Places a ghost on the map via registered action (multiplayer-aware) */
+/** Receives synchronization data upon connecting to Measuring Tape - aware multiplayer server */
 export function GhostRealmSynchronizationAction(args:GhostRealmSynchronization) {
     execute(args)
 }
