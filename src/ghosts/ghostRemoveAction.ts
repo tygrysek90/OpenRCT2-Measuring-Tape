@@ -8,7 +8,9 @@
  *****************************************************************************/
 
 import { register } from "../actions"
+import { isServer } from "../environment"
 import { GhostRealmArgs } from "./GhostRealmArgs"
+import { ghostServerStorageRem } from "./serverStorage"
 
 /**
  * Ghost remove action
@@ -20,6 +22,9 @@ export function ghostRemoveAction(args:GhostRealmArgs) {
 }
 
 export function ghostRemove(args: GhostRealmArgs) {
+    if (isServer()) {
+        ghostServerStorageRem(args)
+    }
     let tile = map.getTile(args.xTile, args.yTile)
     for (let i=0; i<tile.numElements; i++) {
         switch (tile.elements[i].type) {

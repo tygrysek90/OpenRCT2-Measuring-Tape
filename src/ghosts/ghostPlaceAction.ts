@@ -8,8 +8,10 @@
  *****************************************************************************/
 
 import { register } from "../actions"
+import { isServer } from "../environment"
 import { error } from "../logger/logger"
 import { GhostRealmArgs } from "./GhostRealmArgs"
+import { ghostServerStorageAdd } from "./serverStorage"
 
 /**
  * Ghost place action
@@ -21,6 +23,9 @@ export function ghostPlaceAction(args:GhostRealmArgs) {
 }
 
 function ghostPlace(args:GhostRealmArgs) {
+    if (isServer()) {
+        ghostServerStorageAdd(args)
+    }
     let tile = map.getTile(args.xTile, args.yTile)
     let numElements = tile.numElements
     if (args.zBase != undefined) {

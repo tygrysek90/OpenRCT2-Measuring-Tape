@@ -62,3 +62,12 @@ export function isMultiplayer(): boolean
 {
 	return (network.mode !== "none");
 }
+
+
+/**
+ * Returns true if this instance of plugin is loaded by multiplayer server.
+ */
+export function isServer(): boolean {
+    return (network.mode === "server")
+}
+
