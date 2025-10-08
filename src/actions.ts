@@ -28,6 +28,7 @@ export type Action<T> = (args: T) => void;
 
 const requiredEditPermission: PermissionType = "scenery";
 const registeredActions: Record<string, Action<never>> = {};
+const registeredActionsWoutPermissions: Record<string, Action<never>> = {};
 
 
 /**
@@ -37,6 +38,20 @@ const registeredActions: Record<string, Action<never>> = {};
 export function register<T>(name: string, action: Action<T>): Action<T>
 {
 	registeredActions[name] = action;
+	return (args: T): void =>
+	{
+		debug(`[EXECUTE] ${name} with args: ${JSON.stringify(args)}`);
+		context.executeAction(name, <never>args);
+	};
+}
+
+/**
+ * Register a new custom action that can be executed and synchronized in multiplayer contexts.
+ * @returns A callback to execute the specific action.
+ */
+export function registerWithoutPermissions<T>(name: string, action: Action<T>): Action<T>
+{
+	registeredActionsWoutPermissions[name] = action;
 	return (args: T): void =>
 	{
 		debug(`[EXECUTE] ${name} with args: ${JSON.stringify(args)}`);
@@ -63,6 +78,20 @@ export function registerActions(): void
 					return {};
 				}
 				return getPermissionError();
+			}
+		);
+	}
+	for (const action in registeredActionsWoutPermissions)
+	{
+		context.registerAction(action,
+			() => (true ? {} : getPermissionError()),
+			(args) =>
+			{
+
+			const params = ("args" in args) ? args.args : args;
+			registeredActionsWoutPermissions[action](<never>params);
+			return {};
+
 			}
 		);
 	}

@@ -8,7 +8,10 @@
  *****************************************************************************/
 
 import { debug } from "../logger/logger";
+import { GhostRealmSynchronizationAction } from "./synchronization";
 import { GhostRealmArgs } from "./GhostRealmArgs";
+import { registerWithoutPermissions } from "../actions";
+import { isServer } from "../environment";
 
 /**
  * Ghost storage for **multiplayer server**
@@ -43,3 +46,26 @@ export function ghostServerStorageRem(args: GhostRealmArgs) {
     ghostServerStorage = []
     ghostServerStorage = temporary.slice()
 }
+
+
+interface playerId {
+    id:number
+}
+
+const execute = registerWithoutPermissions<playerId>("mt-network-ask-sync", sendSync)
+export function requestSync() {
+    debug(`requestSync ${network.currentPlayer.id}`)
+    execute({id: network.currentPlayer.id.valueOf()})
+}
+
+function sendSync(pid: playerId) {
+    if (isServer()) {
+        ghostServerStorage.forEach(piece => {
+            GhostRealmSynchronizationAction({
+                designatedReceiver: pid.id,
+                ghostRealmPiece: piece
+            })
+        })
+    }
+}
+

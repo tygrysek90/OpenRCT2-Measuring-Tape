@@ -22,3 +22,8 @@ export interface GhostRealmArgs {
     /** object number (for the given object type) */
     object: number;
 }
+
+export interface GhostRealmSynchronization {
+    designatedReceiver: number;
+    ghostRealmPiece: GhostRealmArgs;
+}
