@@ -9,8 +9,8 @@
 
 import { mapTileSize } from "../common/mapTileSize"
 import { ghostRemoveFromCemeteryHistory } from "./ghostActions"
+import { GhostRealmArgs } from "./GhostRealmArgs"
 import { ghostRemoveAction } from "./ghostRemoveAction"
-import { GhostRemoveArgs } from "./GhostRemoveArgs"
 
 /**
  * Ghost removing functions
@@ -27,24 +27,24 @@ export function seekAndDestroy(xTile: number, yTile: number) {
     for (let i=0; i<tile.numElements; i++) {
         if (tile.elements[i].type == "small_scenery" && tile.elements[i].isGhost) {
             let elementToRemove = tile.elements[i] as SmallSceneryElement
-            let ghostRemoveArgs:GhostRemoveArgs = {
-                xTiles: xTile,
-                yTiles: yTile,
-                objectType: "small_scenery",
-                objectId: elementToRemove.object,
-                objectDirection: elementToRemove.direction
+            let ghostRemoveArgs:GhostRealmArgs = {
+                xTile: xTile,
+                yTile: yTile,
+                type: "small_scenery",
+                object: elementToRemove.object,
+                direction: elementToRemove.direction
             }
             ghostRemoveFromCemeteryHistory(ghostRemoveArgs)
             ghostRemoveAction(ghostRemoveArgs)
         }
         if (tile.elements[i].type == "wall" && tile.elements[i].isGhost) {
             let elementToRemove = tile.elements[i] as WallElement
-            let ghostRemoveArgs:GhostRemoveArgs = {
-                xTiles: xTile,
-                yTiles: yTile,
-                objectType: "wall",
-                objectId: elementToRemove.object,
-                objectDirection: elementToRemove.direction
+            let ghostRemoveArgs:GhostRealmArgs = {
+                xTile: xTile,
+                yTile: yTile,
+                type: "wall",
+                object: elementToRemove.object,
+                direction: elementToRemove.direction
             }
             ghostRemoveFromCemeteryHistory(ghostRemoveArgs)
             ghostRemoveAction(ghostRemoveArgs)

@@ -8,30 +8,30 @@
  *****************************************************************************/
 
 import { register } from "../actions"
-import { GhostRemoveArgs } from "./GhostRemoveArgs"
+import { GhostRealmArgs } from "./GhostRealmArgs"
 
 /**
  * Ghost remove action
  */
-const execute = register<GhostRemoveArgs>("mt-remove-ghost", ghostRemove)
+const execute = register<GhostRealmArgs>("mt-remove-ghost", ghostRemove)
 /** Removes a ghost via registered action (multiplayer-compatible) */
-export function ghostRemoveAction(args:GhostRemoveArgs) {
+export function ghostRemoveAction(args:GhostRealmArgs) {
     execute(args)
 }
 
-export function ghostRemove(args: GhostRemoveArgs) {
-    let tile = map.getTile(args.xTiles, args.yTiles)
+export function ghostRemove(args: GhostRealmArgs) {
+    let tile = map.getTile(args.xTile, args.yTile)
     for (let i=0; i<tile.numElements; i++) {
         switch (tile.elements[i].type) {
             case "small_scenery":
                 let smallScE = tile.elements[i] as SmallSceneryElement
-                if (args.objectType == "small_scenery" && smallScE.isGhost == true && smallScE.object == args.objectId && smallScE.direction == args.objectDirection) {
+                if (args.type == "small_scenery" && smallScE.isGhost == true && smallScE.object == args.object && smallScE.direction == args.direction) {
                     tile.removeElement(i)
                 }
                 break
             case "wall":
                 let wallE = tile.elements[i] as WallElement
-                if (args.objectType == "wall" && wallE.isGhost == true && wallE.object == args.objectId && wallE.direction == args.objectDirection ) {
+                if (args.type == "wall" && wallE.isGhost == true && wallE.object == args.object && wallE.direction == args.direction ) {
                     tile.removeElement(i)
                 }
         }

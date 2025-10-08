@@ -8,13 +8,13 @@
  *****************************************************************************/
 
 /** Interface for passing arguments to ghostPlaceAction */
-export interface GhostPlaceArgs {
+export interface GhostRealmArgs {
     /** x position in tiles */
-    xTiles: number;
+    xTile: number;
     /** y position in tiles */
-    yTiles: number;
+    yTile: number;
     /** base height as in element.BaseHeight */
-    zBase: number;
+    zBase?: number;
     /** OpenRCT2 Direction type */
     direction: Direction;
     /** OpenRC2 ObjectType */

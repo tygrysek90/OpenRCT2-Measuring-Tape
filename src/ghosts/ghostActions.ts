@@ -23,16 +23,16 @@ import { MapSelectionVerified, mapSelectionToVerified } from "../tool/mapSelecti
 import { mapTileSize } from "../common/mapTileSize"
 import { ghostPlaceAction } from "./ghostPlaceAction"
 import { ghostRemoveAction } from "./ghostRemoveAction"
-import { GhostRemoveArgs } from "./GhostRemoveArgs"
 import { debug } from "../logger/logger"
+import { GhostRealmArgs } from "./GhostRealmArgs"
 
 
 
 /** Stores ghosts (current working set) */
-var cemetery: Array<GhostRemoveArgs> = []
+var cemetery: Array<GhostRealmArgs> = []
 
 /** Stores history of ghosts (old working sets) */
-var cemeteryHistory: GhostRemoveArgs[][] = []
+var cemeteryHistory: GhostRealmArgs[][] = []
 
 /** Stores last selection in case of visibility or object parameter change and thus ghost manipulation */
 var lastVerifiedSelection: MapSelectionVerified | undefined
@@ -58,25 +58,25 @@ export function dereferenceCemetery() {
 
 /**
  * Goes through cemeteryHistory (the memory of past measured sets, removes single piece in set)
- * @param ghostRemoveArgs 
+ * @param GhostRealmArgs 
  */
-export function ghostRemoveFromCemeteryHistory(ghostRemoveArgs: GhostRemoveArgs) {
-    let temporary: GhostRemoveArgs[][] = []
+export function ghostRemoveFromCemeteryHistory(GhostRealmArgs: GhostRealmArgs) {
+    let temporary: GhostRealmArgs[][] = []
     cemeteryHistory.forEach(historyLine => {
-        let temporaryLine: GhostRemoveArgs[] = []
+        let temporaryLine: GhostRealmArgs[] = []
         historyLine.forEach(ghost => {
-            debug(`${JSON.stringify([ghost, ghostRemoveArgs])}`)
-            if (!(ghost.objectDirection == ghostRemoveArgs.objectDirection && 
-                ghost.objectId == ghostRemoveArgs.objectId &&
-                ghost.objectType == ghostRemoveArgs.objectType &&
-                ghost.xTiles == ghostRemoveArgs.xTiles &&
-                ghost.yTiles == ghostRemoveArgs.yTiles)) 
+            debug(`${JSON.stringify([ghost, GhostRealmArgs])}`)
+            if (!(ghost.direction == GhostRealmArgs.direction && 
+                ghost.object == GhostRealmArgs.object &&
+                ghost.type == GhostRealmArgs.type &&
+                ghost.xTile == GhostRealmArgs.xTile &&
+                ghost.yTile == GhostRealmArgs.yTile)) 
                 {
                 temporaryLine.push(ghost)
 
             }
             else {
-                debug(`removing from history ${JSON.stringify(ghostRemoveArgs)}`)
+                debug(`removing from history ${JSON.stringify(GhostRealmArgs)}`)
 
             }
         })
@@ -226,8 +226,8 @@ function setGhost(type: GhostConfigRow, xTile: number, yTile: number, direction:
     if (goodHeight != undefined) {
 
         ghostPlaceAction({
-            xTiles: tile.x,
-            yTiles: tile.y,
+            xTile: tile.x,
+            yTile: tile.y,
             zBase: goodHeight,
             direction: direction,
             type: ghostConfig[type].objectType,
@@ -235,11 +235,11 @@ function setGhost(type: GhostConfigRow, xTile: number, yTile: number, direction:
         })       
 
         cemetery.push({
-            xTiles: tile.x,
-            yTiles: tile.y,
-            objectType: ghostConfig[type].objectType,
-            objectId: ghostConfig[type].objectId,
-            objectDirection: direction,
+            xTile: tile.x,
+            yTile: tile.y,
+            type: ghostConfig[type].objectType,
+            object: ghostConfig[type].objectId,
+            direction: direction,
         })
     }
 }
