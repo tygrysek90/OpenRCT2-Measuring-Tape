@@ -117,14 +117,14 @@ Extra tools windows offer two sections: **Extra tools** that work with map as a 
 ### Rubber stamp
 <img width="116" height="140" alt="extra-win-dial" src="https://github.com/user-attachments/assets/ca900917-3cc2-475d-9164-e440ccbb0b58" />
 
-When using rubber stamp, the "Lock all" mode is automaticaly engaged to allow multiple placement of stamps.
+When using rubber stamp, the "Lock all" mode is automatically engaged to allow multiple placement of stamps.
 
 - <img width="28" height="25" alt="extra-win-dial-zero" src="https://github.com/user-attachments/assets/45ea8cb7-d34a-49a8-bde0-0d587700a4a6" /> - <img width="28" height="25" alt="extra-win-dial-nine" src="https://github.com/user-attachments/assets/ac32afc7-5c02-42e0-acc7-7f5ee6908f6e" /> **Numbers** Selects the number you wish to place
 
 <img width="640" height="315" alt="extra-win-rubber-stamp" src="https://github.com/user-attachments/assets/76969853-c55f-472d-a926-ac38e000c87c" />
 
 
-- <img width="28" height="25" alt="extra-win-dial-rotate" src="https://github.com/user-attachments/assets/956e76c6-2c27-40f1-9439-159098f35c94" /> **Rotate** Turns selected number stamp 90 angular degrees counter-cockwise
+- <img width="28" height="25" alt="extra-win-dial-rotate" src="https://github.com/user-attachments/assets/956e76c6-2c27-40f1-9439-159098f35c94" /> **Rotate** Turns selected number stamp 90 angular degrees counter-clockwise
 
 
 ## Configure
