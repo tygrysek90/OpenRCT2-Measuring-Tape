@@ -15,7 +15,7 @@
 import { build } from "./environment"
 
 /** Primary version designation */
-const version : string = "0.2.4"
+const version : string = "0.3"
 
 /** Release name */
 function name():string {
@@ -28,6 +28,8 @@ function name():string {
                 return "“Bari“"
             case "0.2":
                 return "“Foggia“"
+            case "0.3":
+                return "“Verona“"
             default:
                 return "" // this should not happen!
         }
