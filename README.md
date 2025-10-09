@@ -113,15 +113,26 @@ Buttons in this section always open a new window.
 - <img width="30" height="27" alt="win-abouthelp" src="https://github.com/user-attachments/assets/1ce65202-c621-41fd-a883-e31aed080cf4" /> **About & Help**
 - <img width="30" height="27" alt="win-extra" src="https://github.com/user-attachments/assets/b1d92920-ef6a-49cd-819c-6523505b3053" /> **Extra tools**
 
-## Extra tools
-<img align="left" width="116" height="81" alt="extra-win" src="https://github.com/user-attachments/assets/728b73ac-fc89-4645-b2e0-6b57942ff39f" />
-Extra tools offer tools that work with map as a whole, without need of using pointer device (usually mouse) to designate area on the map.
+## Extra tools window
+<img width="116" height="218" alt="extra-win" src="https://github.com/user-attachments/assets/e625c88b-1215-4276-bdc0-19595d4fb6b9" />
+Extra tools windows offer two sections: **Extra tools** that work with map as a whole, without need of using pointer device (usually mouse) to designate area on the map. And **Rubber stamper** that allows to place "stamps" formed from ghosts in the shape of the arabic numerals. ([Arabic numerals on the Wikipedia 🔗](https://en.wikipedia.org/wiki/Arabic_numerals))
 
 .
-
+### Extra tools
 - <img width="47" height="36" alt="extra-map-bisect-edges" src="https://github.com/user-attachments/assets/0d49de56-ef80-4020-afb0-8f2c3efd2ffd" /> **Bisect map edges** Finds a centre of each map edge. This is can be useful for placing the entrance in perfect centre of map edge. Logic for displaying the-s ghosts is the same as with measuring tape tool. A ghost placed on a tile denotes the centre lies on tile (default block), whether a ghost placed on the edge of the tile (default a wall) signals the centre point lies on the edge. 
 - <img width="47" height="36" alt="extra-map-centre" src="https://github.com/user-attachments/assets/848b0e14-61e6-49c3-8877-e48295264100" /> **Find map centre** Finds the centre of the map.
 
+### Rubber stamp
+<img width="116" height="140" alt="extra-win-dial" src="https://github.com/user-attachments/assets/ca900917-3cc2-475d-9164-e440ccbb0b58" />
+
+When using rubber stamp, the "Lock all" mode is automaticaly engaged to allow multiple placement of stamps.
+
+- <img width="28" height="25" alt="extra-win-dial-zero" src="https://github.com/user-attachments/assets/45ea8cb7-d34a-49a8-bde0-0d587700a4a6" /> - <img width="28" height="25" alt="extra-win-dial-nine" src="https://github.com/user-attachments/assets/ac32afc7-5c02-42e0-acc7-7f5ee6908f6e" /> **Numbers** Selects the number you wish to place
+
+<img width="640" height="315" alt="extra-win-rubber-stamp" src="https://github.com/user-attachments/assets/76969853-c55f-472d-a926-ac38e000c87c" />
+
+
+- <img width="28" height="25" alt="extra-win-dial-rotate" src="https://github.com/user-attachments/assets/956e76c6-2c27-40f1-9439-159098f35c94" /> **Rotate** Turns selected number stamp 90 angular degrees counter-cockwise
 
 
 ## Configure
