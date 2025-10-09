@@ -4,7 +4,7 @@
 
 <br/>
 
-![measuring-tape-v0 2-foggia](https://github.com/user-attachments/assets/047ab387-d286-409b-99db-393ead079ce0)
+![meas-tape-0 3](https://github.com/user-attachments/assets/3c8b9f18-4a1c-40a9-a1bb-f0d72cc41c63)
 
 ## Jump to…
 - [User Manual](#user-manual)
@@ -26,16 +26,16 @@ ____________
 ## Features
 
 ### Measure length
-<img width="490" height="395" alt="Snímek obrazovky z 2025-09-25 13-34-05" src="https://github.com/user-attachments/assets/32a9bb86-dec3-495c-94ad-5a552d1cd302" />
+<img width="612" height="431" alt="Snímek obrazovky z 2025-10-09 18-16-14" src="https://github.com/user-attachments/assets/ad56e44f-a425-4dd9-93d3-aac1f44b08e8" />
 
 ### Measure area
-<img width="490" height="395" alt="Snímek obrazovky z 2025-09-25 13-34-48" src="https://github.com/user-attachments/assets/1eadafe6-338c-4063-b056-66f1f5049db6" />
+<img width="612" height="431" alt="Snímek obrazovky z 2025-10-09 18-16-28" src="https://github.com/user-attachments/assets/e7390d07-1371-4448-9e35-edc72c41eb35" />
 
 ### Stacking and undo-able history of measurements
-![meas-tape-hist-stack](https://github.com/user-attachments/assets/1ddcc70d-17da-4bf9-a981-8fd644bd5677)
+![mt-0 3-hist-stack](https://github.com/user-attachments/assets/d47bc00f-2aed-48bd-bffe-80ae7745aeb9)
 
-### Find centre of map and map edges
-<img width="608" height="653" alt="Snímek obrazovky z 2025-09-25 13-37-57" src="https://github.com/user-attachments/assets/424e4ca8-1e19-4203-ba39-b8f03833116b" />
+### Find centre of map and map edges, stamp numbers on the map
+<img width="672" height="426" alt="Snímek obrazovky z 2025-10-09 18-10-36" src="https://github.com/user-attachments/assets/ce7dac36-9bc3-4cdf-b9a3-ed072a7a527c" />
 
 ### Configure objects used - simply
 <img width="568" height="467" alt="Snímek obrazovky z 2025-09-30 16-54-36" src="https://github.com/user-attachments/assets/46399d97-3f74-4354-a903-be667d33d083" />
@@ -66,12 +66,12 @@ ____________
 # User Manual
 
 
-<img align="left" width="116" height="413" alt="main-win" src="https://github.com/user-attachments/assets/809d8521-7552-4f6b-91ad-b76d7ae77c85" />
+<img align="left" width="116" height="412" alt="main-window-3 0" src="https://github.com/user-attachments/assets/459668bd-810a-47e4-b259-a51b2b04e301" />
 
 #### Table of contents
 [Main window](#main-window)<br/>
-[Configure window](#configure)<br/>
 [Extra tools](#extra-tools)<br/>
+[Configure window](#configure)<br/>
 [Multiplayer](#multiplayer)<br/>
 
 ### General
