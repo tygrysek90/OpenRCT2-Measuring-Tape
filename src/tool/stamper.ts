@@ -7,8 +7,9 @@
  * is licensed under the GNU General Public License version 3.
  *****************************************************************************/
 
-import { exorciseCemetery, dereferenceCemetery, moveStamperGhosts } from "../ghosts/ghostActions";
+import { dereferenceCemetery, moveStamperGhosts, addToHistory, exorciseCemetery } from "../ghosts/ghostActions";
 import { debug } from "../logger/logger";
+import { onClickKeepAllButton } from "../mainWin/mainActions";
 import { model } from "../mainWin/mainModel";
 import { toggleGridOverlay } from "./mapSelectionTool";
 
@@ -20,27 +21,30 @@ var rotation: Direction = 0
 var digit: number = 0
 
 export function activateStamper(dig: number) {
+    // force switch to keep-all mode (otherwise, this whole function loses its meaning and use-ability)
+    if (model.ghostsButtonsPressed.keepAll.get() == false) {
+        onClickKeepAllButton()
+    }
+
+    addToHistory()
+    dereferenceCemetery()
+
     digit = dig
     toggleGridOverlay(false)
     toggleGridOverlay(true)
-    if (model.ghostsButtonsPressed.keepOne.get() == true) { 
-        exorciseCemetery()
-        dereferenceCemetery()
-    }
-    if (model.ghostsButtonsPressed.keepAll.get() == true) {
-        dereferenceCemetery()
-    }
     ui.activateTool({
         id: "measuring-tape-stamper",
         cursor: "hand_open",
         filter: ["terrain"],
         onMove: a => moveStamper(a),
-        //onFinish: () => finish(this.onCancel)
+        onUp: () => upStamper(),
+        onFinish: () => exorciseCemetery()
     });
 
 }
 
 export function rotateStamper() {
+    debug(`Stamper rotation ${rotation}`)
     if (rotation == 3 satisfies Direction) {
         rotation = 0 satisfies Direction
     }
@@ -60,4 +64,10 @@ function moveStamper(a: ToolEventArgs) {
             lastPos = a.mapCoords
         }
     }
+
+}
+
+function upStamper() {
+    addToHistory()
+    dereferenceCemetery()
 }

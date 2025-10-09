@@ -394,10 +394,10 @@ export function moveStamperGhosts(centre: CoordsXY, num: number, rotation: Direc
                         setGhost(GhostConfigRow.mid_tile, (centre.x/mapTileSize)+r, (centre.y/mapTileSize)+c, 0 satisfies Direction)
                         break
                     case 1 satisfies Direction:
-                        setGhost(GhostConfigRow.mid_tile, (centre.x/mapTileSize)+c, (centre.y/mapTileSize)-r, 0 satisfies Direction)
+                        setGhost(GhostConfigRow.mid_tile, (centre.x/mapTileSize)-c, (centre.y/mapTileSize)+r, 0 satisfies Direction)
                         break
                     case 2 satisfies Direction:
-                        setGhost(GhostConfigRow.mid_tile, (centre.x/mapTileSize)-c, (centre.y/mapTileSize)+r, 0 satisfies Direction)
+                        setGhost(GhostConfigRow.mid_tile, (centre.x/mapTileSize)+c, (centre.y/mapTileSize)-r, 0 satisfies Direction)
                         break
                     case 3 satisfies Direction:
                         setGhost(GhostConfigRow.mid_tile, (centre.x/mapTileSize)-r, (centre.y/mapTileSize)-c, 0 satisfies Direction)

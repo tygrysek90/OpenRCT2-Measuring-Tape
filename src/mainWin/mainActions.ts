@@ -89,7 +89,7 @@ export function onClickShowGhCentreButton() {
 // END GROUPBOX "Show Ghosts"
 
 // GROUPBOX "Ghosts"
-function setDismissButtonsDisability() {
+export function setDismissButtonsDisability() {
     // tvl to je logika
     if (model.ghostsButtonsPressed.keepOne.get() == false && model.ghostsButtonsPressed.keepAll.get() == false) {
         model.ghostsButtonsDisabled.dismissLast.set(true)

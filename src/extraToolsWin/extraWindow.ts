@@ -14,7 +14,7 @@ import { onClickBisectEdgesButton, onClickMapCentre, onClickStamper, onClickStam
 import { bisectMapEdgesPng } from "../imgs/bisectMapEdges";
 
 
-function dialAlikes(): FlexibleLayoutContainer {
+function dialAlike(): FlexibleLayoutContainer {
     let rowInside:FlexibleLayoutContainer = []
     
     let dial: FlexibleLayoutContainer = []
@@ -47,7 +47,7 @@ function dialAlikes(): FlexibleLayoutContainer {
                             onClick: () => onClickStamper(0)}),
                     button({width: imgButtonSmall.width,
                             height: imgButtonSmall.height,
-                            text: "R",
+                            image: 5169,
                             onClick: () => onClickStamperRotate()})
                 ]
         })
@@ -88,8 +88,8 @@ export const extraWindow = window({
             ]
         }),
         groupbox({
-            text: "Stamper",
-            content: dialAlikes()
+            text: "Rubber stamp",
+            content: dialAlike()
         })
     ]
 })
