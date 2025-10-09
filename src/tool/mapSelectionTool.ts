@@ -263,7 +263,7 @@ const viewportFlagGridlines = (1 << 7);
  * Toggles the map grid overlay on or off.
  * @param value True for on, false for off.
  */
-function toggleGridOverlay(value: boolean): void
+export function toggleGridOverlay(value: boolean): void
 {
 	if (value)
 	{

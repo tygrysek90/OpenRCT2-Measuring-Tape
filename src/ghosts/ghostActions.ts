@@ -25,6 +25,7 @@ import { ghostPlaceAction } from "./ghostPlaceAction"
 import { ghostRemoveAction } from "./ghostRemoveAction"
 import { debug } from "../logger/logger"
 import { GhostRealmArgs } from "./GhostRealmArgs"
+import { stamps } from "./stamperData"
 
 
 
@@ -380,3 +381,28 @@ export function findMapEdgesCentres() {
 export function findMapCentre() {
     findGhostCentreOfArea({start: {x:mapTileSize,y:mapTileSize}, end:mapSizeToCoordsXYAsSelection()})
 }  
+
+
+export function moveStamperGhosts(centre: CoordsXY, num: number, rotation: Direction) {
+    exorciseCemetery()
+    for (let r=0; r<5; r++) {
+        for (let c=0; c<3; c++) {
+            let p=r*3+c
+            if (stamps[num][p] == "x") {
+                switch (rotation) {
+                    case 0 satisfies Direction:
+                        setGhost(GhostConfigRow.mid_tile, (centre.x/mapTileSize)+r, (centre.y/mapTileSize)+c, 0 satisfies Direction)
+                        break
+                    case 1 satisfies Direction:
+                        setGhost(GhostConfigRow.mid_tile, (centre.x/mapTileSize)+c, (centre.y/mapTileSize)-r, 0 satisfies Direction)
+                        break
+                    case 2 satisfies Direction:
+                        setGhost(GhostConfigRow.mid_tile, (centre.x/mapTileSize)-c, (centre.y/mapTileSize)+r, 0 satisfies Direction)
+                        break
+                    case 3 satisfies Direction:
+                        setGhost(GhostConfigRow.mid_tile, (centre.x/mapTileSize)-r, (centre.y/mapTileSize)-c, 0 satisfies Direction)
+                }
+            }
+        }
+    }
+}

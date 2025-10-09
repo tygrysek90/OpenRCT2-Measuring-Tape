@@ -9,6 +9,7 @@
 
 import { findMapCentre, findMapEdgesCentres } from "../ghosts/ghostActions";
 import { onGhostActionFinish } from "../mainWin/mainActions";
+import { activateStamper, rotateStamper } from "../tool/stamper";
 
 export function onClickBisectEdgesButton() {
     findMapEdgesCentres()
@@ -18,4 +19,12 @@ export function onClickBisectEdgesButton() {
 export function onClickMapCentre() {
     findMapCentre()
     onGhostActionFinish()
+}
+
+export function onClickStamper(n: number) {
+    activateStamper(n)
+}
+
+export function onClickStamperRotate() {
+    rotateStamper()
 }
