@@ -114,10 +114,15 @@ Buttons in this section always open a new window.
 - <img width="30" height="27" alt="win-extra" src="https://github.com/user-attachments/assets/b1d92920-ef6a-49cd-819c-6523505b3053" /> **Extra tools**
 
 ## Extra tools window
-<img width="116" height="218" alt="extra-win" src="https://github.com/user-attachments/assets/e625c88b-1215-4276-bdc0-19595d4fb6b9" />
+<img align="left" width="116" height="218" alt="extra-win" src="https://github.com/user-attachments/assets/e625c88b-1215-4276-bdc0-19595d4fb6b9" />
 Extra tools windows offer two sections: **Extra tools** that work with map as a whole, without need of using pointer device (usually mouse) to designate area on the map. And **Rubber stamper** that allows to place "stamps" formed from ghosts in the shape of the arabic numerals. ([Arabic numerals on the Wikipedia 🔗](https://en.wikipedia.org/wiki/Arabic_numerals))
 
 .
+
+.
+
+.
+
 ### Extra tools
 - <img width="47" height="36" alt="extra-map-bisect-edges" src="https://github.com/user-attachments/assets/0d49de56-ef80-4020-afb0-8f2c3efd2ffd" /> **Bisect map edges** Finds a centre of each map edge. This is can be useful for placing the entrance in perfect centre of map edge. Logic for displaying the-s ghosts is the same as with measuring tape tool. A ghost placed on a tile denotes the centre lies on tile (default block), whether a ghost placed on the edge of the tile (default a wall) signals the centre point lies on the edge. 
 - <img width="47" height="36" alt="extra-map-centre" src="https://github.com/user-attachments/assets/848b0e14-61e6-49c3-8877-e48295264100" /> **Find map centre** Finds the centre of the map.
