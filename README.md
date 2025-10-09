@@ -115,7 +115,10 @@ Buttons in this section always open a new window.
 
 ## Extra tools window
 <img align="left" width="116" height="218" alt="extra-win" src="https://github.com/user-attachments/assets/e625c88b-1215-4276-bdc0-19595d4fb6b9" />
-Extra tools windows offer two sections: **Extra tools** that work with map as a whole, without need of using pointer device (usually mouse) to designate area on the map. And **Rubber stamper** that allows to place "stamps" formed from ghosts in the shape of the arabic numerals. ([Arabic numerals on the Wikipedia 🔗](https://en.wikipedia.org/wiki/Arabic_numerals))
+
+Extra tools windows offer two sections: **Extra tools** that work with map as a whole, without need of using pointer device (usually mouse) to designate area on the map. And **Rubber stamper** that allows to place "stamps" formed from ghosts in the shape of the arabic numerals. [Arabic numerals on the Wikipedia 🔗](https://en.wikipedia.org/wiki/Arabic_numerals)
+
+.
 
 .
 
