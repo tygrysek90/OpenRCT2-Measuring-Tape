@@ -2,9 +2,14 @@
 ### Tired of counting tiles and finding perfect centres on your OpenRCT2 map?
 ### Measuring Tape plugin is here to give you hand!
 
-<br/>
 
+#### Single player
 ![meas-tape-0 3](https://github.com/user-attachments/assets/3c8b9f18-4a1c-40a9-a1bb-f0d72cc41c63)
+
+#### Multiplayer
+![meas-tape-multipl](https://github.com/user-attachments/assets/34b2929d-d7d3-49d8-a45e-d57f6537061a)
+
+_______________
 
 ## Jump to…
 - [User Manual](#user-manual)
@@ -40,20 +45,7 @@ ____________
 
 ### And more...
 
-____________
-
-
-## Building from source
-Note there are two branches kept for this project, main is held at current release, while dev is moving on. To roll-up, kindly follow instruction from https://github.com/Basssiiie/OpenRCT2-Simple-Typescript-Template - with small spice: before `npm run build:dev` run `node rebuildPngToBase64.js`, as base64 version of images used on buttons is then rolled up in plugin.
-
-Visual Studio Code users can clone this repository in editor and use Terminal -> Run task... menu options (including downloading `openrct2.d.ts` into lib directory and running `rebuildPngToBase64.js`)
-
-## Contact the author
-Bug reports, feature ideas or requests, any kind of collaboration - I am open-minded to chat about anything: contact me
-via GitHub - you can make an Issue, or catch me via OpenRCT2 discord #plugin (or direct message)
-
-
-____________
+______________
 
 # User Manual
 
@@ -179,8 +171,19 @@ A player without "Scenery" permission can still use the tools of the plugin, rea
 ### Headless server
 The plugin is able to be run headless. If you want your players to be able to utilize the Measuring Tape on your headless server, it must be installed on your server.
 
-
 ____________
+
+
+## Building from source
+Note there are two branches kept for this project, main is held at current release, while dev is moving on. To roll-up, kindly follow instruction from https://github.com/Basssiiie/OpenRCT2-Simple-Typescript-Template - with small spice: before `npm run build:dev` run `node rebuildPngToBase64.js`, as base64 version of images used on buttons is then rolled up in plugin.
+
+Visual Studio Code users can clone this repository in editor and use Terminal -> Run task... menu options (including downloading `openrct2.d.ts` into lib directory and running `rebuildPngToBase64.js`)
+
+## Contact the author
+Bug reports, feature ideas or requests, any kind of collaboration - I am open-minded to chat about anything: contact me
+via GitHub - you can make an Issue, or catch me via OpenRCT2 discord #plugin (or direct message)
+
+___________
 
 # Thanks to
 
