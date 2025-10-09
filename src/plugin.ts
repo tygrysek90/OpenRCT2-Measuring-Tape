@@ -16,14 +16,15 @@ registerPlugin({
 	name: "Measuring Tape",
 	version: pluginVersion,
 	authors: [ "Ríša Szlachta (tygrysek90)" ],
-	type: "local",
+	type: "remote",
 	licence: "GPL-3.0-only",
 	/**
-	 * This field determines which OpenRCT2 API version to use. It's best to always use the
-	 * latest release version, unless you want to use specific versions from a newer develop
-	 * version. Version 70 equals the v0.4.4 release.
-	 * @see https://github.com/OpenRCT2/OpenRCT2/blob/v0.4.4/src/openrct2/scripting/ScriptEngine.h#L50
-	 */
-	targetApiVersion: 70,
+	 * This field determines which OpenRCT2 API version to use. 
+	 *
+	 * API version 110 starts at OpenRCT2 0.4.25 (released 2025-08-03) and is know to go up to 0.4.27
+	 * at the moment of writing in current development at commit 
+	 * 310056b71c4b60101f9f557037352cd7cf6a66b8 as of 8th of (spook)October 2025
+	**/
+	targetApiVersion: 110,
 	main: startup,
 });

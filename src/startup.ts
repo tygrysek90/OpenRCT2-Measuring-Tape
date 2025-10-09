@@ -7,10 +7,13 @@
  * is licensed under the GNU General Public License version 3.
  *****************************************************************************/
 
-import { nicelyStartTool, stopTool } from "./mainWin/actions";
+import { nicelyStartTool, stopTool } from "./mainWin/mainActions";
 import { mainWindowIsOpen } from "./mainWin/isOpen";
 import { mainWindow } from "./mainWin/mainWindow";
 import { startToolMode } from "./config/toolMode";
+import { registerActions } from "./actions";
+import { isMultiplayer, isServer } from "./environment";
+import { requestSync } from "./ghosts/serverStorage";
 
 
 const shortcuts: Array<ShortcutDesc> = [
@@ -62,6 +65,10 @@ export function openMainWindowIfNotAlready() {
 
 /** Register a menu item under the map icon: */
 export function startup() {
+	registerActions()
+	if (isMultiplayer() && !isServer()) {
+		requestSync()
+	}
 	if (typeof ui !== "undefined") {
 		registerShortcuts()
 		const menuItemName = "Measuring Tape";

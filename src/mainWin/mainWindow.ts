@@ -14,7 +14,7 @@
 
 import { button, Colour, groupbox, horizontal, label, LayoutDirection, window } from "openrct2-flexui";
 import { model } from "./mainModel";
-import { nicelyStartTool, onClickAreaButton, onClickDismissLast, onClickDismissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton, stopTool } from "./actions";
+import { nicelyStartTool, onClickAreaButton, onClickDismissLast, onClickDismissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton, stopTool, onClickGhostEraseCrosshair, onClickGhostEraseArea, onClickNukeGhosts } from "./mainActions";
 import { tapePng } from "../imgs/tape";
 import { endsPng } from "../imgs/ends";
 import { centrePng } from "../imgs/centre";
@@ -34,6 +34,9 @@ import { measureAreaPng } from "../imgs/measureArea";
 import { initConfig } from "../config/ghosts";
 import { startToolMode } from "../config/toolMode";
 import { mainWindowIsOpen } from "./isOpen";
+import { ghostCrosshairPng } from "../imgs/ghostCrosshair";
+import { exorciseAreaPng } from "../imgs/exorciseArea";
+import { atomicMushroomPng } from "../imgs/atomicMushroom";
 
 
 /**
@@ -106,9 +109,10 @@ export const mainWindow = window({
            ]
         }),
         groupbox({
-            text: "Ghosts",
+            text: "Sets",
             direction: LayoutDirection.Vertical,
             content: [
+                // 1st ROW - ghost keeping options (ghosts with locks)
                 horizontal({
                     content: [
                         button({
@@ -129,6 +133,7 @@ export const mainWindow = window({
                         }),
                     ]
                 }),
+                // 2st ROW - ghost removing by set (ghost with big '-' and 'x')
                 horizontal({
                     content: [
                         button({
@@ -152,6 +157,43 @@ export const mainWindow = window({
             ]
         }),
         groupbox({
+            text: "Tiles",
+            direction: LayoutDirection.Vertical,
+            content: [
+                // ghost removing other
+                horizontal({
+                    content: [
+                        button({
+                            height: imgButtonSmall.height,
+                            width: imgButtonSmall.width,
+                            image: ghostCrosshairPng.image,
+                            tooltip: "Clean ghosts from one tile",
+                            isPressed: model.ghostSecondaryButtonsPressed.crosshair,
+                            onClick: () => onClickGhostEraseCrosshair()
+                        }),
+                        button({
+                            padding: {left: "1px", right: "1px"},
+                            height: imgButtonSmall.height,
+                            width: imgButtonSmall.width,
+                            image: exorciseAreaPng.image,
+                            tooltip: "Clean ghosts from selected area",
+                            isPressed: model.ghostSecondaryButtonsPressed.area,
+                            onClick: () => onClickGhostEraseArea(),
+                        }),
+                        button({
+                            height: imgButtonSmall.height,
+                            width: imgButtonSmall.width,
+                            image: atomicMushroomPng.image,
+                            tooltip: "Obliterate all ghosts from the map",
+                            //disabled: model.ghostsButtonsDisabled.dismissAll,
+                            onClick: () => onClickNukeGhosts(),
+                        }),
+                    ]
+                }),
+            ]
+        }),
+
+        groupbox({
             text: "Extras",
             direction: LayoutDirection.Horizontal,
             content: [
@@ -163,6 +205,7 @@ export const mainWindow = window({
                     onClick: () => openObjSelection(), 
                 }),
                 button({
+                    padding: {left: "1px", right: "1px"},
                     height: imgButtonSmall.height,
                     width: imgButtonSmall.width,
                     image:  helpAboutPng.image,
@@ -170,7 +213,6 @@ export const mainWindow = window({
                     onClick: () => aboutHelpWindow.open(),
                 }),
                 button({
-                    padding: {left: "1px", right: "1px"},
                     height: imgButtonSmall.height,
                     width: imgButtonSmall.width,
                     image: extraPng.image,

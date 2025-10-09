@@ -40,11 +40,19 @@ export const model = {
         keepAll: store<boolean>(false),
         // other two buttons in Ghosts group are clickable only
     },
-    //rest of buttons are clickable only (no pressed state preservation)
 
     ghostsButtonsDisabled: {
         dismissLast: store<boolean>(true),
         dismissAll: store<boolean>(true)
+    },
+
+    ghostSecondaryButtonsPressed: {
+        crosshair: store<boolean>(false),
+        area: store<boolean>(false)
+        // nuke tool does not preserve state
     }
+
+    //rest of buttons are clickable only (no pressed state preservation)
+
      
 }

@@ -18,7 +18,7 @@ import { debug } from "../logger/logger";
 import { MapSelection, toMapRange } from "./mapSelection";
 import { mapTileSize } from "../common/mapTileSize";
 
-export type ToolMode = "tape" | "area" | "off"
+export type ToolMode = "tape" | "area" | "erase-one" | "erase-area" | "off"
 
 /**
  * Tool that can select an area.
@@ -34,9 +34,14 @@ export class MapSelectionTool
 	onMove?: (selection: MapSelection) => void;
 
 	/**
+	 * Event that triggers when mouse down (selection start)
+	 */
+	onDown?: (position: CoordsXY) => void;
+
+	/**
 	 * Event that triggers when mouse up (selection done)
 	 */
-	onUp?: () => void;
+	onUp?: (position: CoordsXY) => void;
 
 	/**
 	 * Event that triggers when an area is selected.
@@ -84,7 +89,7 @@ export class MapSelectionTool
 		ui.activateTool({
 			id: this.name,
 			cursor: this.cursor,
-			filter: ["terrain", "water"],
+			filter: ["terrain"],
 			onDown: a => down(this, a),
 			onUp: a => up(this, a),
 			onMove: a => move(this, a),
@@ -147,7 +152,13 @@ function finish(callback?: () => void): void
  */
 function down(tool: MapSelectionTool, args: ToolEventArgs): void
 {
+	
 	const location = args.mapCoords;
+
+	if (tool.mode == "erase-one") {
+		return
+	}
+
 	if (!location)
 	{
 		debug(`Tool: down at unknown location.`);
@@ -162,6 +173,9 @@ function down(tool: MapSelectionTool, args: ToolEventArgs): void
 		tool._selection = { start: location };
 	}
 
+	if (tool.onDown) {
+		tool.onDown(location)
+	}
 	
 }
 
@@ -189,7 +203,7 @@ function up(tool: MapSelectionTool, args: ToolEventArgs): void
 	ui.tileSelection.range = null;
 
 	if (tool.onUp) {
-		tool.onUp()
+		tool.onUp(location)
 	}
 }
 
@@ -199,12 +213,19 @@ function up(tool: MapSelectionTool, args: ToolEventArgs): void
  */
 function move(tool: MapSelectionTool, args: ToolEventArgs): void
 {
+
+	const location = args.mapCoords;
+
+	if (tool.mode == "erase-one" && location) {
+		ui.tileSelection.tiles = [{x: location.x, y: location.y}]
+		return;
+	}
+
 	if (!tool._isDragging || !tool._selection)
 	{
 		return;
 	}
 
-	const location = args.mapCoords;
 	if (!location)
 	{
 		return;
@@ -242,7 +263,7 @@ const viewportFlagGridlines = (1 << 7);
  * Toggles the map grid overlay on or off.
  * @param value True for on, false for off.
  */
-function toggleGridOverlay(value: boolean): void
+export function toggleGridOverlay(value: boolean): void
 {
 	if (value)
 	{
