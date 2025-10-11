@@ -13,10 +13,8 @@
  */
 
 import { Colour, FlexibleLayoutContainer, graphics, label, LayoutDirection, tab, tabwindow, vertical,  } from "openrct2-flexui";
-import { iPng } from "../imgs/i";
-import { questionMarkPng } from "../imgs/questionMark";
-import { tygrysek90Png } from "../imgs/tygrysek90";
 import { pluginVersionReadableWithName } from "../version";
+import { pluginGraphics } from "../graphics/pluginGraphics";
 
 
 
@@ -89,10 +87,10 @@ export const aboutHelpWindow = tabwindow({
     position: "center",
     colours: [Colour.DarkBrown, Colour.DarkBrown, Colour.Grey],
     tabs: [
-        tab({image: iPng.image,
+        tab({image: pluginGraphics.i.image,
             content: makeLabels(aboutLines)
         }),
-        tab({image: questionMarkPng.image,
+        tab({image: pluginGraphics.questionMark.image,
             direction: LayoutDirection.Horizontal,
             content: [
                 vertical({
@@ -102,7 +100,7 @@ export const aboutHelpWindow = tabwindow({
                             width: 100,
                             height: 100,
                             onDraw(g) {
-                                g.image(tygrysek90Png.image, 0, 0)
+                                g.image(pluginGraphics.tygrysek90.image, 0, 0)
                             },
                         })
                     ]

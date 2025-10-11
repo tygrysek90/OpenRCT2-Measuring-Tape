@@ -15,28 +15,15 @@
 import { button, Colour, groupbox, horizontal, label, LayoutDirection, window } from "openrct2-flexui";
 import { model } from "./mainModel";
 import { nicelyStartTool, onClickAreaButton, onClickDismissLast, onClickDismissAll, onClickKeepAllButton, onClickKeepOneButton, onClickShowGhCentreButton, onClickShowGhEndButton, onClickTapeButton, stopTool, onClickGhostEraseCrosshair, onClickGhostEraseArea, onClickNukeGhosts } from "./mainActions";
-import { tapePng } from "../imgs/tape";
-import { endsPng } from "../imgs/ends";
-import { centrePng } from "../imgs/centre";
-import { lockOnePng } from "../imgs/lockOne";
-import { lockAllPng } from "../imgs/lockAll";
-import { removeOnePng } from "../imgs/removeOne";
-import { removeAllPng } from "../imgs/removeAll";
-import { helpAboutPng } from "../imgs/helpAbout";
-import { extraPng } from "../imgs/extra";
-import { wrenchPng } from "../imgs/wrench";
 import { pluginVersionReadable } from "../version";
 import { answerToLifeAndEverything, imgButton, imgButtonSmall } from "../common/commonUiConsts";
 import { aboutHelpWindow } from "../aboutHelp/aboutHelpWin";
 import { openObjSelection } from "../configWin/openObjSelection";
 import { extraWindow } from "../extraToolsWin/extraWindow";
-import { measureAreaPng } from "../imgs/measureArea";
 import { initConfig } from "../config/ghosts";
 import { startToolMode } from "../config/toolMode";
 import { mainWindowIsOpen } from "./isOpen";
-import { ghostCrosshairPng } from "../imgs/ghostCrosshair";
-import { exorciseAreaPng } from "../imgs/exorciseArea";
-import { atomicMushroomPng } from "../imgs/atomicMushroom";
+import { pluginGraphics } from "../graphics/pluginGraphics";
 
 
 /**
@@ -69,7 +56,7 @@ export const mainWindow = window({
                 button({
                     height: imgButton.height,
                     width: imgButton.width,
-                    image: tapePng.image,
+                    image: pluginGraphics.tape.image,
                     border: false,
                     tooltip: "Measuring tape",
                     isPressed: model.modeButtonsPressed.tape,
@@ -78,7 +65,7 @@ export const mainWindow = window({
                 button({
                     height: imgButton.height,
                     width: imgButton.width,
-                    image: measureAreaPng.image,
+                    image: pluginGraphics.measureArea.image,
                     tooltip: "Area",
                     isPressed: model.modeButtonsPressed.area,
                     onClick: () => onClickAreaButton(),
@@ -93,7 +80,7 @@ export const mainWindow = window({
                 button({
                     height: imgButton.height,
                     width: imgButton.width,
-                    image: endsPng.image,
+                    image: pluginGraphics.ends.image,
                     tooltip: "Ends",
                     isPressed: model.showButtonsPressed.ends,
                     onClick: () => onClickShowGhEndButton(),
@@ -101,7 +88,7 @@ export const mainWindow = window({
                 button({
                     height: imgButton.height,
                     width: imgButton.width,
-                    image: centrePng.image,
+                    image: pluginGraphics.centre.image,
                     tooltip: "Centre",
                     isPressed: model.showButtonsPressed.centre,
                     onClick: () => onClickShowGhCentreButton(),
@@ -118,7 +105,7 @@ export const mainWindow = window({
                         button({
                             height: imgButton.height,
                             width: imgButton.width,
-                            image: lockOnePng.image,
+                            image: pluginGraphics.lockOne.image,
                             tooltip: "Keep 1 set",
                             isPressed: model.ghostsButtonsPressed.keepOne,
                             onClick: () => onClickKeepOneButton(),
@@ -126,7 +113,7 @@ export const mainWindow = window({
                         button({
                             height: imgButton.height,
                             width: imgButton.width,
-                            image: lockAllPng.image,
+                            image: pluginGraphics.lockAll.image,
                             tooltip: "Keep all",
                             isPressed: model.ghostsButtonsPressed.keepAll,
                             onClick: () => onClickKeepAllButton(),
@@ -139,7 +126,7 @@ export const mainWindow = window({
                         button({
                            height: imgButton.height,
                             width: imgButton.width,
-                            image: removeOnePng.image,
+                            image: pluginGraphics.removeOne.image,
                             tooltip: "Dismiss last",
                             disabled: model.ghostsButtonsDisabled.dismissLast,
                             onClick: () => onClickDismissLast(),
@@ -147,7 +134,7 @@ export const mainWindow = window({
                         button({
                             height: imgButton.height,
                             width: imgButton.width,
-                            image: removeAllPng.image,
+                            image: pluginGraphics.removeAll.image,
                             tooltip: "Dismiss all",
                             disabled: model.ghostsButtonsDisabled.dismissAll,
                             onClick: () => onClickDismissAll(),
@@ -166,7 +153,7 @@ export const mainWindow = window({
                         button({
                             height: imgButtonSmall.height,
                             width: imgButtonSmall.width,
-                            image: ghostCrosshairPng.image,
+                            image: pluginGraphics.ghostCrosshair.image,
                             tooltip: "Clean ghosts from one tile",
                             isPressed: model.ghostSecondaryButtonsPressed.crosshair,
                             onClick: () => onClickGhostEraseCrosshair()
@@ -175,7 +162,7 @@ export const mainWindow = window({
                             padding: {left: "1px", right: "1px"},
                             height: imgButtonSmall.height,
                             width: imgButtonSmall.width,
-                            image: exorciseAreaPng.image,
+                            image: pluginGraphics.exorciseArea.image,
                             tooltip: "Clean ghosts from selected area",
                             isPressed: model.ghostSecondaryButtonsPressed.area,
                             onClick: () => onClickGhostEraseArea(),
@@ -183,7 +170,7 @@ export const mainWindow = window({
                         button({
                             height: imgButtonSmall.height,
                             width: imgButtonSmall.width,
-                            image: atomicMushroomPng.image,
+                            image: pluginGraphics.atomicMushroom.image,
                             tooltip: "Obliterate all ghosts from the map",
                             //disabled: model.ghostsButtonsDisabled.dismissAll,
                             onClick: () => onClickNukeGhosts(),
@@ -200,7 +187,7 @@ export const mainWindow = window({
                 button({
                     height: imgButtonSmall.height,
                     width: imgButtonSmall.width,
-                    image: wrenchPng.image,
+                    image: pluginGraphics.wrench.image,
                     tooltip: "Configure",
                     onClick: () => openObjSelection(), 
                 }),
@@ -208,14 +195,14 @@ export const mainWindow = window({
                     padding: {left: "1px", right: "1px"},
                     height: imgButtonSmall.height,
                     width: imgButtonSmall.width,
-                    image:  helpAboutPng.image,
+                    image:  pluginGraphics.helpAbout.image,
                     tooltip: "About & Help",
                     onClick: () => aboutHelpWindow.open(),
                 }),
                 button({
                     height: imgButtonSmall.height,
                     width: imgButtonSmall.width,
-                    image: extraPng.image,
+                    image: pluginGraphics.extra.image,
                     tooltip: "Extra tools",
                     onClick: () => extraWindow.open(),
                 }),

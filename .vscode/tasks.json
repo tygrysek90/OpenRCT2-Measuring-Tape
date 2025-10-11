@@ -17,7 +17,7 @@
         {
             "label": "Resources: png images to base 64",
             "type": "shell",
-            "command": "node rebuildPngToBase64.js",
+            "command": "npx tsx imgToBase64.ts",
             "problemMatcher": []
         },
         {

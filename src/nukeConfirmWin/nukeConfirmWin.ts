@@ -8,8 +8,8 @@
  *****************************************************************************/
 
 import { window, Colour, graphics, label, horizontal, button } from "openrct2-flexui";
-import { removeAllPng } from "../imgs/removeAll";
 import { obliterateGhosts } from "../ghosts/ghostPurge";
+import { pluginGraphics } from "../graphics/pluginGraphics";
 
 /**
  * Nuke Confirmation Window
@@ -31,7 +31,7 @@ export const nukeConfirmWin = window({
                     width: 45,
                     height: 45,
                     onDraw(g) {
-                        g.image(removeAllPng.image, 0, 0)
+                        g.image(pluginGraphics.removeAll.image, 0, 0)
                     },
                 }),
                 label({

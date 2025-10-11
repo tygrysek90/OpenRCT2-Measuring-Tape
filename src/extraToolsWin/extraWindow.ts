@@ -9,9 +9,8 @@
 
 import { button, Colour, FlexibleLayoutContainer, groupbox, horizontal, LayoutDirection, window } from "openrct2-flexui";
 import { imgButton, imgButtonSmall } from "../common/commonUiConsts";
-import { centreOfMapPng } from "../imgs/centreOfMap";
 import { onClickBisectEdgesButton, onClickMapCentre, onClickStamper, onClickStamperRotate } from "./extraActions";
-import { bisectMapEdgesPng } from "../imgs/bisectMapEdges";
+import { pluginGraphics } from "../graphics/pluginGraphics";
 
 
 function dialAlike(): FlexibleLayoutContainer {
@@ -74,14 +73,14 @@ export const extraWindow = window({
                 button({
                     width: imgButton.width,
                     height: imgButton.height,
-                    image: bisectMapEdgesPng.image,
+                    image: pluginGraphics.bisectMapEdges.image,
                     tooltip: "Bisect (to half) map edges",
                     onClick: () => onClickBisectEdgesButton()
                 }),
                 button({
                     width: imgButton.width,
                     height: imgButton.height,
-                    image: centreOfMapPng.image,
+                    image: pluginGraphics.centreOfMap.image,
                     tooltip: "Find centre of map",
                     onClick: () => onClickMapCentre()
                 })
