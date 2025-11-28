@@ -1,3 +1,5 @@
+#### I have ceased my activities on GitHub. Contents of this repository are no longer maintained.
+
 # OpenRCT2-Measuring-Tape
 ### Tired of counting tiles and finding perfect centres on your OpenRCT2 map?
 ### Measuring Tape plugin is here to give you hand!
